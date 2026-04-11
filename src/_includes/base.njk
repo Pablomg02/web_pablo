@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description or title }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="/">Pablo.dev</a>
+      {% if navigation and navigation.length %}
+        <nav class="site-nav" aria-label="Main navigation">
+          {% for entry in navigation %}
+            <a
+              href="{{ entry.url }}"
+              class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
+              {% if entry.url == page.url %}aria-current="page"{% endif %}
+            >
+              {{ entry.title }}
+            </a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+    </div>
+  </header>
+  <main>
+    {{ content | safe }}
+  </main>
+</body>
+</html>

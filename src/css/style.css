@@ -1,0 +1,240 @@
+/* ========================================
+   Pablo's Personal Website
+   Ultra-minimal retro developer aesthetic
+   ======================================== */
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Custom Properties --- */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-accent: #4af626;
+  --color-muted: #888888;
+  --color-border: #d8d8d8;
+  --font-heading: 'Press Start 2P', monospace;
+  --font-body: 'VT323', monospace;
+  --max-width: 680px;
+  --spacing: 2rem;
+}
+
+/* --- Base --- */
+html {
+  font-size: 20px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(rgba(26, 26, 26, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 26, 26, 0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: top left;
+  line-height: 1.6;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+/* --- Header / Navigation --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.site-header__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-brand {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-text);
+  border-bottom: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.site-nav__link {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  line-height: 1.4;
+  padding: 0.45rem 0.7rem;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  border-bottom-color: transparent;
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.site-nav__link.is-active {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  box-shadow: 4px 4px 0 rgba(74, 246, 38, 0.25);
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--spacing) 1.5rem 3rem;
+}
+
+/* --- Typography --- */
+h1 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+h1::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+  color: var(--color-accent);
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--color-accent);
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+a:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+strong {
+  color: var(--color-text);
+}
+
+em,
+i {
+  color: var(--color-muted);
+}
+
+/* --- Lists --- */
+ul, ol {
+  margin-bottom: 1rem;
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-bottom: 0.3rem;
+}
+
+li::marker {
+  color: var(--color-accent);
+}
+
+/* --- Separators --- */
+hr {
+  border: none;
+  border-top: 2px dashed var(--color-muted);
+  margin: var(--spacing) 0;
+  opacity: 0.4;
+}
+
+/* --- Article content --- */
+.content > *:first-child {
+  margin-top: 1rem;
+}
+
+/* --- Blinking cursor animation --- */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* --- Images (future) --- */
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  html {
+    font-size: 18px;
+  }
+
+  .site-header__inner {
+    padding: 0.9rem 1rem;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-brand {
+    font-size: 0.7rem;
+  }
+
+  .site-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .site-nav__link {
+    font-size: 0.52rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  h2 {
+    font-size: 0.75rem;
+  }
+
+  h3 {
+    font-size: 0.65rem;
+  }
+
+  main {
+    padding: 1.5rem 1rem;
+  }
+}
