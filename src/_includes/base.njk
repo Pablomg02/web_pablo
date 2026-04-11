@@ -8,17 +8,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
+  <link rel="stylesheet" href="{{ '/css/style.css' | relativeUrl(page.url) }}">
 </head>
 <body>
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-brand" href="{{ '/' | url }}">Pablo.dev</a>
+      <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">Pablo.dev</a>
       {% if navigation and navigation.length %}
         <nav class="site-nav" aria-label="Main navigation">
           {% for entry in navigation %}
             <a
-              href="{{ entry.url | url }}"
+              href="{{ entry.url | relativeUrl(page.url) }}"
               class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
               {% if entry.url == page.url %}aria-current="page"{% endif %}
             >

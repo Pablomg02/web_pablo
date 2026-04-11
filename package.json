@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Pablo's personal website",
   "scripts": {
+    "prebuild": "node -e \"require('fs').rmSync('_site', { recursive: true, force: true })\"",
     "dev": "eleventy --serve",
     "build": "eleventy"
   },
