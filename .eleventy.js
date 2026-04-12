@@ -24,6 +24,18 @@ function ensureDirectoryUrl(url = "/") {
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy("src/CNAME");
+  eleventyConfig.addFilter("absoluteUrl", (targetUrl = "/", baseUrl = "") => {
+    if (!baseUrl) {
+      return targetUrl;
+    }
+
+    const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
+    return new URL(targetUrl, normalizedBaseUrl).toString();
+  });
+  eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
   eleventyConfig.addFilter("relativeUrl", (targetUrl, currentPageUrl = "/") => {
     if (!targetUrl) {
       return "./";

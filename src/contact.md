@@ -1,7 +1,7 @@
 ---
 layout: page.njk
 title: Contact
-description: Ways to reach me
+description: Contact Pablo Magariños via LinkedIn, GitHub, X, or email.
 permalink: /contact/
 navTitle: Contact
 navOrder: 4

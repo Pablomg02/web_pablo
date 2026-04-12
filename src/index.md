@@ -1,14 +1,15 @@
 ---
 layout: page.njk
-title: About
-description: About Pablo
+title: Pablo Magariños
+metaTitle: Pablo Magariños | AI Researcher
+description: AI researcher with a background in industrial mathematics and aerospace engineering, focused on world models, causal learning, and multi-agent intelligence.
 navTitle: About
 navOrder: 1
 ---
 
-# About
+# Pablo Magariños
 
-Hi, my name is Pablo Magariños.
+AI researcher working across industrial mathematics, aerospace engineering, world models, causal learning, and multi-agent intelligence.
 
 My background in Aerospace Engineering provided a strong analytical and technical foundation, as well as a broad understanding of physics and the connections that link different scientific disciplines. During my degree, I developed a strong interest in artificial intelligence, motivated by longstanding questions about intelligence, the brain, and the nature of knowledge. That interest ultimately led me to Industrial Mathematics as a way to deepen my understanding of reality and contribute to AI from a more fundamental perspective.
 

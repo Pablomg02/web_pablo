@@ -1,7 +1,7 @@
 ---
 layout: page.njk
 title: Experience
-description: My working experience
+description: Experience across AI research, startups, open source, aerospace engineering, and technical leadership.
 permalink: /experience/
 navTitle: Experience
 navOrder: 3

@@ -1,19 +1,56 @@
+{% set seoTitle = metaTitle or (site.defaultTitle if page.url == '/' else title + ' | ' + site.name) %}
+{% set seoDescription = description or site.defaultDescription %}
+{% set canonicalUrl = page.url | absoluteUrl(site.url) %}
+{% set robotsContent = robots or 'index, follow' %}
+{% set socialImagePath = socialImage or site.socialImage %}
+{% set socialImageUrl = socialImagePath | absoluteUrl(site.url) %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.locale }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
-  <meta name="description" content="{{ description or title }}">
+  <title>{{ seoTitle | escape }}</title>
+  <meta name="description" content="{{ seoDescription | escape }}">
+  <meta name="author" content="{{ site.author | escape }}">
+  <meta name="robots" content="{{ robotsContent | escape }}">
+  <link rel="canonical" href="{{ canonicalUrl | escape }}">
+  <link rel="icon" href="{{ site.favicon | relativeUrl(page.url) }}" type="image/svg+xml">
+  <link rel="icon" href="{{ site.faviconPng | relativeUrl(page.url) }}" type="image/png" sizes="256x256">
+  <meta property="og:locale" content="{{ site.ogLocale | escape }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.name | escape }}">
+  <meta property="og:title" content="{{ seoTitle | escape }}">
+  <meta property="og:description" content="{{ seoDescription | escape }}">
+  <meta property="og:url" content="{{ canonicalUrl | escape }}">
+  <meta property="og:image" content="{{ socialImageUrl | escape }}">
+  <meta property="og:image:alt" content="{{ site.socialImageAlt | escape }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ seoTitle | escape }}">
+  <meta name="twitter:description" content="{{ seoDescription | escape }}">
+  <meta name="twitter:image" content="{{ socialImageUrl | escape }}">
+  <meta name="twitter:image:alt" content="{{ site.socialImageAlt | escape }}">
+  <meta name="twitter:creator" content="{{ site.twitterHandle | escape }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/css/style.css' | relativeUrl(page.url) }}">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": {{ site.name | json | safe }},
+      "jobTitle": {{ site.jobTitle | json | safe }},
+      "url": {{ site.url | json | safe }},
+      "description": {{ site.defaultDescription | json | safe }},
+      "image": {{ socialImageUrl | json | safe }},
+      "sameAs": {{ site.sameAs | json | safe }}
+    }
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">Pablo.dev</a>
+      <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">{{ site.brand }}</a>
       {% if navigation and navigation.length %}
         <nav class="site-nav" aria-label="Main navigation">
           {% for entry in navigation %}
