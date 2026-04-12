@@ -17,7 +17,7 @@
   <link rel="icon" href="{{ site.favicon | relativeUrl(page.url) }}" type="image/svg+xml">
   <link rel="icon" href="{{ site.faviconPng | relativeUrl(page.url) }}" type="image/png" sizes="256x256">
   <link rel="apple-touch-icon" href="{{ site.faviconPng | relativeUrl(page.url) }}">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#ffffff" id="theme-color-meta">
   <meta property="og:locale" content="{{ site.ogLocale | escape }}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name | escape }}">
@@ -34,6 +34,76 @@
   <meta name="twitter:image" content="{{ socialImageUrl | escape }}">
   <meta name="twitter:image:alt" content="{{ site.socialImageAlt | escape }}">
   <meta name="twitter:creator" content="{{ site.twitterHandle | escape }}">
+  <script>
+    (function () {
+      var storageKey = 'theme-preference';
+      var root = document.documentElement;
+      var themeMeta = document.getElementById('theme-color-meta');
+      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function getAppliedTheme(preference) {
+        if (preference === 'light' || preference === 'dark') {
+          return preference;
+        }
+
+        return mediaQuery.matches ? 'dark' : 'light';
+      }
+
+      function applyTheme(preference) {
+        var appliedTheme = getAppliedTheme(preference);
+
+        if (preference === 'light' || preference === 'dark') {
+          root.dataset.theme = preference;
+        } else {
+          delete root.dataset.theme;
+        }
+
+        if (themeMeta) {
+          themeMeta.setAttribute('content', appliedTheme === 'dark' ? '#14130f' : '#ffffff');
+        }
+      }
+
+      var storedPreference = null;
+
+      try {
+        storedPreference = window.localStorage.getItem(storageKey);
+      } catch (error) {
+        storedPreference = null;
+      }
+
+      applyTheme(storedPreference);
+      window.__applySiteTheme = applyTheme;
+      window.__getAppliedSiteTheme = function () {
+        return getAppliedTheme(storedPreference);
+      };
+      window.__getSiteTheme = function () {
+        return storedPreference;
+      };
+      window.__setSiteTheme = function (preference) {
+        storedPreference = preference;
+
+        try {
+          if (preference === 'light' || preference === 'dark') {
+            window.localStorage.setItem(storageKey, preference);
+          } else {
+            window.localStorage.removeItem(storageKey);
+          }
+        } catch (error) {
+          // Ignore storage write failures and still update the UI.
+        }
+
+        applyTheme(preference);
+      };
+
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', function () {
+          if (!storedPreference) {
+            applyTheme(null);
+          }
+        });
+      }
+    }());
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -55,23 +125,63 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">{{ site.brand }}</a>
-      {% if navigation and navigation.length %}
-        <nav class="site-nav" aria-label="Main navigation">
-          {% for entry in navigation %}
-            <a
-              href="{{ entry.url | relativeUrl(page.url) }}"
-              class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
-              {% if entry.url == page.url %}aria-current="page"{% endif %}
-            >
-              {{ entry.title }}
-            </a>
-          {% endfor %}
-        </nav>
-      {% endif %}
+      <div class="site-header__actions">
+        {% if navigation and navigation.length %}
+          <nav class="site-nav" aria-label="Main navigation">
+            {% for entry in navigation %}
+              <a
+                href="{{ entry.url | relativeUrl(page.url) }}"
+                class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
+                {% if entry.url == page.url %}aria-current="page"{% endif %}
+              >
+                {{ entry.title }}
+              </a>
+            {% endfor %}
+          </nav>
+        {% endif %}
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+          Dark Mode
+        </button>
+      </div>
     </div>
   </header>
   <main>
     {{ content | safe }}
   </main>
+  <script>
+    (function () {
+      var toggle = document.querySelector('.theme-toggle');
+
+      if (!toggle || typeof window.__setSiteTheme !== 'function') {
+        return;
+      }
+
+      function getActiveTheme() {
+        if (typeof window.__getAppliedSiteTheme === 'function') {
+          return window.__getAppliedSiteTheme();
+        }
+
+        return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+      }
+
+      function getNextTheme() {
+        return getActiveTheme() === 'dark' ? 'light' : 'dark';
+      }
+
+      function updateToggleLabel() {
+        var activeTheme = getActiveTheme();
+        var nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+        toggle.textContent = nextTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
+        toggle.setAttribute('aria-label', 'Switch to ' + nextTheme + ' mode');
+      }
+
+      toggle.addEventListener('click', function () {
+        window.__setSiteTheme(getNextTheme());
+        updateToggleLabel();
+      });
+
+      updateToggleLabel();
+    }());
+  </script>
 </body>
 </html>

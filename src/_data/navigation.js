@@ -7,9 +7,12 @@ module.exports = [
     title: "Experience",
     url: "/experience/",
   },
-
   {
-    title: "Contact",
-    url: "/contact/",
+    title: "Research",
+    url: "/research/",
+  },
+  {
+    title: "Links",
+    url: "/links/",
   },
 ];
