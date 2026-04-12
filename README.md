@@ -10,7 +10,8 @@ Archivos actuales:
 
 - `src/index.md`
 - `src/projects.md`
-- `src/contact.md`
+- `src/research.md`
+- `src/links.md`
 
 Usa markdown estandar: `#` para titulos, `##` para secciones, `-` para listas, `---` para separadores, `[texto](url)` para links.
 
@@ -28,8 +29,10 @@ Ejemplo actual:
 
 ```js
 module.exports = [
+  { title: "About", url: "/" },
   { title: "Experience", url: "/experience/" },
-  { title: "Contact", url: "/contact/" },
+  { title: "Research", url: "/research/" },
+  { title: "Links", url: "/links/" },
 ];
 ```
 
