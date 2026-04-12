@@ -2,14 +2,14 @@
 layout: page.njk
 title: Pablo Magariños
 metaTitle: Pablo Magariños | AI Researcher
-description: AI researcher with a background in industrial mathematics and aerospace engineering, focused on world models, causal learning, and multi-agent intelligence.
+description: 23-year-old AI researcher with a background in aerospace engineering and industrial mathematics, focused on training algorithms, world models, and reinforcement learning.
 ---
 
 # Pablo Magariños
 
-AI researcher working across industrial mathematics, aerospace engineering, world models, causal learning, and multi-agent intelligence.
+I'm a 23-year-old aerospace engineer with a Master's in Industrial Mathematics. Currently, I dedicate my time to researching and contributing to the world of artificial intelligence.
 
-My background in Aerospace Engineering provided a strong analytical and technical foundation, as well as a broad understanding of physics and the connections that link different scientific disciplines. During my degree, I developed a strong interest in artificial intelligence, motivated by longstanding questions about intelligence, the brain, and the nature of knowledge. That interest ultimately led me to Industrial Mathematics as a way to deepen my understanding of reality and contribute to AI from a more fundamental perspective.
+Aerospace engineering gave me a broad technical foundation. Over five years ago, a deep interest in intelligence led me to artificial intelligence, and wanting to understand it from its foundations motivated me to pursue the Master's in Industrial Mathematics. To continue contributing to AI, I founded XISTRA and work on the open-source initiative DARTS, as I firmly believe in open knowledge.
 
 ---
 
@@ -24,31 +24,28 @@ My background in Aerospace Engineering provided a strong analytical and technica
 
 ## Research Focus
 
-My research is centred on the development of intelligence that genuinely understands its environment, rather than merely identifying loose statistical correlations in data.
+My research is centred on the development of intelligence that genuinely understands its environment, rather than merely identifying loose statistical correlations in data. The long-term objective is to build AI systems capable of generating new knowledge and developing their own methods.
 
-The long-term objective of this work is twofold:
+I channel these research goals through three initiatives:
 
-- To build AI systems capable of generating new knowledge and developing their own methods.
-- To advance multi-agent AI toward a form of genuine swarm intelligence.
-
-To pursue these goals, I work on topics such as:
-
-- **World models**
-- **Causal learning**
-- **Novel training paradigms**
-
-I also place strong value on building algorithms from first principles and testing them directly, including when experimentation produces unexpected or unsuccessful results.
+- **DARTS** — my open-source initiative
+- **XISTRA** — my deep-tech startup
+- **ATRG** — work within the Research Group
 
 ---
 
 ## Technical Profile
 
-- **Primary language:** Python
-- **Current exploration:** Julia, particularly for the different way it encourages mathematical and computational thinking
-- **Approach:** Strong interest in understanding tools and libraries from the inside out, rather than using them as black boxes
+What I do best is research and the novel exploration of ideas. I have a strong foundation in the mathematical underpinnings of artificial intelligence, from training algorithms and numerical stability to the mathematical properties of neural networks. This allows me to make informed and original decisions when designing architectures.
+
+My main area of focus has been **reinforcement learning**, where I have spent most of my research effort. Currently, I am especially focused on **training algorithms** and **world models**.
+
+Despite not having a formal background in computer science, I have always been deeply driven to understand how things work at a fundamental level, both in hardware and in software. Bare-metal programming, software optimisation, and low-level systems have been a long-standing interest of mine.
 
 ---
 
-## Open Source
+## Extra About Me
 
-I am strongly committed to open source and open access. My projects are actively being developed in public and made openly available.
+I love photography. Over the past year it has become something of an obsession: learning photographic techniques, understanding light, and pushing the limits of my full-frame camera, which I've had for about a year now.
+
+I'm also passionate about music production, which has been part of my life for over eight years. I played guitar for several years and later picked up the piano, but it is music production that has truly stayed with me, especially for its creative component and the joy of experimenting with sounds and software.

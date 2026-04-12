@@ -1,7 +1,7 @@
 module.exports = {
   url: "https://pablomagarinos.es",
   name: "Pablo Magariños",
-  brand: "Pablo.dev",
+  brand: "PMD",
   author: "Pablo Magariños",
   jobTitle: "AI Researcher",
   locale: "en",
