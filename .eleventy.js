@@ -36,6 +36,10 @@ module.exports = function (eleventyConfig) {
     return new URL(targetUrl, normalizedBaseUrl).toString();
   });
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
+  eleventyConfig.addFilter("dateToFormat", (date) => {
+    if (!(date instanceof Date)) return "";
+    return date.toISOString().slice(0, 10);
+  });
   eleventyConfig.addFilter("relativeUrl", (targetUrl, currentPageUrl = "/") => {
     if (!targetUrl) {
       return "./";

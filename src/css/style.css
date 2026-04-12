@@ -26,7 +26,12 @@
 /* --- Base --- */
 html {
   font-size: 20px;
-  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -186,8 +191,10 @@ hr {
 }
 
 /* --- Blinking cursor animation --- */
-@keyframes blink {
-  50% { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
 }
 
 /* --- Images (future) --- */

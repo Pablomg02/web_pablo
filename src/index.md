@@ -3,8 +3,6 @@ layout: page.njk
 title: Pablo Magariños
 metaTitle: Pablo Magariños | AI Researcher
 description: AI researcher with a background in industrial mathematics and aerospace engineering, focused on world models, causal learning, and multi-agent intelligence.
-navTitle: About
-navOrder: 1
 ---
 
 # Pablo Magariños

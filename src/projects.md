@@ -3,8 +3,6 @@ layout: page.njk
 title: Experience
 description: Experience across AI research, startups, open source, aerospace engineering, and technical leadership.
 permalink: /experience/
-navTitle: Experience
-navOrder: 3
 ---
 
 # Experience

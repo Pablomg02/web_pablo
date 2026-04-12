@@ -8,6 +8,7 @@ eleventyExcludeFromCollections: true
   {% if entry.url and entry.data.layout %}
   <url>
     <loc>{{ entry.url | absoluteUrl(site.url) }}</loc>
+    <lastmod>{{ entry.date | dateToFormat('yyyy-MM-dd') }}</lastmod>
   </url>
   {% endif %}
 {% endfor %}
