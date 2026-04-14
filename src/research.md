@@ -9,7 +9,7 @@ permalink: /research/
 
 [ORCID: 0009-0002-9817-0368](https://orcid.org/0009-0002-9817-0368)
 
-My published work so far. More papers are currently in progress.
+A selection of my published work so far. More papers are currently in progress.
 
 ---
 

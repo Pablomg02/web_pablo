@@ -8,7 +8,7 @@ module.exports = {
   ogLocale: "en_US",
   defaultTitle: "Pablo Magariños | AI Researcher",
   defaultDescription:
-    "AI researcher with a background in industrial mathematics and aerospace engineering, focused on world models, causal learning, and multi-agent intelligence.",
+    "AI researcher with a background in aerospace engineering and industrial mathematics, focused on training algorithms, world models, and autonomous intelligence.",
   socialImage: "/assets/images/og-default.png",
   socialImageAlt:
     "Pablo Magariños social card with retro styling and AI Researcher title.",

@@ -127,7 +127,7 @@
       <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">{{ site.brand }}</a>
       <div class="site-header__actions">
         {% if navigation and navigation.length %}
-          <nav class="site-nav" aria-label="Main navigation">
+          <nav class="site-nav" aria-label="Primary navigation">
             {% for entry in navigation %}
               <a
                 href="{{ entry.url | relativeUrl(page.url) }}"
@@ -139,7 +139,7 @@
             {% endfor %}
           </nav>
         {% endif %}
-        <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <button class="theme-toggle" type="button" aria-label="Toggle colour theme">
           <svg class="theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>

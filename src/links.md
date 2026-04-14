@@ -1,7 +1,7 @@
 ---
 layout: page.njk
 title: Links
-description: Links to Pablo Magariños' profiles, projects, and contact.
+description: Links to Pablo Magariños' profiles, projects, and contact details.
 permalink: /links/
 ---
 
@@ -18,7 +18,7 @@ permalink: /links/
 ## Projects
 - [XISTRA](https://www.linkedin.com/company/xistra) — Deep-tech AI startup for autonomous robotic systems.
 - [DARTS](https://dartsinitiative.com) — Open research initiative on world models, causal learning, and multi-agent systems.
-- [GitHub](https://github.com/Pablomg02) — A selection of projects I have been working on.
+- [GitHub](https://github.com/Pablomg02) — A selection of the projects I have worked on.
 
 ## Social
-- [X / Twitter](https://x.com/pablodotmd) — I do not post much, but it is there.
+- [X / Twitter](https://x.com/pablodotmd) — I do not post often, but you can still find me there.
