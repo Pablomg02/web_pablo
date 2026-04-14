@@ -294,6 +294,48 @@ hr {
   }
 }
 
+/* --- Essay list --- */
+.essay-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.essay-list__item {
+  margin-bottom: 1.5rem;
+}
+
+.essay-list__item a {
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--color-header-accent);
+}
+
+.essay-list__date {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-top: 0.15rem;
+}
+
+.essay-list__description {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+/* --- Essay page --- */
+.essay__header {
+  margin-bottom: var(--spacing);
+}
+
+.essay__date {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-top: 0.5rem;
+}
+
 /* --- Images (future) --- */
 img {
   max-width: 100%;

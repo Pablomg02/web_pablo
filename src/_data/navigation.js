@@ -12,6 +12,10 @@ module.exports = [
     url: "/research/",
   },
   {
+    title: "Notes",
+    url: "/notes/",
+  },
+  {
     title: "Links",
     url: "/links/",
   },

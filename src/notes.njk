@@ -1,0 +1,31 @@
+---
+layout: page.njk
+title: Notes
+description: Long-form writing on topics I care about.
+permalink: /notes/
+---
+
+<h1>Notes</h1>
+
+<p>Long-form writing on topics I care about.</p>
+
+<hr>
+
+{% set notes = collections.note | reverse %}
+{% if notes.length %}
+  <ul class="essay-list">
+    {% for post in notes %}
+      <li class="essay-list__item">
+        <a href="{{ post.url | relativeUrl(page.url) }}">{{ post.data.title }}</a>
+        {% if post.date %}
+          <time class="essay-list__date" datetime="{{ post.date | dateToFormat }}">{{ post.date | dateToFormat }}</time>
+        {% endif %}
+        {% if post.data.description %}
+          <p class="essay-list__description">{{ post.data.description }}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No notes published yet.</p>
+{% endif %}
