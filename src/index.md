@@ -7,7 +7,7 @@ description: 23-year-old AI researcher with a background in aerospace engineerin
 
 # Pablo Magariños
 
-I'm a 23-year-old aerospace engineer with a Master's in Industrial Mathematics. Currently, I dedicate my time to researching and contributing to the world of artificial intelligence.
+I'm a 23-year-old aerospace engineer with a Master's in Industrial Mathematics. Currently, I dedicate my time to researching and contributing to the world of **artificial intelligence**.
 
 Aerospace engineering gave me a broad technical foundation. Over five years ago, a deep interest in intelligence led me to artificial intelligence, and wanting to understand it from its foundations motivated me to pursue the Master's in Industrial Mathematics. To continue contributing to AI, I founded XISTRA and work on the open-source initiative DARTS, as I firmly believe in open knowledge.
 
@@ -31,6 +31,8 @@ I channel these research goals through three initiatives:
 - **DARTS** — my open-source initiative
 - **XISTRA** — my deep-tech startup
 - **ATRG** — work within the Research Group
+
+You can check my projects deeper on the [Experience](https://pablomagarinos.es/experience/) section.
 
 ---
 

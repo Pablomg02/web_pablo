@@ -13,9 +13,7 @@ My published work so far. More papers are currently in progress.
 
 ---
 
-## Publications
-
-### Real-Time Aerodynamic Airfoil Optimisation Using Deep Reinforcement Learning with Proximal Policy Optimisation
+## Real-Time Aerodynamic Airfoil Optimisation Using Deep Reinforcement Learning with Proximal Policy Optimisation
 *November 2025 — Aerospace (MDPI), Vol. 12, Issue 11*
 
 Application of **deep reinforcement learning** with Proximal Policy Optimisation (PPO) to optimise aerodynamic airfoil profiles in real time within the context of **morphing wings**. The approach learns to satisfy both aerodynamic objectives and complex geometric constraints while maintaining low computational cost and millisecond-level optimisation speed.
