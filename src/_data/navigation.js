@@ -4,16 +4,16 @@ module.exports = [
     url: "/",
   },
   {
+    title: "Notes",
+    url: "/notes/",
+  },
+  {
     title: "Experience",
     url: "/experience/",
   },
   {
     title: "Research",
     url: "/research/",
-  },
-  {
-    title: "Notes",
-    url: "/notes/",
   },
   {
     title: "Links",

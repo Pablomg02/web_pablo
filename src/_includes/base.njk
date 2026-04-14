@@ -131,7 +131,7 @@
             {% for entry in navigation %}
               <a
                 href="{{ entry.url | relativeUrl(page.url) }}"
-                class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
+                class="site-nav__link{% if entry.url == '/notes/' %} site-nav__link--notes{% endif %}{% if entry.url == page.url %} is-active{% endif %}"
                 {% if entry.url == page.url %}aria-current="page"{% endif %}
               >
                 {{ entry.title }}

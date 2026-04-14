@@ -18,12 +18,14 @@
   --color-link: #b09050;
   --color-strong: #e0a800;
   --color-header-accent: #e0a800;
+  --color-notes-link: #c09727;
   --color-subheading: #c09a08;
   --color-muted: #888888;
   --color-border: #d8d8d8;
   --color-header-bg: rgba(255, 255, 255, 0.92);
   --color-grid: rgba(26, 26, 26, 0.035);
   --color-shadow: rgba(184, 137, 0, 0.25);
+  --color-notes-shadow: rgba(234, 183, 47, 0.26);
   --font-heading: 'Press Start 2P', monospace;
   --font-body: 'VT323', monospace;
   --max-width: 720px;
@@ -41,12 +43,14 @@
   --color-link: #b09e7a;
   --color-strong: #e0b53a;
   --color-header-accent: #e0b53a;
+  --color-notes-link: #f2cf66;
   --color-subheading: #d4b15a;
   --color-muted: #b5aa84;
   --color-border: #4e4529;
   --color-header-bg: rgba(10, 9, 7, 0.92);
   --color-grid: rgba(244, 236, 209, 0.05);
   --color-shadow: rgba(224, 181, 58, 0.25);
+  --color-notes-shadow: rgba(242, 207, 102, 0.28);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,12 +60,14 @@
     --color-link: #b09e7a;
     --color-strong: #e0b53a;
     --color-header-accent: #e0b53a;
+    --color-notes-link: #f2cf66;
     --color-subheading: #d4b15a;
     --color-muted: #b5aa84;
     --color-border: #4e4529;
     --color-header-bg: rgba(10, 9, 7, 0.92);
     --color-grid: rgba(244, 236, 209, 0.05);
     --color-shadow: rgba(224, 181, 58, 0.25);
+    --color-notes-shadow: rgba(242, 207, 102, 0.28);
   }
 }
 
@@ -164,6 +170,22 @@ body {
   color: var(--color-text);
   border-color: var(--color-header-accent);
   box-shadow: 4px 4px 0 var(--color-shadow);
+}
+
+.site-nav__link--notes {
+  color: var(--color-notes-link);
+}
+
+.site-nav__link--notes:hover,
+.site-nav__link--notes:focus-visible {
+  color: var(--color-notes-link);
+  border-color: var(--color-notes-link);
+}
+
+.site-nav__link--notes.is-active {
+  color: var(--color-notes-link);
+  border-color: var(--color-notes-link);
+  box-shadow: 4px 4px 0 var(--color-notes-shadow);
 }
 
 .theme-toggle {
