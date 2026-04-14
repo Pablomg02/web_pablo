@@ -14,6 +14,7 @@
   <meta name="author" content="{{ site.author | escape }}">
   <meta name="robots" content="{{ robotsContent | escape }}">
   <link rel="canonical" href="{{ canonicalUrl | escape }}">
+  <link rel="author" type="text/plain" href="{{ '/humans.txt' | relativeUrl(page.url) }}">
   <link rel="help" href="{{ '/llms.txt' | relativeUrl(page.url) }}">
   <link rel="icon" href="{{ site.favicon | relativeUrl(page.url) }}" type="image/svg+xml">
   <link rel="icon" href="{{ site.faviconPng | relativeUrl(page.url) }}" type="image/png" sizes="256x256">

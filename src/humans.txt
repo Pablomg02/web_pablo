@@ -1,0 +1,27 @@
+/* TEAM */
+Author: Pablo Magarinos Docampo
+Role: Researcher, aspiring entrepreneur, and above all, a dreamer
+Site: https://pablomagarinos.es
+
+/* ABOUT THIS SITE */
+This website was created by Pablo Magarinos.
+It was built with AI-assisted programming, curiosity, iteration, and a lot of care.
+Pablo does not come from a formal web development background, but he has learned to shape websites through judgment, experimentation, and what internet culture now calls "vibe coding".
+
+This page exists with humility and gratitude.
+Like most software, it stands on top of many tools, ideas, and communities created by other people.
+
+/* COLOPHON */
+Built with: Eleventy, Nunjucks, Markdown, and plain CSS
+Published with: GitHub Actions
+
+/* THANKS */
+To the open-source community.
+To the people who wrote the code, shared the knowledge, maintained the libraries, answered the questions, and helped make software a collective human craft.
+To those who are no longer here, and who would have loved to see how far humanity has come in the development of artificial intelligence.
+To those who are here now, building it.
+To those who will come after us, and who will enjoy the fruits of human progress.
+To AI as a tool that can amplify thought, creativity, and execution, while still asking us to bring taste, responsibility, and intention.
+
+I hope these developments keep moving in the direction of making people more capable, happier, and more able to contribute to our shared wellbeing.
+Not only for those of us who are already fortunate, but above all for those who are not.

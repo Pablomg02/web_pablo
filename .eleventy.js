@@ -27,6 +27,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy("src/llms.txt");
+  eleventyConfig.addPassthroughCopy("src/humans.txt");
   eleventyConfig.addFilter("absoluteUrl", (targetUrl = "/", baseUrl = "") => {
     if (!baseUrl) {
       return targetUrl;
