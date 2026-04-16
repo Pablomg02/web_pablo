@@ -27,6 +27,7 @@
   <meta property="og:description" content="{{ seoDescription | escape }}">
   <meta property="og:url" content="{{ canonicalUrl | escape }}">
   <meta property="og:image" content="{{ socialImageUrl | escape }}">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:alt" content="{{ site.socialImageAlt | escape }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -196,6 +197,87 @@
       });
 
       updateToggleLabel();
+    }());
+  </script>
+  <script>
+    (function () {
+      var shareLinks = document.querySelectorAll('[data-share-link]');
+
+      if (!shareLinks.length) {
+        return;
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+
+        return new Promise(function (resolve, reject) {
+          var textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.setAttribute('readonly', '');
+          textArea.style.position = 'fixed';
+          textArea.style.top = '-9999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+
+          try {
+            if (document.execCommand('copy')) {
+              resolve();
+            } else {
+              reject(new Error('Copy command failed'));
+            }
+          } catch (error) {
+            reject(error);
+          } finally {
+            document.body.removeChild(textArea);
+          }
+        });
+      }
+
+      function showTemporaryLabel(link, label) {
+        var originalLabel = link.dataset.shareOriginalLabel || link.textContent;
+        link.dataset.shareOriginalLabel = originalLabel;
+        link.textContent = label;
+        window.clearTimeout(link.__shareLabelTimer);
+        link.__shareLabelTimer = window.setTimeout(function () {
+          link.textContent = originalLabel;
+        }, 1800);
+      }
+
+      shareLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var shareUrl = link.dataset.shareUrl || link.href;
+          var shareTitle = link.dataset.shareTitle || document.title;
+
+          event.preventDefault();
+
+          if (navigator.share) {
+            navigator.share({
+              title: shareTitle,
+              url: shareUrl,
+            }).catch(function (error) {
+              if (error && error.name === 'AbortError') {
+                return;
+              }
+
+              copyText(shareUrl).then(function () {
+                showTemporaryLabel(link, 'Copied');
+              }).catch(function () {
+                window.location.href = shareUrl;
+              });
+            });
+
+            return;
+          }
+
+          copyText(shareUrl).then(function () {
+            showTemporaryLabel(link, 'Copied');
+          }).catch(function () {
+            window.location.href = shareUrl;
+          });
+        });
+      });
     }());
   </script>
 </body>

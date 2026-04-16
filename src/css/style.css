@@ -351,11 +351,30 @@ hr {
   margin-bottom: var(--spacing);
 }
 
+.essay__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
 .essay__date {
-  display: block;
+  display: inline;
   font-size: 0.85rem;
   color: var(--color-muted);
-  margin-top: 0.5rem;
+}
+
+.essay__share-separator {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.share-link,
+.linkedin-share-link,
+.x-share-link {
+  font-size: 0.85rem;
+  color: var(--color-notes-link);
 }
 
 /* --- Images (future) --- */
@@ -398,5 +417,12 @@ img {
 
   main {
     padding: 1.5rem 1rem;
+  }
+
+  .essay__share-separator--linkedin,
+  .essay__share-separator--x,
+  .linkedin-share-link,
+  .x-share-link {
+    display: none;
   }
 }

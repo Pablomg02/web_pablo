@@ -5,7 +5,36 @@ layout: base.njk
   <header class="essay__header">
     <h1>{{ title }}</h1>
     {% if date %}
-      <time class="essay__date" datetime="{{ date | dateToFormat }}">{{ date | dateToFormat }}</time>
+      <div class="essay__meta">
+        <time class="essay__date" datetime="{{ date | dateToFormat }}">{{ date | dateToFormat('dd-MM-yyyy') }}</time>
+        <a
+          class="share-link"
+          href="{{ page.url | absoluteUrl(site.url) | escape }}"
+          rel="bookmark"
+          data-share-link
+          data-share-title="{{ title | escape }}"
+          data-share-url="{{ page.url | absoluteUrl(site.url) | escape }}"
+          aria-label="Share {{ title | escape }}"
+        >Share</a>
+        <span class="essay__share-separator essay__share-separator--linkedin" aria-hidden="true">|</span>
+        <a
+          class="linkedin-share-link"
+          href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absoluteUrl(site.url) | urlEncode }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on LinkedIn"
+          aria-label="Share {{ title | escape }} on LinkedIn"
+        >LinkedIn</a>
+        <span class="essay__share-separator essay__share-separator--x" aria-hidden="true">|</span>
+        <a
+          class="x-share-link"
+          href="https://twitter.com/intent/tweet?url={{ page.url | absoluteUrl(site.url) | urlEncode }}&amp;text={{ title | urlEncode }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on X"
+          aria-label="Share {{ title | escape }} on X"
+        >X</a>
+      </div>
     {% endif %}
   </header>
   {{ content | safe }}

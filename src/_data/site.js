@@ -11,7 +11,7 @@ module.exports = {
     "AI researcher with a background in aerospace engineering and industrial mathematics, focused on training algorithms, world models, and autonomous intelligence.",
   socialImage: "/assets/images/og-default.png",
   socialImageAlt:
-    "Pablo Magariños social card with retro styling and AI Researcher title.",
+    "PMD social preview card with Aerospace Engineer, AI Research, and pablomagarinos.es text.",
   favicon: "/assets/images/favicon.svg",
   faviconPng: "/assets/images/favicon.png",
   twitterHandle: "@pablodotmd",

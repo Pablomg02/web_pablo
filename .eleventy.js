@@ -38,9 +38,17 @@ module.exports = function (eleventyConfig) {
     return new URL(targetUrl, normalizedBaseUrl).toString();
   });
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
-  eleventyConfig.addFilter("dateToFormat", (date) => {
+  eleventyConfig.addFilter("urlEncode", (value = "") => encodeURIComponent(value));
+  eleventyConfig.addFilter("dateToFormat", (date, format = "yyyy-MM-dd") => {
     if (!(date instanceof Date)) return "";
-    return date.toISOString().slice(0, 10);
+
+    const [year, month, day] = date.toISOString().slice(0, 10).split("-");
+
+    if (format === "dd-MM-yyyy") {
+      return `${day}-${month}-${year}`;
+    }
+
+    return `${year}-${month}-${day}`;
   });
   eleventyConfig.addFilter("relativeUrl", (targetUrl, currentPageUrl = "/") => {
     if (!targetUrl) {

@@ -1,12 +1,13 @@
 module.exports = [
   {
-    title: "About",
-    url: "/",
-  },
-  {
     title: "Notes",
     url: "/notes/",
   },
+  {
+    title: "About",
+    url: "/",
+  },
+
   {
     title: "Experience",
     url: "/experience/",
