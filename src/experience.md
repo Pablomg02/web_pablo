@@ -28,7 +28,13 @@ We are still at an early stage. My focus is on **world models and training metho
 
 ATRG (Aerospace Technology Research Group) is a research group at the University of Vigo with **more than 17 years of experience** behind high-impact space missions, including XatCobeo, Spain's first nanosatellite, HUMESAT-D, and Lume-1.
 
-My contribution focuses on **artificial intelligence**, particularly the development and research of AI applications for drones: advanced data analysis algorithms, LLM integration for sensor-data interpretation, and image recognition models, across projects spanning both the aeronautical and space domains.  
+My contribution focuses on **artificial intelligence**, particularly across projects spanning both the aeronautical and space domains:
+
+- Researched and implemented AI models for aerospace vehicles, including onboard computer vision systems, pose-estimation methods, and self-training pipelines based on weak labelling.
+- Developed a time-series analysis solution from planning and modelling through to deployment.
+- Currently developing my Master's thesis within ATRG on multi-agent AI, using drone systems as a case study to analyse interaction during learning and deployment.
+- Owned the end-to-end development of private static and interactive web projects, covering frontend interfaces, backend APIs, and deployment with tools such as Node.js and FastAPI.
+- Contributed to additional internal AI research and development projects.  
 [LinkedIn](https://www.linkedin.com/company/atrg)
 
 ### DARTS *— Founder*

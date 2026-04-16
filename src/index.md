@@ -28,9 +28,9 @@ My research is centred on the development of intelligence that genuinely underst
 
 I channel these research goals through three initiatives:
 
-- **DARTS** — my open-source initiative
 - **XISTRA** — my deep-tech startup
 - **ATRG** — work within the Research Group
+- **DARTS** — my open-source initiative
 
 You can explore these projects in more detail in the [Experience](https://pablomagarinos.es/experience/) section.
 
@@ -46,8 +46,10 @@ Despite not having a formal background in computer science, I have always been d
 
 ---
 
-## Beyond Research
+## More About Me
 
 I love photography. Over the past year it has become something of an obsession: learning photographic techniques, understanding light, and pushing the limits of my full-frame camera.
 
 I'm also passionate about music production, which has been part of my life for more than eight years. I played guitar for several years and later picked up the piano, but music production is what has truly stayed with me, especially for its creative side and the joy of experimenting with sound and software.
+
+I also enjoy letting my thoughts wander, having ideas, and thinking for the sake of thinking. I am a curious person, and I write some of those reflections in [Notes](/notes/).
