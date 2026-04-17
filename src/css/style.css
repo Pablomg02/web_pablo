@@ -347,6 +347,24 @@ hr {
 }
 
 /* --- Essay page --- */
+.notes-back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.52rem;
+  line-height: 1.6;
+  color: var(--color-notes-link);
+  text-decoration: none;
+}
+
+.notes-back-link:hover,
+.notes-back-link:focus-visible {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  outline: none;
+}
+
 .essay__header {
   margin-bottom: var(--spacing);
 }
