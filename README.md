@@ -65,6 +65,19 @@ Ejemplo:
 
 Si no anades la entrada en `navigation.js`, la pagina existira pero no aparecera en el menu superior.
 
+## Anadir o actualizar una nota
+
+Las notas viven en `src/notes/`. Ademas de `date`, puedes anadir un campo opcional `updated` para mostrar la fecha de ultima edicion:
+
+```md
+---
+title: My note
+date: 2026-04-15
+updated: 2026-04-17
+description: Optional short summary.
+---
+```
+
 ## Desarrollo local
 
 ```bash

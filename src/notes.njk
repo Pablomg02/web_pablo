@@ -18,7 +18,13 @@ permalink: /notes/
       <li class="essay-list__item">
         <a href="{{ post.url | relativeUrl(page.url) }}">{{ post.data.title }}</a>
         {% if post.date %}
-          <time class="essay-list__date" datetime="{{ post.date | dateToFormat }}">{{ post.date | dateToFormat('dd-MM-yyyy') }}</time>
+          <div class="essay-list__meta">
+            <time datetime="{{ post.date | dateToFormat }}">{{ post.date | dateToFormat('dd-MM-yyyy') }}</time>
+            {% if post.data.updated %}
+              <span aria-hidden="true">|</span>
+              <span>Last edited <time datetime="{{ post.data.updated | dateToFormat }}">{{ post.data.updated | dateToFormat('dd-MM-yyyy') }}</time></span>
+            {% endif %}
+          </div>
         {% endif %}
         {% if post.data.description %}
           <p class="essay-list__description">{{ post.data.description }}</p>

@@ -7,6 +7,10 @@ layout: base.njk
     {% if date %}
       <div class="essay__meta">
         <time class="essay__date" datetime="{{ date | dateToFormat }}">{{ date | dateToFormat('dd-MM-yyyy') }}</time>
+        {% if updated %}
+          <span class="essay__meta-separator" aria-hidden="true">|</span>
+          <span class="essay__updated">Last edited <time datetime="{{ updated | dateToFormat }}">{{ updated | dateToFormat('dd-MM-yyyy') }}</time></span>
+        {% endif %}
         <a
           class="share-link"
           href="{{ page.url | absoluteUrl(site.url) | escape }}"

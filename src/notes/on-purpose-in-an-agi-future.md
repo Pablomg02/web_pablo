@@ -1,8 +1,12 @@
 ---
 title: On Purpose in an AGI Future
 description: What remains distinctly human when execution is no longer our burden.
-date: 2026-04-14
+date: 2026-02-10
+updated: 2026-04-14
 ---
+
+*This note is adapted from my [Medium post](https://medium.com/@pablomagarinos/the-winner-takes-it-all-b8a6657779c6). It has been edited for this site, while keeping the original meaning intact.*
+
 
 The arrival of artificial general intelligence is inevitable. Whether it occurs this year or within the next decade is a secondary question. What is certain is that many tasks we still consider uniquely human will, in time, be performed by machines: with greater speed, precision, and consistency than any individual could offer.
 

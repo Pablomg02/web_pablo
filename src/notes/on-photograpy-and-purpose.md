@@ -1,8 +1,11 @@
 ---
 title: On Photography and Purpose
 description: Editing, removing, and adding, and why none of that is the real question.
-date: 2026-04-13
+date: 2026-02-02
+updated: 2026-04-15
 ---
+
+*This note is adapted from my [Medium post](https://medium.com/@pablomagarinos/why-take-the-photo-purpose-in-the-age-of-ai-bca381b3b790). It has been edited for this site, while keeping the original meaning intact.*
 
 I started in photography about five years ago with an aging Nikon D3100. I used it mostly to document my university drone team: competitions, manufacturing, the whole process. It was not always about aesthetic beauty. It was about preserving what had happened.
 

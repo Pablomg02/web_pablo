@@ -16,7 +16,7 @@ So, having artificial intelligence to build things will not just give us far mor
 
 ---
 
-- [steipete on GitHub](https://github.com/steipete) - profile, projects, philosophy
+- [steipete on GitHub](https://github.com/steipete)
 - [Speaking history and bio](https://github.com/steipete/speaking)
-- ["Slot Machines for Programmers" (June 2025)](https://steipete.me/posts/2025/when-ai-meets-madness-peters-16-hour-days) - how Peter builds apps 20x faster with AI
+- ["Slot Machines for Programmers" (June 2025)](https://steipete.me/posts/2025/when-ai-meets-madness-peters-16-hour-days)
 - ["Just One More Prompt" (August 2025)](https://steipete.me/posts/just-one-more-prompt)

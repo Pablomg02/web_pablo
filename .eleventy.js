@@ -21,6 +21,19 @@ function ensureDirectoryUrl(url = "/") {
   return `${path.posix.dirname(url)}/`;
 }
 
+function normalizeDate(date) {
+  if (date instanceof Date) {
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  if (typeof date === "string" || typeof date === "number") {
+    const parsed = new Date(date);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  }
+
+  return null;
+}
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -40,9 +53,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
   eleventyConfig.addFilter("urlEncode", (value = "") => encodeURIComponent(value));
   eleventyConfig.addFilter("dateToFormat", (date, format = "yyyy-MM-dd") => {
-    if (!(date instanceof Date)) return "";
+    const normalizedDate = normalizeDate(date);
+    if (!normalizedDate) return "";
 
-    const [year, month, day] = date.toISOString().slice(0, 10).split("-");
+    const [year, month, day] = normalizedDate.toISOString().slice(0, 10).split("-");
 
     if (format === "dd-MM-yyyy") {
       return `${day}-${month}-${year}`;

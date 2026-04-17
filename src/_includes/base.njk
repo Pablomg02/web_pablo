@@ -19,7 +19,7 @@
   <link rel="icon" href="{{ site.favicon | relativeUrl(page.url) }}" type="image/svg+xml">
   <link rel="icon" href="{{ site.faviconPng | relativeUrl(page.url) }}" type="image/png" sizes="256x256">
   <link rel="apple-touch-icon" href="{{ site.faviconPng | relativeUrl(page.url) }}">
-  <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+  <meta name="theme-color" content="#100f0c" id="theme-color-meta">
   <meta property="og:locale" content="{{ site.ogLocale | escape }}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name | escape }}">
@@ -42,24 +42,19 @@
       var storageKey = 'theme-preference';
       var root = document.documentElement;
       var themeMeta = document.getElementById('theme-color-meta');
-      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
       function getAppliedTheme(preference) {
         if (preference === 'light' || preference === 'dark') {
           return preference;
         }
 
-        return mediaQuery.matches ? 'dark' : 'light';
+        return 'dark';
       }
 
       function applyTheme(preference) {
         var appliedTheme = getAppliedTheme(preference);
 
-        if (preference === 'light' || preference === 'dark') {
-          root.dataset.theme = preference;
-        } else {
-          delete root.dataset.theme;
-        }
+        root.dataset.theme = appliedTheme;
 
         if (themeMeta) {
           themeMeta.setAttribute('content', appliedTheme === 'dark' ? '#100f0c' : '#ffffff');
@@ -97,14 +92,6 @@
 
         applyTheme(preference);
       };
-
-      if (typeof mediaQuery.addEventListener === 'function') {
-        mediaQuery.addEventListener('change', function () {
-          if (!storedPreference) {
-            applyTheme(null);
-          }
-        });
-      }
     }());
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
