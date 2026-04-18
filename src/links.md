@@ -9,7 +9,6 @@ permalink: /links/
 
 ## Contact
 - [LinkedIn](https://www.linkedin.com/in/pablomagarinos/) — The best place to learn more about my background and reach out.
-- [Email](mailto:pablo.magarinos@uvigo.gal) — Feel free to get in touch.
 
 ## Writing & Research
 - [Medium](https://medium.com/@pablomagarinos) — Where I occasionally publish articles.
