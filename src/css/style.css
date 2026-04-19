@@ -366,7 +366,7 @@ li {
 }
 
 li::marker {
-  color: var(--color-accent);
+  color: var(--color-header-accent);
 }
 
 /* --- Separators --- */

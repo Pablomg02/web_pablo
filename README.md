@@ -9,9 +9,12 @@ El contenido de la web vive en archivos markdown dentro de `src/`.
 Archivos actuales:
 
 - `src/index.md`
-- `src/projects.md`
+- `src/experience.md`
 - `src/research.md`
 - `src/links.md`
+- `src/notes.njk`
+- `src/privacy.md`
+- `src/how-i-made-the-web.md`
 
 Usa markdown estandar: `#` para titulos, `##` para secciones, `-` para listas, `---` para separadores, `[texto](url)` para links.
 
@@ -29,6 +32,7 @@ Ejemplo actual:
 
 ```js
 module.exports = [
+  { title: "Notes", url: "/notes/" },
   { title: "About", url: "/" },
   { title: "Experience", url: "/experience/" },
   { title: "Research", url: "/research/" },

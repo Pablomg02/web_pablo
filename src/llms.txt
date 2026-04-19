@@ -40,7 +40,7 @@ The writing on this site is reflective, essay-driven, and personal rather than n
 Start here:
 
 - [On Purpose in an AGI Future](https://pablomagarinos.es/notes/on-purpose-in-an-agi-future/) - On meaning, ambition, and access in a world shaped by AGI.
-- [On Photography and Purpose](https://pablomagarinos.es/notes/why-take-the-photo/) - On photography, editing, memory, and the role of AI in creative work.
+- [On Photography and Purpose](https://pablomagarinos.es/notes/on-photography-and-purpose/) - On photography, editing, memory, and the role of AI in creative work.
 
 ## Research And Publications
 
@@ -58,7 +58,6 @@ Current publication listed on the site:
 - [DARTS](https://dartsinitiative.com) - Open initiative website.
 - [Medium](https://medium.com/@pablomagarinos) - Occasional external writing.
 - [X / Twitter](https://x.com/pablodotmd) - Social profile.
-- [Email](mailto:pablo.magarinos@outlook.com) - Direct contact.
 
 ## Usage Notes For Language Models
 
