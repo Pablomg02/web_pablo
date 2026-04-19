@@ -63,7 +63,7 @@
   --color-grid: rgba(26, 26, 26, 0.035);
   --color-shadow: rgba(184, 137, 0, 0.25);
   --color-notes-shadow: rgba(234, 183, 47, 0.26);
-  --footer-link-opacity: 0.35;
+  --footer-link-opacity: 0.52;
   --font-heading: 'Press Start 2P', monospace;
   --font-body: 'VT323', monospace;
   --max-width: 720px;
@@ -89,7 +89,7 @@
   --color-grid: rgba(244, 236, 209, 0.05);
   --color-shadow: rgba(224, 181, 58, 0.25);
   --color-notes-shadow: rgba(242, 207, 102, 0.28);
-  --footer-link-opacity: 0.30;
+  --footer-link-opacity: 0.40;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -107,7 +107,7 @@
     --color-grid: rgba(244, 236, 209, 0.05);
     --color-shadow: rgba(224, 181, 58, 0.25);
     --color-notes-shadow: rgba(242, 207, 102, 0.28);
-    --footer-link-opacity: 0.11;
+    --footer-link-opacity: 0.40;
   }
 }
 
@@ -272,12 +272,17 @@ main {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
   font-size: 0.85rem;
   text-align: center;
   color: var(--color-muted);
 }
 
-.site-footer a {
+.site-footer a,
+.site-footer__separator {
   color: var(--color-muted);
   opacity: var(--footer-link-opacity);
 }

@@ -151,7 +151,13 @@
     {{ content | safe }}
   </main>
   <footer class="site-footer" aria-label="Site footer">
+    <a href="{{ '/' | relativeUrl(page.url) }}">Pablo Magariños</a>
+    <span class="site-footer__separator" aria-hidden="true">|</span>
+    <a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a>
+    <span class="site-footer__separator" aria-hidden="true">|</span>
     <a href="{{ '/privacy/' | relativeUrl(page.url) }}">Privacy</a>
+    <span class="site-footer__separator" aria-hidden="true">|</span>
+    <a href="{{ '/how-i-made-the-web/' | relativeUrl(page.url) }}">How I Made the Web</a>
   </footer>
   <script data-goatcounter="https://justgoatcounter.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   <script>
