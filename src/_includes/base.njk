@@ -150,6 +150,10 @@
   <main>
     {{ content | safe }}
   </main>
+  <footer class="site-footer" aria-label="Site footer">
+    <a href="{{ '/privacy/' | relativeUrl(page.url) }}">Privacy</a>
+  </footer>
+  <script data-goatcounter="https://justgoatcounter.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   <script>
     (function () {
       var toggle = document.querySelector('.theme-toggle');

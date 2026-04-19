@@ -63,6 +63,7 @@
   --color-grid: rgba(26, 26, 26, 0.035);
   --color-shadow: rgba(184, 137, 0, 0.25);
   --color-notes-shadow: rgba(234, 183, 47, 0.26);
+  --footer-link-opacity: 0.35;
   --font-heading: 'Press Start 2P', monospace;
   --font-body: 'VT323', monospace;
   --max-width: 720px;
@@ -88,6 +89,7 @@
   --color-grid: rgba(244, 236, 209, 0.05);
   --color-shadow: rgba(224, 181, 58, 0.25);
   --color-notes-shadow: rgba(242, 207, 102, 0.28);
+  --footer-link-opacity: 0.30;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -105,6 +107,7 @@
     --color-grid: rgba(244, 236, 209, 0.05);
     --color-shadow: rgba(224, 181, 58, 0.25);
     --color-notes-shadow: rgba(242, 207, 102, 0.28);
+    --footer-link-opacity: 0.11;
   }
 }
 
@@ -120,6 +123,9 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -253,9 +259,34 @@ body {
 }
 
 main {
+  width: 100%;
+  flex: 1;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--spacing) 1.5rem 3rem;
+}
+
+/* --- Footer --- */
+.site-footer {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 1.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.site-footer a {
+  color: var(--color-muted);
+  opacity: var(--footer-link-opacity);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--color-text);
+  opacity: 1;
+  outline: none;
 }
 
 /* --- Typography --- */
@@ -478,6 +509,10 @@ img {
 
   main {
     padding: 1.5rem 1rem;
+  }
+
+  .site-footer {
+    padding: 0 1rem 1.25rem;
   }
 
   .essay__share-separator--linkedin,
