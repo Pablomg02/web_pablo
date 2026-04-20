@@ -94,9 +94,8 @@
       };
     }());
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="preload" href="{{ '/assets/fonts/vt323-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/press-start-2p-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ '/css/style.css' | relativeUrl(page.url) }}">
   <script type="application/ld+json">
     {
@@ -151,6 +150,16 @@
   <main>
     {{ content | safe }}
   </main>
+  <footer class="site-footer" aria-label="Site footer">
+    <a href="{{ '/' | relativeUrl(page.url) }}">Pablo Magariños</a>
+    <span class="site-footer__separator" aria-hidden="true">|</span>
+    <a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a>
+    <span class="site-footer__separator" aria-hidden="true">|</span>
+    <a href="{{ '/privacy/' | relativeUrl(page.url) }}">Privacy</a>
+    <span class="site-footer__separator" aria-hidden="true">|</span>
+    <a href="{{ '/how-i-made-the-web/' | relativeUrl(page.url) }}">How I Made the Web</a>
+  </footer>
+  <script data-goatcounter="https://justgoatcounter.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   <script>
     (function () {
       var toggle = document.querySelector('.theme-toggle');

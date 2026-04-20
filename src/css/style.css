@@ -3,6 +3,43 @@
    Ultra-minimal retro developer aesthetic
    ======================================== */
 
+/* --- Local Fonts --- */
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/press-start-2p-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/press-start-2p-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/vt323-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/vt323-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* --- Reset --- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -26,6 +63,7 @@
   --color-grid: rgba(26, 26, 26, 0.035);
   --color-shadow: rgba(184, 137, 0, 0.25);
   --color-notes-shadow: rgba(234, 183, 47, 0.26);
+  --footer-link-opacity: 0.52;
   --font-heading: 'Press Start 2P', monospace;
   --font-body: 'VT323', monospace;
   --max-width: 720px;
@@ -51,6 +89,7 @@
   --color-grid: rgba(244, 236, 209, 0.05);
   --color-shadow: rgba(224, 181, 58, 0.25);
   --color-notes-shadow: rgba(242, 207, 102, 0.28);
+  --footer-link-opacity: 0.40;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -68,6 +107,7 @@
     --color-grid: rgba(244, 236, 209, 0.05);
     --color-shadow: rgba(224, 181, 58, 0.25);
     --color-notes-shadow: rgba(242, 207, 102, 0.28);
+    --footer-link-opacity: 0.40;
   }
 }
 
@@ -83,6 +123,9 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -216,9 +259,39 @@ body {
 }
 
 main {
+  width: 100%;
+  flex: 1;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--spacing) 1.5rem 3rem;
+}
+
+/* --- Footer --- */
+.site-footer {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.site-footer a,
+.site-footer__separator {
+  color: var(--color-muted);
+  opacity: var(--footer-link-opacity);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--color-text);
+  opacity: 1;
+  outline: none;
 }
 
 /* --- Typography --- */
@@ -293,7 +366,7 @@ li {
 }
 
 li::marker {
-  color: var(--color-accent);
+  color: var(--color-header-accent);
 }
 
 /* --- Separators --- */
@@ -441,6 +514,10 @@ img {
 
   main {
     padding: 1.5rem 1rem;
+  }
+
+  .site-footer {
+    padding: 0 1rem 1.25rem;
   }
 
   .essay__share-separator--linkedin,
