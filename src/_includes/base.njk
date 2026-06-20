@@ -96,6 +96,7 @@
   </script>
   <link rel="preload" href="{{ '/assets/fonts/vt323-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ '/assets/fonts/press-start-2p-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ '/assets/katex/katex.min.css' | relativeUrl(page.url) }}">
   <link rel="stylesheet" href="{{ '/css/style.css' | relativeUrl(page.url) }}">
   <script type="application/ld+json">
     {
@@ -118,13 +119,39 @@
         {% if navigation and navigation.length %}
           <nav class="site-nav" aria-label="Primary navigation">
             {% for entry in navigation %}
-              <a
-                href="{{ entry.url | relativeUrl(page.url) }}"
-                class="site-nav__link{% if entry.url == '/notes/' %} site-nav__link--notes{% endif %}{% if entry.url == page.url %} is-active{% endif %}"
-                {% if entry.url == page.url %}aria-current="page"{% endif %}
-              >
-                {{ entry.title }}
-              </a>
+              {% if entry.children and entry.children.length %}
+                <div class="site-nav__group" data-nav-dropdown>
+                  <button
+                    type="button"
+                    class="site-nav__link site-nav__trigger"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {{ entry.title }}
+                    <span class="site-nav__caret" aria-hidden="true">v</span>
+                  </button>
+                  <div class="site-nav__dropdown" role="menu">
+                    {% for child in entry.children %}
+                      <a
+                        href="{{ child.url | relativeUrl(page.url) }}"
+                        class="site-nav__dropdown-link{% if child.url == page.url %} is-active{% endif %}"
+                        role="menuitem"
+                        {% if child.url == page.url %}aria-current="page"{% endif %}
+                      >
+                        {{ child.title }}
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% else %}
+                <a
+                  href="{{ entry.url | relativeUrl(page.url) }}"
+                  class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
+                  {% if entry.url == page.url %}aria-current="page"{% endif %}
+                >
+                  {{ entry.title }}
+                </a>
+              {% endif %}
             {% endfor %}
           </nav>
         {% endif %}
@@ -193,6 +220,99 @@
       });
 
       updateToggleLabel();
+    }());
+  </script>
+  <script>
+    (function () {
+      var dropdowns = document.querySelectorAll('[data-nav-dropdown]');
+
+      if (!dropdowns.length) {
+        return;
+      }
+
+      var mobileQuery = window.matchMedia('(max-width: 600px)');
+
+      function clearPosition(dropdown) {
+        var menu = dropdown.querySelector('.site-nav__dropdown');
+
+        if (menu) {
+          menu.style.top = '';
+          menu.style.right = '';
+          menu.style.left = '';
+        }
+      }
+
+      // On mobile the header scrolls horizontally (overflow), which would clip
+      // an absolutely positioned dropdown. There the menu is position: fixed,
+      // so anchor it under the trigger manually.
+      function positionDropdown(dropdown, button) {
+        var menu = dropdown.querySelector('.site-nav__dropdown');
+
+        if (!menu || !mobileQuery.matches) {
+          return;
+        }
+
+        var rect = button.getBoundingClientRect();
+        menu.style.top = (rect.bottom + 6) + 'px';
+        menu.style.right = Math.max(8, window.innerWidth - rect.right) + 'px';
+        menu.style.left = 'auto';
+      }
+
+      function closeAll(except) {
+        dropdowns.forEach(function (dropdown) {
+          if (dropdown === except) {
+            return;
+          }
+
+          dropdown.classList.remove('is-open');
+          clearPosition(dropdown);
+          var button = dropdown.querySelector('.site-nav__trigger');
+
+          if (button) {
+            button.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      dropdowns.forEach(function (dropdown) {
+        var button = dropdown.querySelector('.site-nav__trigger');
+
+        if (!button) {
+          return;
+        }
+
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          var isOpen = dropdown.classList.toggle('is-open');
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          closeAll(dropdown);
+
+          if (isOpen) {
+            positionDropdown(dropdown, button);
+          } else {
+            clearPosition(dropdown);
+          }
+        });
+      });
+
+      mobileQuery.addEventListener('change', function () {
+        dropdowns.forEach(clearPosition);
+        closeAll(null);
+      });
+
+      document.addEventListener('click', function (event) {
+        var insideDropdown = event.target.closest('[data-nav-dropdown]');
+
+        if (!insideDropdown) {
+          closeAll(null);
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeAll(null);
+        }
+      });
     }());
   </script>
   <script>

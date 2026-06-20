@@ -1,4 +1,5 @@
 const path = require("node:path");
+const { katex } = require("@mdit/plugin-katex");
 
 function splitUrl(url = "") {
   const match = url.match(/^([^?#]*)([?#].*)?$/);
@@ -37,6 +38,14 @@ function normalizeDate(date) {
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/katex/dist/katex.min.css": "assets/katex/katex.min.css",
+    "node_modules/katex/dist/fonts": "assets/katex/fonts",
+  });
+
+  // Render LaTeX math ($inline$ and $$block$$) to HTML at build time with KaTeX,
+  // so equations work without any client-side JavaScript.
+  eleventyConfig.amendLibrary("md", (mdLib) => mdLib.use(katex));
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy("src/llms.txt");
@@ -51,6 +60,23 @@ module.exports = function (eleventyConfig) {
     return new URL(targetUrl, normalizedBaseUrl).toString();
   });
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
+  eleventyConfig.addFilter("uniqueTopics", (items = []) => {
+    const topics = new Set();
+
+    for (const item of items) {
+      const itemTopics = item?.data?.topics;
+
+      if (Array.isArray(itemTopics)) {
+        for (const topic of itemTopics) {
+          if (topic) {
+            topics.add(String(topic));
+          }
+        }
+      }
+    }
+
+    return Array.from(topics).sort((a, b) => a.localeCompare(b));
+  });
   eleventyConfig.addFilter("urlEncode", (value = "") => encodeURIComponent(value));
   eleventyConfig.addFilter("dateToFormat", (date, format = "yyyy-MM-dd") => {
     const normalizedDate = normalizeDate(date);

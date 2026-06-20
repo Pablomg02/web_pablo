@@ -1,0 +1,119 @@
+---
+layout: page.njk
+title: Notebook
+description: Technical articles grounded in my own experience and learning, written to spark curiosity about new topics and concepts.
+permalink: /notebook/
+---
+
+<h1>Notebook</h1>
+
+<p>Technical articles grounded in my own experience and learning. I write to cover topics that experience has gradually surfaced for me &mdash; angles and ideas that often aren't found in the main sources and that may bring something new. Above all, my goal is to spark curiosity about fresh topics and concepts.</p>
+
+<hr>
+
+{% set articles = collections.notebook | reverse %}
+{% set topics = articles | uniqueTopics %}
+{% if articles.length %}
+  {% if topics.length %}
+    <div class="topic-filter" data-topic-filter aria-label="Filter articles by category">
+      <button type="button" class="topic-filter__btn is-active" data-filter="*" aria-pressed="true">All</button>
+      {% for topic in topics %}
+        <button type="button" class="topic-filter__btn" data-filter="{{ topic }}" aria-pressed="false">{{ topic }}</button>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <ul class="essay-list">
+    {% for post in articles %}
+      <li class="essay-list__item" data-topics="{{ (post.data.topics | join('|')) if post.data.topics else '' }}">
+        <a href="{{ post.url | relativeUrl(page.url) }}">{{ post.data.title }}</a>
+        {% if post.date or (post.data.topics and post.data.topics.length) %}
+          <div class="essay-list__meta">
+            {% if post.date %}
+              <time datetime="{{ post.date | dateToFormat }}">{{ post.date | dateToFormat('dd-MM-yyyy') }}</time>
+            {% endif %}
+            {% if post.data.updated %}
+              <span aria-hidden="true">|</span>
+              <span>Last edited <time datetime="{{ post.data.updated | dateToFormat }}">{{ post.data.updated | dateToFormat('dd-MM-yyyy') }}</time></span>
+            {% endif %}
+            {% if post.data.topics and post.data.topics.length %}
+              <span class="essay-tags essay-tags--list">
+                {% for topic in post.data.topics %}<span class="essay-tag">{{ topic }}</span>{% endfor %}
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if post.data.description %}
+          <p class="essay-list__description">{{ post.data.description }}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No articles published yet.</p>
+{% endif %}
+
+<script>
+  (function () {
+    var filter = document.querySelector('[data-topic-filter]');
+
+    if (!filter) {
+      return;
+    }
+
+    var buttons = filter.querySelectorAll('.topic-filter__btn');
+    var items = document.querySelectorAll('.essay-list__item');
+    var allButton = filter.querySelector('[data-filter="*"]');
+    var active = [];
+
+    function setButtonState(button, on) {
+      button.classList.toggle('is-active', on);
+      button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+
+    function render() {
+      var noFilters = active.length === 0;
+
+      if (allButton) {
+        setButtonState(allButton, noFilters);
+      }
+
+      buttons.forEach(function (button) {
+        var value = button.getAttribute('data-filter');
+
+        if (value !== '*') {
+          setButtonState(button, active.indexOf(value) !== -1);
+        }
+      });
+
+      items.forEach(function (item) {
+        var topics = (item.getAttribute('data-topics') || '').split('|');
+        var visible = noFilters || active.some(function (value) {
+          return topics.indexOf(value) !== -1;
+        });
+        item.hidden = !visible;
+      });
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var value = button.getAttribute('data-filter');
+
+        if (value === '*') {
+          active = [];
+        } else {
+          var index = active.indexOf(value);
+
+          if (index === -1) {
+            active.push(value);
+          } else {
+            active.splice(index, 1);
+          }
+        }
+
+        render();
+      });
+    });
+
+    render();
+  }());
+</script>

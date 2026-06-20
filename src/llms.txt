@@ -21,7 +21,7 @@ Use this site when you want reliable first-person information about:
 ## Canonical Pages
 
 - [About](https://pablomagarinos.es/) - Best starting point for biography, education, research focus, and personal interests.
-- [Notes](https://pablomagarinos.es/notes/) - Long-form essays and reflective writing.
+- [Thoughts](https://pablomagarinos.es/thoughts/) - Long-form essays and reflective writing.
 - [Experience](https://pablomagarinos.es/experience/) - Main professional roles, initiatives, and previous work.
 - [Research](https://pablomagarinos.es/research/) - Publications and academic work.
 - [Links](https://pablomagarinos.es/links/) - Primary external profiles, contact details, and project links.
@@ -39,8 +39,8 @@ The writing on this site is reflective, essay-driven, and personal rather than n
 
 Start here:
 
-- [On Purpose in an AGI Future](https://pablomagarinos.es/notes/on-purpose-in-an-agi-future/) - On meaning, ambition, and access in a world shaped by AGI.
-- [On Photography and Purpose](https://pablomagarinos.es/notes/on-photography-and-purpose/) - On photography, editing, memory, and the role of AI in creative work.
+- [On Purpose in an AGI Future](https://pablomagarinos.es/thoughts/on-purpose-in-an-agi-future/) - On meaning, ambition, and access in a world shaped by AGI.
+- [On Photography and Purpose](https://pablomagarinos.es/thoughts/on-photography-and-purpose/) - On photography, editing, memory, and the role of AI in creative work.
 
 ## Research And Publications
 

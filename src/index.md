@@ -52,4 +52,4 @@ I love photography. Over the past year it has become something of an obsession: 
 
 I'm also passionate about music production, which has been part of my life for more than eight years. I played guitar for several years and later picked up the piano, but music production is what has truly stayed with me, especially for its creative side and the joy of experimenting with sound and software.
 
-I also enjoy letting my thoughts wander, having ideas, and thinking for the sake of thinking. I am a curious person, and I write some of those reflections in [Notes](/notes/).
+I also enjoy letting my thoughts wander, having ideas, and thinking for the sake of thinking. I am a curious person, and I write some of those reflections in [Thoughts](/thoughts/).

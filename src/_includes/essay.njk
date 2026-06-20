@@ -1,17 +1,27 @@
 ---
 layout: base.njk
 ---
-<a class="notes-back-link" href="{{ '/notes/' | relativeUrl(page.url) }}">&lt;&lt; Back to Notes</a>
+{% set backUrl = backUrl or '/thoughts/' %}
+{% set backLabel = backLabel or 'Thoughts' %}
+<a class="notes-back-link" href="{{ backUrl | relativeUrl(page.url) }}">&lt;&lt; Back to {{ backLabel }}</a>
 
 <article class="content essay">
   <header class="essay__header">
     <h1>{{ title }}</h1>
-    {% if date %}
+    {% if date or (topics and topics.length) %}
       <div class="essay__meta">
-        <time class="essay__date" datetime="{{ date | dateToFormat }}">{{ date | dateToFormat('dd-MM-yyyy') }}</time>
+        {% if date %}
+          <time class="essay__date" datetime="{{ date | dateToFormat }}">{{ date | dateToFormat('dd-MM-yyyy') }}</time>
+        {% endif %}
         {% if updated %}
           <span class="essay__meta-separator" aria-hidden="true">|</span>
           <span class="essay__updated">Last edited <time datetime="{{ updated | dateToFormat }}">{{ updated | dateToFormat('dd-MM-yyyy') }}</time></span>
+        {% endif %}
+        {% if topics and topics.length %}
+          {% if date %}<span class="essay__meta-separator" aria-hidden="true">|</span>{% endif %}
+          <span class="essay-tags">
+            {% for topic in topics %}<span class="essay-tag">{{ topic }}</span>{% endfor %}
+          </span>
         {% endif %}
         <a
           class="share-link"

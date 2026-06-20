@@ -1,23 +1,31 @@
 module.exports = [
   {
-    title: "Notes",
-    url: "/notes/",
-  },
-  {
     title: "About",
     url: "/",
   },
-
   {
-    title: "Experience",
-    url: "/experience/",
+    title: "Thoughts",
+    url: "/thoughts/",
   },
   {
-    title: "Research",
-    url: "/research/",
+    title: "Notebook",
+    url: "/notebook/",
   },
   {
-    title: "Links",
-    url: "/links/",
+    title: "More",
+    children: [
+      {
+        title: "Experience",
+        url: "/experience/",
+      },
+      {
+        title: "Research",
+        url: "/research/",
+      },
+      {
+        title: "Links",
+        url: "/links/",
+      },
+    ],
   },
 ];
