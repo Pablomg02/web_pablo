@@ -87,7 +87,7 @@ permalink: /notebook/
 
       items.forEach(function (item) {
         var topics = (item.getAttribute('data-topics') || '').split('|');
-        var visible = noFilters || active.some(function (value) {
+        var visible = noFilters || active.every(function (value) {
           return topics.indexOf(value) !== -1;
         });
         item.hidden = !visible;

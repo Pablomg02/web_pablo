@@ -676,3 +676,34 @@ img {
     display: none;
   }
 }
+
+/* --- Footnotes / references --- */
+.footnote-ref a {
+  text-decoration: none;
+  font-size: 0.85em;
+  padding: 0 0.1em;
+}
+
+.footnotes {
+  margin-top: var(--spacing);
+  border-top: 2px dashed var(--color-muted);
+  padding-top: 1rem;
+}
+
+.footnotes__title {
+  font-size: 0.76rem;
+}
+
+.footnotes-list {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.footnotes-list li {
+  margin-bottom: 0.5rem;
+}
+
+.footnotes-list .footnote-backref {
+  text-decoration: none;
+  margin-left: 0.25rem;
+}

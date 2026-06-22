@@ -1,5 +1,6 @@
 const path = require("node:path");
 const { katex } = require("@mdit/plugin-katex");
+const markdownItFootnote = require("markdown-it-footnote");
 
 function splitUrl(url = "") {
   const match = url.match(/^([^?#]*)([?#].*)?$/);
@@ -46,6 +47,18 @@ module.exports = function (eleventyConfig) {
   // Render LaTeX math ($inline$ and $$block$$) to HTML at build time with KaTeX,
   // so equations work without any client-side JavaScript.
   eleventyConfig.amendLibrary("md", (mdLib) => mdLib.use(katex));
+
+  // Footnotes: write [^key] inline and `[^key]: text` anywhere; numbering,
+  // linking and back-references are generated at build time. Used as the
+  // "References" section at the foot of an article.
+  eleventyConfig.amendLibrary("md", (mdLib) => {
+    mdLib.use(markdownItFootnote);
+    mdLib.renderer.rules.footnote_block_open = () =>
+      '<section class="footnotes">\n' +
+      '<h2 class="footnotes__title">References</h2>\n' +
+      '<ol class="footnotes-list">\n';
+    mdLib.renderer.rules.footnote_block_close = () => "</ol>\n</section>\n";
+  });
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy("src/llms.txt");
