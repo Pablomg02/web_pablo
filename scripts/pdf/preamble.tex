@@ -1,6 +1,15 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+
+% --- Typography -------------------------------------------------------------
+% Body + math: Palatino (mathpazo), an elegant book face that keeps the
+% formulae harmonious. Headings, title and metadata: TeX Gyre Adventor
+% (Avant Garde), a geometric sans that gives the paper a distinctive,
+% designed feel. URLs / monospace: TeX Gyre Cursor.
 \usepackage[osf]{mathpazo}
+\renewcommand{\sfdefault}{qag}
+\renewcommand{\ttdefault}{qcr}
+
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{enumitem}
@@ -8,18 +17,78 @@
 \usepackage{titlesec}
 \usepackage[dvipsnames]{xcolor}
 
-% \maketitle clears \@title afterwards, so capture it ourselves for the header.
+% --- Metadata captured from the article frontmatter -------------------------
+% \PaperTitle is captured from \title (pandoc emits it from the YAML title).
+% The remaining macros are injected by scripts/build-notebook-pdfs.js as a
+% second header file; \providecommand keeps the preamble self-contained when a
+% field is absent.
 \let\PaperOldTitle\title
 \renewcommand{\title}[1]{\PaperOldTitle{#1}\gdef\PaperTitle{#1}}
+\providecommand{\PaperTitle}{}
+\providecommand{\PaperAuthor}{}
+\providecommand{\PaperDate}{}
+\providecommand{\PaperUpdated}{}
+\providecommand{\PaperAbstract}{}
+\providecommand{\PaperKeywords}{}
+\providecommand{\PaperUrl}{}
+\providecommand{\PaperSite}{}
 
+% --- Running header / footer ------------------------------------------------
+% Footer carries labelled links ("Web", "Article") rather than bare URLs.
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{\PaperTitle}}
-\fancyfoot[C]{\thepage}
+\fancyhead[L]{\small\sffamily\itshape\PaperTitle}
+\fancyfoot[L]{\small\sffamily\ifx\PaperSite\empty\else\href{\PaperSite}{Web}\fi}
+\fancyfoot[C]{\small\thepage}
+\fancyfoot[R]{\small\sffamily\ifx\PaperUrl\empty\else\href{\PaperUrl}{Article}\fi}
 \renewcommand{\headrulewidth}{0.4pt}
 
-\titleformat{\section}{\large\bfseries}{\thesection}{0.5em}{}
-\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+% --- Title block ------------------------------------------------------------
+% Layout: Title / Abstract / Author -- Date / Keywords / rule / body.
+\newcommand{\PaperRule}{\noindent\textcolor{black!25}{\rule{\textwidth}{0.4pt}}}
+
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}%
+  % Title
+  \begin{center}
+    {\sffamily\bfseries\LARGE\PaperTitle\par}
+  \end{center}
+  % Abstract
+  \ifx\PaperAbstract\empty\else
+    \vspace{1.1em}
+    \begin{center}
+      \begin{minipage}{0.86\textwidth}
+        \small\noindent{\sffamily\bfseries Abstract.}\enspace\PaperAbstract\par
+      \end{minipage}
+    \end{center}
+  \fi
+  % Author -- Date (serif, to sit with the Palatino body)
+  \ifx\PaperAuthor\empty\else
+    \vspace{1.1em}
+    \begin{center}
+      {\scshape\PaperAuthor
+        \ifx\PaperDate\empty\else\enspace\textendash\enspace\textit{\PaperDate}\fi
+        \ifx\PaperUpdated\empty\else\enspace{\color{black!60}\small\textit{(last edited \PaperUpdated)}}\fi
+        \par}
+    \end{center}
+  \fi
+  % Keywords
+  \ifx\PaperKeywords\empty\else
+    \vspace{0.5em}
+    \begin{center}
+      \begin{minipage}{0.86\textwidth}
+        \centering\small{\sffamily\itshape Keywords:}\enspace\PaperKeywords\par
+      \end{minipage}
+    \end{center}
+  \fi
+  \vspace{1.3em}
+  \PaperRule
+  \vspace{2em}
+}
+
+% --- Section headings (Adventor sans) ---------------------------------------
+\titleformat{\section}{\sffamily\large\bfseries}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\sffamily\normalsize\bfseries}{\thesubsection}{0.5em}{}
 \titlespacing{\section}{0pt}{1.5em}{0.75em}
 \titlespacing{\subsection}{0pt}{1.25em}{0.5em}
 
