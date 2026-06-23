@@ -600,7 +600,8 @@ hr {
 
 .share-link,
 .linkedin-share-link,
-.x-share-link {
+.x-share-link,
+.pdf-download-link {
   font-size: 0.85rem;
   color: var(--color-notes-link);
 }

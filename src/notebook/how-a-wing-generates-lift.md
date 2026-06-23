@@ -36,7 +36,5 @@ $$
 
 What fixes the value of $\Gamma$ is the *Kutta condition*: the flow must leave the sharp trailing edge smoothly, and only one amount of circulation lets it do that. Set that, and the lift follows.[^anderson]
 
-## References
-
 [^babinsky]: H. Babinsky, "How do wings work?," *Physics Education*, vol. 38, no. 6, pp. 497–503, 2003. <https://doi.org/10.1088/0031-9120/38/6/001>
 [^anderson]: J. D. Anderson, *Fundamentals of Aerodynamics*, 6th ed. New York: McGraw-Hill, 2017.

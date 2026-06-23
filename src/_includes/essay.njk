@@ -8,7 +8,8 @@ layout: base.njk
 <article class="content essay">
   <header class="essay__header">
     <h1>{{ title }}</h1>
-    {% if date or (topics and topics.length) %}
+    {% set hasPdf = tags and 'notebook' in tags and (page.inputPath | inputPdfExists) %}
+    {% if date or (topics and topics.length) or hasPdf %}
       <div class="essay__meta">
         {% if date %}
           <time class="essay__date" datetime="{{ date | dateToFormat }}">{{ date | dateToFormat('dd-MM-yyyy') }}</time>
@@ -17,12 +18,7 @@ layout: base.njk
           <span class="essay__meta-separator" aria-hidden="true">|</span>
           <span class="essay__updated">Last edited <time datetime="{{ updated | dateToFormat }}">{{ updated | dateToFormat('dd-MM-yyyy') }}</time></span>
         {% endif %}
-        {% if topics and topics.length %}
-          {% if date %}<span class="essay__meta-separator" aria-hidden="true">|</span>{% endif %}
-          <span class="essay-tags">
-            {% for topic in topics %}<span class="essay-tag">{{ topic }}</span>{% endfor %}
-          </span>
-        {% endif %}
+        {% if date or updated %}<span class="essay__meta-separator" aria-hidden="true">|</span>{% endif %}
         <a
           class="share-link"
           href="{{ page.url | absoluteUrl(site.url) | escape }}"
@@ -50,7 +46,25 @@ layout: base.njk
           title="Share on X"
           aria-label="Share {{ title | escape }} on X"
         >X</a>
+        {% if hasPdf %}
+          {% set pdfUrl = (page.url | stripTrailingSlash) + '.pdf' %}
+          <span class="essay__share-separator" aria-hidden="true">|</span>
+          <a
+            class="pdf-download-link"
+            href="{{ pdfUrl | relativeUrl(page.url) }}"
+            download
+            title="Download as PDF"
+            aria-label="Download {{ title | escape }} as PDF"
+          >Download PDF</a>
+        {% endif %}
       </div>
+      {% if topics and topics.length %}
+        <div class="essay__meta essay__meta--tags">
+          <span class="essay-tags">
+            {% for topic in topics %}<span class="essay-tag">{{ topic }}</span>{% endfor %}
+          </span>
+        </div>
+      {% endif %}
     {% endif %}
   </header>
   {{ content | safe }}

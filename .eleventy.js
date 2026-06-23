@@ -1,3 +1,4 @@
+const fs = require("node:fs");
 const path = require("node:path");
 const { katex } = require("@mdit/plugin-katex");
 const markdownItFootnote = require("markdown-it-footnote");
@@ -39,6 +40,9 @@ function normalizeDate(date) {
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/assets");
+  // PDFs are generated locally (npm run notebook:pdf) and committed
+  // alongside the article source, not rebuilt in CI.
+  eleventyConfig.addPassthroughCopy("src/notebook/*.pdf");
   eleventyConfig.addPassthroughCopy({
     "node_modules/katex/dist/katex.min.css": "assets/katex/katex.min.css",
     "node_modules/katex/dist/fonts": "assets/katex/fonts",
@@ -91,6 +95,16 @@ module.exports = function (eleventyConfig) {
     return Array.from(topics).sort((a, b) => a.localeCompare(b));
   });
   eleventyConfig.addFilter("urlEncode", (value = "") => encodeURIComponent(value));
+  eleventyConfig.addFilter("stripTrailingSlash", (url = "") =>
+    url.endsWith("/") ? url.slice(0, -1) : url,
+  );
+  eleventyConfig.addFilter("inputPdfExists", (inputPath = "") => {
+    if (!inputPath.endsWith(".md")) {
+      return false;
+    }
+
+    return fs.existsSync(inputPath.replace(/\.md$/, ".pdf"));
+  });
   eleventyConfig.addFilter("dateToFormat", (date, format = "yyyy-MM-dd") => {
     const normalizedDate = normalizeDate(date);
     if (!normalizedDate) return "";
