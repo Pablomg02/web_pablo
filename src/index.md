@@ -9,7 +9,7 @@ description: AI researcher with a background in aerospace engineering and indust
 
 I'm an aerospace engineer with a Master's in Industrial Mathematics. I currently focus on research and development in **artificial intelligence**.
 
-Aerospace engineering gave me a broad technical foundation. More than five years ago, a deep interest in intelligence led me to artificial intelligence, and the desire to understand it from first principles motivated me to pursue a Master's in Industrial Mathematics. To keep contributing to the field, I founded XISTRA and work on the open-source initiative DARTS, driven by a strong belief in open knowledge.
+Aerospace engineering gave me a broad technical foundation. More than five years ago, a deep interest in intelligence led me to artificial intelligence, and the desire to understand it from first principles motivated me to pursue a Master's in Industrial Mathematics. To keep contributing to the field, I founded XISTRA and stay active in research, driven by a strong belief in open knowledge.
 
 ---
 
@@ -26,11 +26,10 @@ Aerospace engineering gave me a broad technical foundation. More than five years
 
 My research is centred on the development of intelligence that genuinely understands its environment, rather than merely identifying statistical correlations in data. The long-term objective is to build AI systems capable of generating new knowledge and developing their own methods.
 
-I channel these research goals through three initiatives:
+I channel these research goals through two main avenues:
 
 - **XISTRA** — my deep-tech startup
 - **ATRG** — work within the Research Group
-- **DARTS** — my open-source initiative
 
 You can explore these projects in more detail in the [Experience](https://pablomagarinos.es/experience/) section.
 
@@ -48,7 +47,7 @@ Despite not having a formal background in computer science, I have always been d
 
 ## More About Me
 
-I love photography. Over the past year it has become something of an obsession: learning photographic techniques, understanding light, and pushing the limits of my full-frame camera.
+I love photography. What draws me in is experimenting with my camera, understanding optics at a physical level, and trying new things to see how light and images actually work.
 
 I'm also passionate about music production, which has been part of my life for more than eight years. I played guitar for several years and later picked up the piano, but music production is what has truly stayed with me, especially for its creative side and the joy of experimenting with sound and software.
 

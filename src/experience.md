@@ -32,7 +32,7 @@ My contribution focuses on **artificial intelligence**, particularly across proj
 
 - Researched and implemented AI models for aerospace vehicles, including onboard computer vision systems, pose-estimation methods, and self-training pipelines based on weak labelling.
 - Developed a time-series analysis solution from planning and modelling through to deployment.
-- Currently developing my Master's thesis within ATRG on multi-agent AI, using drone systems as a case study to analyse interaction during learning and deployment.
+- Completed my Master's thesis within ATRG on multi-agent AI, using drone systems as a case study to analyse interaction during learning and deployment.
 - Owned the end-to-end development of private static and interactive web projects, covering frontend interfaces, backend APIs, and deployment with tools such as Node.js and FastAPI.
 - Contributed to additional internal AI research and development projects.  
 [LinkedIn](https://www.linkedin.com/company/atrg)

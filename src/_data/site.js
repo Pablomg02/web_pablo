@@ -19,5 +19,7 @@ module.exports = {
     "https://www.linkedin.com/in/pablomagarinos/",
     "https://github.com/Pablomg02",
     "https://x.com/pablodotmd",
+    "https://scholar.google.com/citations?user=fxGQeMkAAAAJ",
+    "https://www.researchgate.net/profile/Pablo-Magarinos-2",
   ],
 };

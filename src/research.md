@@ -14,13 +14,13 @@ This is my public research work so far. I am currently working on new papers in 
 ---
 
 ## Multi-Agent Reinforcement Learning for Drone-Based Search and Rescue Missions
-*Master's Thesis - MSc in Industrial Mathematics, in progress*
+*Master's Thesis - MSc in Industrial Mathematics*
 
 My Master's thesis studies different **multi-agent AI architectures based on reinforcement learning**, with particular attention to their stability, convergence behaviour, and collaborative dynamics. The work evaluates these architectures across environments of increasing complexity, designed to resemble search and rescue missions where teams of drones must locate one or more targets in novel scenarios.
 
 The goal is to identify an AI architecture that, with the necessary real-world adaptations, could eventually be deployed beyond simplified environments and inputs. A central part of the work is to distinguish genuine **collaboration and generalisation** from the mere memorisation of patterns, while analysing what each architecture reveals about learning, coordination, and robustness.
 
-The thesis is still in progress. Once it is completed, I will share it here.
+The thesis is now complete, and I will share it here soon.
 
 ---
 

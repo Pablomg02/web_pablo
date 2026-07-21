@@ -12,7 +12,7 @@ permalink: /links/
 
 ## Writing & Research
 - [Medium](https://medium.com/@pablomagarinos) — Where I occasionally publish articles.
-- [ORCID](https://orcid.org/0009-0002-9817-0368) — My academic publication record.
+- My academic publications and citations: [ORCID](https://orcid.org/0009-0002-9817-0368), [Google Scholar](https://scholar.google.com/citations?user=fxGQeMkAAAAJ), [ResearchGate](https://www.researchgate.net/profile/Pablo-Magarinos-2).
 
 ## Projects
 - [XISTRA](https://www.linkedin.com/company/xistra) — Deep-tech AI startup for autonomous robotic systems.
