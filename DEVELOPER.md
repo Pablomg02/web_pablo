@@ -59,6 +59,11 @@ Este archivo explica cómo está organizada la web, qué piezas afectan al SEO, 
 
 - `src/css/style.css`
   - Estilos globales.
+- `src/js/site.js`
+  - Interacciones progresivas: tema, menú desplegable y compartir.
+- `src/assets/fonts/space-grotesk-latin.woff2`
+  - Fuente local de títulos e interfaz. El cuerpo usa la fuente del sistema y
+    Press Start 2P queda reservada para la marca.
 - `src/assets/images/favicon.svg`
 - `src/assets/images/favicon.png`
   - Iconos del sitio.
@@ -252,6 +257,11 @@ Notas:
 
 - Si la página usa `layout`, entrará en el sitemap automáticamente.
 - Si no quieres indexarla, añade `robots: noindex, nofollow`.
+
+### Si añades un artículo de Notebook
+
+Los artículos bajo `src/notebook/` cargan automáticamente el CSS de KaTeX. El
+resto de páginas no lo carga, para evitar ese recurso cuando no hay fórmulas.
 
 ### Si quieres cambiar favicon o imagen social
 

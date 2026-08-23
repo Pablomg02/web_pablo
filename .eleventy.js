@@ -39,6 +39,7 @@ function normalizeDate(date) {
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/assets");
   // PDFs are generated locally (npm run notebook:pdf) and committed
   // alongside the article source, not rebuilt in CI.

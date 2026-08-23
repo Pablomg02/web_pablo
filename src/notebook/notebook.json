@@ -1,6 +1,7 @@
 {
   "layout": "essay.njk",
   "tags": "notebook",
+  "math": true,
   "backUrl": "/notebook/",
   "backLabel": "Notebook"
 }

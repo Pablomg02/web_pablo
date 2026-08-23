@@ -6,6 +6,9 @@ Personal website built with Eleventy (11ty). Source in `src/`, output in `_site/
 
 Each Notebook article (`src/notebook/<slug>.md`) can have a matching `src/notebook/<slug>.pdf` rendered in an academic style (Pandoc + LaTeX: Palatino body/math with TeX Gyre Adventor headings, see `scripts/pdf/preamble.tex`). The article page shows a "Download as PDF" link automatically when the file exists (see `src/_includes/essay.njk`), served via Eleventy passthrough copy (`src/notebook/*.pdf` in `.eleventy.js`).
 
+Notebook articles inherit `math: true` from `src/notebook/notebook.json`, so
+their pages load KaTeX CSS. Other pages intentionally omit that stylesheet.
+
 PDFs are generated locally, not in CI — the GitHub Pages build (`npm run build`) does not have Pandoc/LaTeX installed, so the PDF must already exist in the repo before pushing.
 
 Process when adding or editing a Notebook article:
