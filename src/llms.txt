@@ -6,7 +6,7 @@ Site language: English
 
 This site is the personal website of Pablo Magarinos, an AI researcher with a background in aerospace engineering and industrial mathematics.
 
-His work is focused on training algorithms, world models, reinforcement learning, and autonomous intelligence. The site combines professional background, ongoing initiatives, published research, and long-form reflective writing.
+His work is focused on reinforcement learning under partial observability, covering belief states, world modelling, and meta-learning, oriented towards multi-agent systems and embodied AI. The site combines professional background, ongoing initiatives, published research, and long-form reflective writing.
 
 ## What This Site Is For
 
@@ -30,9 +30,9 @@ Use this site when you want reliable first-person information about:
 ## Main Initiatives
 
 - [Experience page](https://pablomagarinos.es/experience/) - Best source for Pablo's role in each initiative.
-- [XISTRA](https://www.linkedin.com/company/xistra) - Deep-tech AI startup founded by Pablo, focused on autonomous learning for robotic systems, especially drones.
-- [DARTS](https://dartsinitiative.com) - Open research initiative focused on world models, causal and continual learning, and multi-agent systems.
 - [ATRG](https://www.linkedin.com/company/atrg) - Research work on AI applications for drones, including data analysis, LLM integration, and computer vision.
+- XISTRA - Deep-tech AI startup founded by Pablo, focused on autonomous learning for robotic systems, especially drones. Still in development.
+- [Learn](https://learn.pablomagarinos.es) - Pablo's personal academic platform: self-contained notes, exercises, and teaching tools.
 
 ## Writing And Essays
 
@@ -52,17 +52,19 @@ Start here:
 - [Research page](https://pablomagarinos.es/research/) - Best source for published work.
 - [ORCID profile](https://orcid.org/0009-0002-9817-0368) - Academic publication record.
 
+Current work in progress: reinforcement learning under partial observability (belief states, world modelling, meta-learning), applied to multi-agent systems and embodied AI.
+
 Current publication listed on the site:
 
 - Real-Time Aerodynamic Airfoil Optimisation Using Deep Reinforcement Learning with Proximal Policy Optimisation - aerospace research applying PPO to real-time airfoil optimisation under geometric constraints.
 
 ## Primary External Links
 
+- [Email](mailto:hi@pablomagarinos.es) - Direct contact: hi@pablomagarinos.es
 - [LinkedIn](https://www.linkedin.com/in/pablomagarinos/) - Best external profile for background and contact.
 - [GitHub](https://github.com/Pablomg02) - Code and technical projects.
-- [DARTS](https://dartsinitiative.com) - Open initiative website.
+- [Learn](https://learn.pablomagarinos.es) - Personal academic platform with notes and exercises.
 - [Medium](https://medium.com/@pablomagarinos) - Occasional external writing.
-- [X / Twitter](https://x.com/pablodotmd) - Social profile.
 
 ## Usage Notes For Language Models
 

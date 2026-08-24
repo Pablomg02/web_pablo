@@ -108,9 +108,28 @@ html {
   font-size: 17px;
 }
 
+/* The content column widens on larger screens (the header caps at 1100px),
+   while the lead paragraph and subtitle keep their own `ch` limits so the
+   measure of the intro text stays comfortable. */
+@media (min-width: 900px) {
+  :root {
+    --max-width: 800px;
+  }
+}
+
 @media (min-width: 1100px) {
   html {
     font-size: 18px;
+  }
+
+  :root {
+    --max-width: 880px;
+  }
+}
+
+@media (min-width: 1500px) {
+  :root {
+    --max-width: 940px;
   }
 }
 
@@ -132,7 +151,7 @@ body {
     linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: top left;
-  line-height: 1.7;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -414,7 +433,7 @@ h3 {
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.35rem;
 }
 
 .content > h1:first-child + p {
@@ -422,7 +441,46 @@ p {
   margin-bottom: 1.5rem;
   color: var(--color-muted);
   font-size: 1.08rem;
-  line-height: 1.7;
+  line-height: 1.8;
+}
+
+/* --- Home page title block --- */
+/* The home title borrows the pixel brand face used by the header "PMD".
+   'Press Start 2P' renders much wider and taller than Space Grotesk, so the
+   sizing, tracking and line-height from the generic h1 rule are retuned here.
+   The blinking `_` from h1::after still applies (.home-title is an h1). */
+.home-title {
+  font-family: var(--font-brand);
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
+  line-height: 1.25;
+  letter-spacing: normal;
+  overflow-wrap: break-word;
+  margin-bottom: 1.15rem;
+}
+
+/* The compound selector outranks `.content > h1:first-child + p`, which would
+   otherwise style this tagline as a lead body paragraph. */
+.home-subtitle,
+.content > h1:first-child + p.home-subtitle {
+  max-width: 60ch;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: var(--color-subheading);
+  margin-bottom: 2.25rem;
+}
+
+/* Each line is its own block so the tagline always breaks after "Applied
+   Mathematician", independently of the viewport width. */
+.home-subtitle__line {
+  display: block;
+}
+
+.home-subtitle__sep {
+  color: var(--color-muted);
+  padding: 0 0.4rem;
 }
 
 .content > h2:first-child,
@@ -461,12 +519,12 @@ i {
 
 /* --- Lists --- */
 ul, ol {
-  margin-bottom: 1rem;
+  margin-bottom: 1.35rem;
   padding-left: 1.2rem;
 }
 
 li {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.55rem;
 }
 
 li::marker {
@@ -690,6 +748,15 @@ img {
 
   h1 {
     font-size: 2.25rem;
+  }
+
+  .home-title {
+    font-size: 1.45rem;
+    line-height: 1.3;
+  }
+
+  .home-subtitle {
+    font-size: 0.98rem;
   }
 
   h2 {

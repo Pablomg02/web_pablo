@@ -9,7 +9,7 @@ permalink: /research/
 
 [ORCID: 0009-0002-9817-0368](https://orcid.org/0009-0002-9817-0368)
 
-This is my public research work so far. I am currently working on new papers in **multi-agent AI** and vision model training with weak supervision. Of course, more work is being developed at [XISTRA](https://www.linkedin.com/company/xistra), and hopefully it will become public soon.
+This is my public research work so far. My current work is in **reinforcement learning under partial observability**: belief states, **world modelling**, and **meta-learning**, oriented towards multi-agent systems and embodied AI. Some of it should become public soon.
 
 ---
 

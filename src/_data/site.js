@@ -8,7 +8,7 @@ module.exports = {
   ogLocale: "en_US",
   defaultTitle: "Pablo Magariños | AI Researcher",
   defaultDescription:
-    "AI researcher with a background in aerospace engineering and industrial mathematics, focused on training algorithms, world models, and autonomous intelligence.",
+    "AI researcher with a background in aerospace engineering and industrial mathematics, focused on reinforcement learning, partial observability, world modelling, and meta-learning.",
   socialImage: "/assets/images/og-default.png",
   socialImageAlt:
     "PMD social preview card with Aerospace Engineer, AI Research, and pablomagarinos.es text.",
@@ -18,7 +18,7 @@ module.exports = {
   sameAs: [
     "https://www.linkedin.com/in/pablomagarinos/",
     "https://github.com/Pablomg02",
-    "https://x.com/pablodotmd",
+    "https://medium.com/@pablomagarinos",
     "https://scholar.google.com/citations?user=fxGQeMkAAAAJ",
     "https://www.researchgate.net/profile/Pablo-Magarinos-2",
   ],

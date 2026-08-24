@@ -8,17 +8,15 @@ permalink: /links/
 # Links
 
 ## Contact
+- [hi@pablomagarinos.es](mailto:hi@pablomagarinos.es) — Email me directly.
 - [LinkedIn](https://www.linkedin.com/in/pablomagarinos/) — The best place to learn more about my background and reach out.
 
-## Writing & Research
-- [Medium](https://medium.com/@pablomagarinos) — Where I occasionally publish articles.
+## Research
 - My academic publications and citations: [ORCID](https://orcid.org/0009-0002-9817-0368), [Google Scholar](https://scholar.google.com/citations?user=fxGQeMkAAAAJ), [ResearchGate](https://www.researchgate.net/profile/Pablo-Magarinos-2).
 
 ## Projects
-- [XISTRA](https://www.linkedin.com/company/xistra) — Deep-tech AI startup for autonomous robotic systems.
-- [DARTS](https://dartsinitiative.com) — Open research initiative on world models, causal learning, and multi-agent systems.
 - [GitHub](https://github.com/Pablomg02) — A selection of the projects I have worked on.
+- [Learn](https://learn.pablomagarinos.es) — My personal academic platform: self-contained notes and exercises, alongside other teaching tools I am building.
 
 ## Social
-- [X / Twitter](https://x.com/pablodotmd) — I do not post often, but you can still find me there.
-
+- [Medium](https://medium.com/@pablomagarinos) — Where I occasionally publish articles.

@@ -13,16 +13,6 @@ My work combines artificial intelligence research, engineering, and leadership a
 
 ## Current Experience
 
-### XISTRA *— Founder*
-*2025 – Present*
-
-XISTRA is a **deep-tech AI startup** built around a single thesis: true intelligence emerges from the capacity to learn autonomously, not from data alone. Current AI systems are trained rigidly on existing patterns; they cannot explore their environment, adapt to new situations, or improve their own performance through experience.
-
-Our mission is to change that by building AI that enables robotic systems to **learn from their surroundings** and maximise performance in dynamic, previously unseen environments. We see ourselves first and foremost as a research company, with the goal of translating laboratory advances into real-world robots, starting with drones because of their versatility and broad applicability.
-
-We are still at an early stage. My focus is on **world models and training methods**, building the technical foundation for our first commercial offering.  
-[LinkedIn](https://www.linkedin.com/company/xistra)
-
 ### ATRG *— Researcher*
 *November 2024 – Present*
 
@@ -37,13 +27,15 @@ My contribution focuses on **artificial intelligence**, particularly across proj
 - Contributed to additional internal AI research and development projects.  
 [LinkedIn](https://www.linkedin.com/company/atrg)
 
-### DARTS *— Founder*
-*February 2026 – Present*
+### XISTRA *— Founder*
+*In development*
 
-DARTS is an **open research initiative** working toward AI that genuinely understands its environment, builds its own model of the world, and generates new knowledge rather than recombining existing patterns. We focus on three areas where we believe the next leap forward will happen: **world models, causal and continual learning, and multi-agent systems**.
+XISTRA is a **deep-tech AI startup** built around a single thesis: true intelligence emerges from the capacity to learn autonomously, not from data alone. Current AI systems are trained rigidly on existing patterns; they cannot explore their environment, adapt to new situations, or improve their own performance through experience.
 
-All of our work is developed in the open: DARTS serves as a unified portal bringing together advances, projects, and research across these areas, fully open-source and public.  
-[Webpage](https://dartsinitiative.com)
+Our mission is to change that by building AI that enables robotic systems to **learn from their surroundings** and maximise performance in dynamic, previously unseen environments. We see ourselves first and foremost as a research company, with the goal of translating laboratory advances into real-world robots, starting with drones because of their versatility and broad applicability.
+
+We are still at an early stage. My focus is on **world models and training methods**, building the technical foundation for our first commercial offering.  
+[LinkedIn](https://www.linkedin.com/company/xistra)
 
 ---
 
