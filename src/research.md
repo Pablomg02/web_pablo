@@ -24,6 +24,15 @@ The thesis is now complete, and I will share it here soon.
 
 ---
 
+## Weakly Supervised Segmentation of Macroalgae Through Gradient Analysis in Convolutional Neural Networks and Segment Anything Model
+*August 2026 — Applied Sciences (MDPI), Vol. 16, Issue 17*
+
+This paper explores a practical way to understand what a convolutional neural network learns when distinguishing between different macroalgae genera. Instead of looking only at the final convolutional layer, as Grad-CAM typically does, we analyse the gradients across all intermediate layers, revealing how early spatial details and deeper semantic features complement one another. We then use that information to guide SAM2 in locating and segmenting the algae from image-level labels alone. Beyond this particular application, the work offers an intuitive framework for studying intermediate CNN representations and suggests that using the full hierarchy can produce more informative localisations than relying only on the deepest layer, while remaining competitive with established multi-layer methods such as LayerCAM.
+
+[Paper](https://www.mdpi.com/2076-3417/16/17/8470) — [DOI](https://doi.org/10.3390/app16178470)
+
+---
+
 ## Real-Time Aerodynamic Airfoil Optimisation Using Deep Reinforcement Learning with Proximal Policy Optimisation
 *November 2025 — Aerospace (MDPI), Vol. 12, Issue 11*
 
