@@ -351,12 +351,28 @@ body {
   outline: none;
 }
 
+/* `main` is the measure. It carries the width so that every direct child
+   shares one left edge — on an article that means the "<< Back" link lines up
+   with the prose, which it would not if the cap sat on `.content` alone.
+   Widths are border-box, hence `+ 3rem` for main's own 1.5rem side padding.
+   Prose is the default; the wider layouts opt in below. */
 main {
   width: 100%;
   flex: 1;
-  max-width: var(--max-width);
+  max-width: calc(var(--reading-width) + 3rem);
   margin: 0 auto;
   padding: clamp(2.5rem, 7vw, 5.5rem) 1.5rem clamp(4rem, 8vw, 7rem);
+}
+
+/* The home is a full-width composition, not a reading column. */
+.page-index main {
+  max-width: var(--max-width);
+}
+
+/* Dense CV and publication pages get a wider editorial measure. */
+.page-experience main,
+.page-research main {
+  max-width: calc(900px + 3rem);
 }
 
 /* --- Footer --- */
@@ -533,10 +549,6 @@ hr {
 }
 
 /* --- Article content --- */
-.content {
-  max-width: var(--reading-width);
-}
-
 .content > h1:first-child {
   position: relative;
   padding-bottom: 1.25rem;
@@ -566,10 +578,6 @@ hr {
 }
 
 /* --- Home / profile composition --- */
-.page-index .content {
-  max-width: none;
-}
-
 .home-hero {
   position: relative;
   max-width: 960px;
@@ -709,12 +717,6 @@ hr {
    templates, so the styling hangs off explicit class names instead of the
    shape of Markdown output (`h3 + p`, `h3 em`, `hr`), which was invisible
    from the source and leaked into prose pages. */
-
-/* Dense CV and publication pages get a wider editorial measure. */
-.page-experience .content,
-.page-research .content {
-  max-width: 900px;
-}
 
 /* Lead paragraph under a page title. Prose pages get the same treatment
    positionally, via `.content > h1:first-child + p`. */

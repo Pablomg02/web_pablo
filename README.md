@@ -42,6 +42,14 @@ Nunjucks lo escapa.
 La home (`src/index.njk`) es HTML directo porque ya es una composicion con
 secciones, tarjetas y numeracion: no queda markdown que aprovechar.
 
+### Archivos generados
+
+`/llms.txt` no se edita a mano: lo genera `src/llms.txt.njk` a partir de
+`_data/research.js`, `_data/experience.js`, `_data/links.js` y las colecciones
+de thoughts y notebook. Publicar un paper o un articulo lo actualiza solo.
+El campo `summary` (research, experience) y `llmsNote` (links) existen para ese
+archivo, que va en tercera persona a diferencia de las paginas.
+
 ### Por que la separacion
 
 Cuando una pagina estructurada se escribia en markdown, el CSS tenia que

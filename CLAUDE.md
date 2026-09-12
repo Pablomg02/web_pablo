@@ -30,6 +30,19 @@ file), not from `page.fileSlug` — a slug-derived class would let an article
 named `research.md` inherit the CV styling. Pages without a `pageKey` render as
 `page-doc`.
 
+## llms.txt is generated, not hand-written
+
+`src/llms.txt.njk` builds `/llms.txt` from the same sources as the pages:
+`_data/research.js`, `_data/experience.js`, `_data/links.js` and the `thought` /
+`notebook` collections. Publishing a paper or an article updates it on the next
+build. Edit the prose in the template; never hand-maintain the lists, which is
+how it came to claim a single publication while the site listed three.
+
+Two things to respect there: it is plain text, so every interpolation takes
+`| safe` (an escaped `&#39;` in a .txt file is a bug), and it is written in the
+third person, so entries whose page copy is first person carry an `llmsNote`
+alongside `note` / `summary`.
+
 ## Notebook articles — PDF generation
 
 Each Notebook article (`src/notebook/<slug>.md`) can have a matching `src/notebook/<slug>.pdf` rendered in an academic style (Pandoc + LaTeX: Palatino body/math with TeX Gyre Adventor headings, see `scripts/pdf/preamble.tex`). The article page shows a "Download as PDF" link automatically when the file exists (see `src/_includes/essay.njk`), served via Eleventy passthrough copy (`src/notebook/*.pdf` in `.eleventy.js`).

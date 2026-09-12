@@ -4,6 +4,8 @@
 // <a> only — and are printed with `| safe`. Everything else is plain text and
 // is escaped by Nunjucks. Adding a role means adding an object here; the
 // markup and spacing live in the template and the stylesheet, not in the copy.
+//
+// `summary` on a current role is the one-liner llms.txt prints for it.
 module.exports = {
   lead: "My work combines artificial intelligence research, engineering, and leadership across startups, academia, and technical student organisations.",
   groups: [
@@ -14,6 +16,8 @@ module.exports = {
           org: "ATRG",
           role: "Researcher",
           period: "November 2024 – Present",
+          summary:
+            "Research work on AI for aerospace vehicles: onboard computer vision, pose estimation, weakly-labelled self-training pipelines, and time-series analysis.",
           body: [
             "ATRG (Aerospace Technology Research Group) is a research group at the University of Vigo with <strong>more than 17 years of experience</strong> behind high-impact space missions, including XatCobeo, Spain's first nanosatellite, HUMESAT-D, and Lume-1.",
             "My contribution focuses on <strong>artificial intelligence</strong>, particularly across projects spanning both the aeronautical and space domains:",
@@ -31,6 +35,8 @@ module.exports = {
           org: "XISTRA",
           role: "Founder",
           period: "In development",
+          summary:
+            "Deep-tech AI startup founded by Pablo, focused on autonomous learning for robotic systems, especially drones. Still in development.",
           body: [
             "XISTRA is a <strong>deep-tech AI startup</strong> built around a single thesis: true intelligence emerges from the capacity to learn autonomously, not from data alone. Current AI systems are trained rigidly on existing patterns; they cannot explore their environment, adapt to new situations, or improve their own performance through experience.",
             "Our mission is to change that by building AI that enables robotic systems to <strong>learn from their surroundings</strong> and maximise performance in dynamic, previously unseen environments. We see ourselves first and foremost as a research company, with the goal of translating laboratory advances into real-world robots, starting with drones because of their versatility and broad applicability.",
