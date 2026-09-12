@@ -32,6 +32,17 @@ module.exports = {
           links: [{ label: "LinkedIn", url: "https://www.linkedin.com/company/atrg" }],
         },
         {
+          org: "School of Aerospace Engineering",
+          role: "Substitute Professor",
+          period: "September 2026 – Present",
+          summary:
+            "Substitute professor at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
+          body: [
+            "I teach as a <strong>substitute professor</strong> at the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo — the same school where I trained as an engineer and where I was previously the students’ main representative.",
+            "This academic year I teach <strong>Real-Time Systems</strong>, <strong>Aerospace Technology</strong>, and <strong>Propulsion Systems</strong>.",
+          ],
+        },
+        {
           org: "XISTRA",
           role: "Founder",
           period: "In development",
@@ -90,11 +101,11 @@ module.exports = {
           links: [{ label: "Webpage", url: "https://aeroespaciales.org/" }],
         },
         {
-          org: "School of Aeronautical Engineering",
+          org: "School of Aerospace Engineering",
           role: "Main Representative",
           period: "October 2021 – June 2024",
           body: [
-            "I was elected as the <strong>main representative of more than 250 students</strong> at the School of Aeronautical and Space Engineering. I coordinated and promoted a new series of events aimed at connecting the school with industry through conferences, courses, and professional talks.",
+            "I was elected as the <strong>main representative of more than 250 students</strong> at the School of Aerospace Engineering. I coordinated and promoted a new series of events aimed at connecting the school with industry through conferences, courses, and professional talks.",
             "One standout initiative was the <strong>I EEAE Alumni Forum</strong>, which brought together over 200 attendees for a series of talks by former students, strengthening the link between alumni and current generations.",
           ],
           links: [
