@@ -29,14 +29,23 @@ Este archivo explica cómo está organizada la web, qué piezas afectan al SEO, 
 
 ### Contenido principal
 
-- `src/index.md`
-  - Home.
-  - La home se muestra como “About” en navegación, pero su SEO está centrado en `Pablo Magariños`.
-- `src/projects.md`
-  - Ojo: el archivo se llama `projects.md`, pero la URL pública es `/experience/`.
-  - Si buscas la página Experience, está aquí.
-- `src/contact.md`
-  - Página de contacto.
+El contenido se divide en dos modelos segun la forma de la pagina (ver README).
+
+Prosa, en Markdown:
+
+- `src/thoughts/*.md` — ensayos.
+- `src/notebook/*.md` — articulos tecnicos.
+- `src/privacy.md`, `src/how-i-made-the-web.md`.
+
+Estructura, en datos + plantilla:
+
+- `src/_data/experience.js` + `src/experience.njk` → `/experience/`.
+- `src/_data/research.js` + `src/research.njk` → `/research/`.
+- `src/_data/links.js` + `src/links.njk` → `/links/`.
+
+- `src/index.njk`
+  - Home. HTML directo: es una composicion de secciones, no prosa.
+  - Se muestra como “About” en navegación, pero su SEO está centrado en `Pablo Magariños`.
 
 ### Plantillas
 
@@ -155,11 +164,14 @@ Ese archivo genera:
 
 ### Si cambias solo texto de una página
 
-Edita el archivo `.md` correspondiente:
+Si la pagina es prosa, edita su `.md`. Si es una pagina estructurada
+(`/experience/`, `/research/`, `/links/`), edita su archivo de datos:
 
-- `src/index.md`
-- `src/projects.md`
-- `src/contact.md`
+- `src/index.njk` — home
+- `src/_data/experience.js`
+- `src/_data/research.js`
+- `src/_data/links.js`
+- `src/privacy.md`, `src/how-i-made-the-web.md`
 
 Revisa también:
 
@@ -409,15 +421,18 @@ No hagas cambios manuales en `_site`.
 
 Siempre cambia los archivos de `src/` o de configuración y luego reconstruye.
 
-### Archivo `projects.md`
+### Donde vive el contenido de cada pagina
 
-Aunque la ruta pública es `/experience/`, el archivo sigue llamándose `src/projects.md`.
-
-Eso funciona bien, pero conviene recordarlo para no perder tiempo buscando la página equivocada.
+No todas las paginas son un `.md`. Las paginas estructuradas (`/experience/`,
+`/research/`, `/links/`) tienen el texto en `src/_data/*.js` y el marcado en su
+`.njk`; la home es `src/index.njk`. Solo la prosa (thoughts, notebook, privacy,
+how-i-made-the-web) se edita en Markdown.
 
 ## Resumen de archivos que más tocarás
 
-- Contenido: `src/index.md`, `src/projects.md`, `src/contact.md`
+- Contenido (prosa): `src/thoughts/*.md`, `src/notebook/*.md`, `src/privacy.md`
+- Contenido (estructurado): `src/_data/experience.js`, `src/_data/research.js`, `src/_data/links.js`
+- Home: `src/index.njk`
 - Menú: `src/_data/navigation.js`
 - SEO global: `src/_data/site.js`
 - Head y metadatos: `src/_includes/base.njk`

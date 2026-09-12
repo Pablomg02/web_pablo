@@ -1,0 +1,29 @@
+---
+layout: page.njk
+title: Research
+description: Publications and research work in AI, aerospace, and reinforcement learning.
+permalink: /research/
+pageKey: research
+---
+<h1>Research</h1>
+<p class="research-orcid"><a href="{{ research.orcid.url }}">ORCID: {{ research.orcid.id }}</a></p>
+<p class="research-intro">{{ research.lead | safe }}</p>
+
+{% for publication in research.publications %}
+  {% set publicationId = 'publication-' + loop.index %}
+  <article class="publication" aria-labelledby="{{ publicationId }}">
+    <h2 class="publication__title" id="{{ publicationId }}">{{ publication.title }}</h2>
+    <p class="publication__venue">{{ publication.venue }}</p>
+    {% for paragraph in publication.body %}
+      <p>{{ paragraph | safe }}</p>
+    {% endfor %}
+    {% if publication.links and publication.links.length %}
+      <p class="publication__links">
+        {%- for link in publication.links %}
+          {%- if not loop.first %} <span class="publication__links-separator" aria-hidden="true">&#8212;</span> {% endif -%}
+          <a href="{{ link.url }}">{{ link.label }}</a>
+        {%- endfor %}
+      </p>
+    {% endif %}
+  </article>
+{% endfor %}

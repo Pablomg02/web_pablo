@@ -1,0 +1,38 @@
+---
+layout: page.njk
+title: Experience
+description: Experience across AI research, startups, open source, aerospace engineering, and technical leadership.
+permalink: /experience/
+pageKey: experience
+---
+<h1>Experience</h1>
+<p class="page-lead">{{ experience.lead | safe }}</p>
+
+{% for group in experience.groups %}
+  {% set groupId = 'experience-group-' + loop.index %}
+  <section class="experience-group" aria-labelledby="{{ groupId }}">
+    <h2 class="experience-group__title" id="{{ groupId }}">{{ group.title }}</h2>
+    {% for role in group.roles %}
+      <article class="role">
+        <h3 class="role__title">{{ role.org }}<span class="role__role">&#8212; {{ role.role }}</span></h3>
+        <p class="role__period">{{ role.period }}</p>
+        {% for paragraph in role.body %}
+          <p>{{ paragraph | safe }}</p>
+        {% endfor %}
+        {% if role.bullets and role.bullets.length %}
+          <ul>
+            {% for bullet in role.bullets %}<li>{{ bullet | safe }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+        {% if role.links and role.links.length %}
+          <p class="role__links">
+            {%- for link in role.links %}
+              {%- if not loop.first %} <span class="role__links-separator" aria-hidden="true">|</span> {% endif -%}
+              <a href="{{ link.url }}">{{ link.label }}</a>
+            {%- endfor %}
+          </p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </section>
+{% endfor %}

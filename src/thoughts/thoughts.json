@@ -1,4 +1,5 @@
 {
   "layout": "essay.njk",
-  "tags": "thought"
+  "tags": "thought",
+  "pageKey": "thought"
 }

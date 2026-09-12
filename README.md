@@ -4,19 +4,50 @@ Personal website. Ultra-minimal, retro developer aesthetic.
 
 ## Editar el contenido
 
-El contenido de la web vive en archivos markdown dentro de `src/`.
+El contenido se divide en dos modelos, segun la forma de la pagina.
 
-Archivos actuales:
+### Prosa -> Markdown
 
-- `src/index.md`
-- `src/experience.md`
-- `src/research.md`
-- `src/links.md`
-- `src/notes.njk`
+Paginas que son texto corrido. Se escriben en `.md` y Eleventy las convierte a
+HTML (con footnotes y KaTeX donde aplique):
+
+- `src/thoughts/*.md` - ensayos
+- `src/notebook/*.md` - articulos tecnicos (ver CLAUDE.md para el PDF)
 - `src/privacy.md`
 - `src/how-i-made-the-web.md`
 
-Usa markdown estandar: `#` para titulos, `##` para secciones, `-` para listas, `---` para separadores, `[texto](url)` para links.
+Usa markdown estandar: `#` para titulos, `##` para secciones, `-` para listas,
+`---` para separadores, `[texto](url)` para links.
+
+### Estructura -> datos + plantilla
+
+Paginas que en realidad son una lista de fichas (un CV, publicaciones, links).
+El contenido vive en `src/_data/*.js` y el marcado en la plantilla `.njk`:
+
+| Pagina | Contenido que editas | Plantilla |
+| --- | --- | --- |
+| `/experience/` | `src/_data/experience.js` | `src/experience.njk` |
+| `/research/` | `src/_data/research.js` | `src/research.njk` |
+| `/links/` | `src/_data/links.js` | `src/links.njk` |
+| `/` (home) | `src/index.njk` | - |
+
+Para anadir un puesto o una publicacion, anade un objeto al array del archivo de
+datos. No hay que tocar la plantilla ni el CSS: el orden, los separadores y la
+tipografia salen de ahi.
+
+Los campos de texto rico (`lead`, `body`, `bullets`) admiten HTML en linea
+(`<strong>`, `<a>`) y se imprimen con `| safe`. El resto es texto plano y
+Nunjucks lo escapa.
+
+La home (`src/index.njk`) es HTML directo porque ya es una composicion con
+secciones, tarjetas y numeracion: no queda markdown que aprovechar.
+
+### Por que la separacion
+
+Cuando una pagina estructurada se escribia en markdown, el CSS tenia que
+adivinar el significado por la posicion (`h3 + p` para la fecha de un puesto,
+`h3 em` para el cargo). Eso era invisible desde el fuente, se rompia al insertar
+un parrafo y se filtraba a las paginas de prosa. Ahora cada cosa tiene su clase.
 
 ## Como funciona el menu
 
@@ -32,19 +63,26 @@ Ejemplo actual:
 
 ```js
 module.exports = [
-  { title: "Notes", url: "/notes/" },
   { title: "About", url: "/" },
-  { title: "Experience", url: "/experience/" },
-  { title: "Research", url: "/research/" },
-  { title: "Links", url: "/links/" },
+  { title: "Thoughts", url: "/thoughts/" },
+  { title: "Notebook", url: "/notebook/" },
+  {
+    title: "More",
+    children: [
+      { title: "Experience", url: "/experience/" },
+      { title: "Research", url: "/research/" },
+      { title: "Links", url: "/links/" },
+    ],
+  },
 ];
 ```
 
 ## Anadir una pagina nueva
 
-1. Crea un nuevo markdown dentro de `src/`.
+1. Si es prosa, crea un markdown dentro de `src/`. Si es una pagina
+   estructurada, crea `src/<nombre>.njk` y su `src/_data/<nombre>.js`.
 
-Ejemplo:
+Ejemplo de pagina de prosa:
 
 ```md
 ---
@@ -52,12 +90,16 @@ layout: page.njk
 title: Blog
 permalink: /blog/
 description: Blog page
+pageKey: blog
 ---
 
 # Blog
 
 Contenido de la pagina.
 ```
+
+`pageKey` es opcional: define la clase del `<body>` (`page-blog`) por si esa
+pagina necesita estilos propios. Sin el, el body sale como `page-doc`.
 
 2. Anade su enlace en `src/_data/navigation.js`.
 
@@ -71,7 +113,8 @@ Si no anades la entrada en `navigation.js`, la pagina existira pero no aparecera
 
 ## Anadir o actualizar una nota
 
-Las notas viven en `src/notes/`. Ademas de `date`, puedes anadir un campo opcional `updated` para mostrar la fecha de ultima edicion:
+Las notas viven en `src/thoughts/` (y los articulos tecnicos en
+`src/notebook/`). Ademas de `date`, puedes anadir un campo opcional `updated` para mostrar la fecha de ultima edicion:
 
 ```md
 ---

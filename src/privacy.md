@@ -3,6 +3,7 @@ layout: page.njk
 title: Privacy
 description: Minimal privacy policy for pablomagarinos.es.
 permalink: /privacy/
+pageKey: privacy
 ---
 
 # Privacy

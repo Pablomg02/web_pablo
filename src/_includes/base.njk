@@ -111,7 +111,10 @@
     }
   </script>
 </head>
-<body class="{% if page.url == '/' %}page-index{% else %}page-{{ page.fileSlug }}{% endif %}">
+{#- `pageKey` is set in each page's front matter (or in a directory data file)
+   so the body hook is explicit and cannot collide with an article slug, the
+   way deriving it from `page.fileSlug` could. #}
+<body class="page-{{ pageKey or 'doc' }}">
   <header class="site-header">
     <div class="site-header__inner">
       <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">{{ site.brand }}</a>

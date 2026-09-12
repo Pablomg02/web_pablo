@@ -3,5 +3,6 @@
   "tags": "notebook",
   "math": true,
   "backUrl": "/notebook/",
-  "backLabel": "Notebook"
+  "backLabel": "Notebook",
+  "pageKey": "notebook-article"
 }

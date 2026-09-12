@@ -452,10 +452,9 @@ p {
   margin-bottom: 1.35rem;
 }
 
-/* The compound selector outranks `.content > h1:first-child + p`, which would
-   otherwise style this tagline as a lead body paragraph. */
-.home-subtitle,
-.content > h1:first-child + p.home-subtitle {
+/* The tagline now lives inside `.home-hero`, so it can never be matched by
+   `.content > h1:first-child + p` and needs no specificity guard. */
+.home-subtitle {
   max-width: 60ch;
   font-family: var(--font-heading);
   font-size: 1.05rem;
@@ -560,17 +559,6 @@ hr {
 .content > h3 {
   padding-top: 1.1rem;
   border-top: 1px solid var(--color-border);
-}
-
-.content > h3 em {
-  display: block;
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  font-style: normal;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-muted);
 }
 
 .content > *:first-child {
@@ -716,37 +704,64 @@ hr {
 
 }
 
+/* --- Templated pages: experience, research, links --- */
+/* These pages are generated from src/_data/*.js by their own Nunjucks
+   templates, so the styling hangs off explicit class names instead of the
+   shape of Markdown output (`h3 + p`, `h3 em`, `hr`), which was invisible
+   from the source and leaked into prose pages. */
+
 /* Dense CV and publication pages get a wider editorial measure. */
 .page-experience .content,
 .page-research .content {
   max-width: 900px;
 }
 
-.page-experience .content > h2,
-.page-research .content > h2 {
-  margin-top: 1.75rem;
-  padding-top: 0;
-  border-top: 0;
+/* Lead paragraph under a page title. Prose pages get the same treatment
+   positionally, via `.content > h1:first-child + p`. */
+.page-lead {
+  max-width: 62ch;
+  margin-bottom: 2rem;
+  color: var(--color-muted);
+  font-size: clamp(1.06rem, 2vw, 1.18rem);
+  line-height: 1.68;
 }
 
-.page-experience .content > hr,
-.page-research .content > hr {
-  margin: 3.75rem 0 0;
+/* Experience */
+.experience-group {
+  margin-top: 3.75rem;
   border-top: 1px solid var(--color-border);
-  opacity: 1;
 }
 
-.page-experience .content > h3 {
-  max-width: 32ch;
-  margin-top: 3.25rem;
-  padding-top: 0;
-  border-top: 0;
+.experience-group__title {
+  max-width: 28ch;
+  margin-top: 1.75rem;
   color: var(--color-text);
 }
 
-.page-experience .content > h3 + p {
+.role__title {
+  max-width: 32ch;
+  margin-top: 3.25rem;
+  color: var(--color-text);
+}
+
+/* `<article class="role">` breaks the `h2 + h3` reset, so the first role of a
+   group gets its own. Same idea for the first link group under the h1. */
+.role:first-of-type .role__title {
+  margin-top: 0;
+}
+
+.role__role {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.role__period {
   margin: 0.2rem 0 1.4rem;
-  padding: 0;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -754,21 +769,39 @@ hr {
   color: var(--color-muted);
 }
 
-.page-experience .content > h3 + p em {
-  color: inherit;
-  font-style: normal;
+/* Research */
+.publication {
+  margin-top: 3.75rem;
+  border-top: 1px solid var(--color-border);
 }
 
-.page-experience .content > ul {
-  padding-left: 1.2rem;
-  background: transparent;
-  border-left: 0;
-}
-
-.page-experience .content > h2,
-.page-research .content > h2 {
+.publication__title {
   max-width: 28ch;
+  margin-top: 1.75rem;
   color: var(--color-text);
+}
+
+/* Kept as the lead-sized line it has always been; the intro paragraph below
+   it stays at body size. */
+.research-orcid {
+  max-width: 62ch;
+  margin-bottom: 2rem;
+  color: var(--color-muted);
+  font-size: clamp(1.06rem, 2vw, 1.18rem);
+  line-height: 1.68;
+}
+
+.publication__venue {
+  font-style: italic;
+}
+
+/* Links */
+.link-group__title {
+  padding-top: 0.2rem;
+}
+
+.link-group:first-of-type .link-group__title {
+  margin-top: 0;
 }
 
 /* --- Blinking cursor animation --- */
@@ -1056,13 +1089,13 @@ img {
     padding-bottom: 1rem;
   }
 
-  .page-experience .content > h2,
-  .page-research .content > h2 {
+  .experience-group__title,
+  .publication__title {
     margin-top: 1.5rem;
   }
 
-  .page-experience .content > hr,
-  .page-research .content > hr {
+  .experience-group,
+  .publication {
     margin-top: 3rem;
   }
 

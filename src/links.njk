@@ -1,0 +1,29 @@
+---
+layout: page.njk
+title: Links
+description: Links to Pablo Magariños' profiles, projects, and contact details.
+permalink: /links/
+pageKey: links
+---
+<h1>Links</h1>
+
+{% for group in links %}
+  {% set groupId = 'link-group-' + loop.index %}
+  <section class="link-group" aria-labelledby="{{ groupId }}">
+    <h2 class="link-group__title" id="{{ groupId }}">{{ group.title }}</h2>
+    <ul class="link-list">
+      {% for entry in group.entries %}
+        <li>
+          {%- if entry.prefix -%}
+            {{ entry.prefix }}
+            {%- for link in entry.links %} <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %},{% endif %}{% endfor -%}
+            .
+          {%- else -%}
+            <a href="{{ entry.url }}">{{ entry.label }}</a>
+            {%- if entry.note %} &#8212; {{ entry.note }}{% endif -%}
+          {%- endif -%}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}

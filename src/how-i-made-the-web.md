@@ -3,6 +3,7 @@ layout: page.njk
 title: How I Made the Web
 description: A short note on how the website is built, generated, and published.
 permalink: /how-i-made-the-web/
+pageKey: how-i-made-the-web
 ---
 
 # How I Made the Web
