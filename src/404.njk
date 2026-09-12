@@ -1,0 +1,30 @@
+---
+layout: page.njk
+title: Page Not Found
+description: There is nothing at this address on pablomagarinos.es. Links to every section of the site.
+permalink: /404.html
+robots: noindex, follow
+pageKey: not-found
+eleventyExcludeFromCollections: true
+---
+{#- Served by GitHub Pages for any missing URL, so it is rendered at /404.html
+   but delivered from the address the visitor typed. Excluded from the
+   collections so it stays out of the sitemap; its internal links go through
+   `relativeUrl` like everywhere else, and that filter resolves them from the
+   site root on this page alone. See the comment in .eleventy.js. #}
+<h1>Page Not Found</h1>
+
+<p class="page-lead">There is nothing at this address. It was moved, it was renamed, or it never existed here.</p>
+
+<p>If an old link brought you here, whatever it pointed to has most likely moved rather than disappeared. These are the sections of the site:</p>
+
+<ul>
+  <li><a href="{{ '/' | relativeUrl(page.url) }}">About</a> &#8212; background, current work, education, and research focus.</li>
+  <li><a href="{{ '/experience/' | relativeUrl(page.url) }}">Experience</a> &#8212; research, engineering, and teaching roles.</li>
+  <li><a href="{{ '/research/' | relativeUrl(page.url) }}">Research</a> &#8212; publications and academic work.</li>
+  <li><a href="{{ '/thoughts/' | relativeUrl(page.url) }}">Thoughts</a> &#8212; long-form writing on what I care about.</li>
+  <li><a href="{{ '/notebook/' | relativeUrl(page.url) }}">Tech Notes</a> &#8212; technical articles on what I am learning.</li>
+  <li><a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a> &#8212; profiles, projects, and contact details.</li>
+</ul>
+
+<p>If the broken link was one of mine, I would like to know: <a href="mailto:hi@pablomagarinos.es">hi@pablomagarinos.es</a>.</p>

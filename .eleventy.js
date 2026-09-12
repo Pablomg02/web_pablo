@@ -3,6 +3,11 @@ const path = require("node:path");
 const { katex } = require("@mdit/plugin-katex");
 const markdownItFootnote = require("markdown-it-footnote");
 
+// GitHub Pages serves this page in place of any missing URL. It is declared
+// here as well as in src/404.njk's permalink because `relativeUrl` has to
+// recognise it: see the comment in that filter.
+const NOT_FOUND_URL = "/404.html";
+
 function splitUrl(url = "") {
   const match = url.match(/^([^?#]*)([?#].*)?$/);
 
@@ -38,6 +43,8 @@ function normalizeDate(date) {
 }
 
 module.exports = function (eleventyConfig) {
+  const pathPrefix = process.env.ELEVENTY_PATH_PREFIX || "/";
+
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -132,6 +139,16 @@ module.exports = function (eleventyConfig) {
       return targetUrl;
     }
 
+    // The error page is built at one address and served from another: GitHub
+    // Pages returns it for any missing URL, at any depth. A relative link from
+    // it would resolve against whatever the visitor typed, so /foo/bar/ would
+    // ask for /foo/bar/css/style.css and arrive unstyled, with a navigation of
+    // dead links. Its links are therefore resolved from the site root, which
+    // makes it the one page that has to apply the path prefix itself.
+    if (splitUrl(currentPageUrl).pathname === NOT_FOUND_URL) {
+      return `${pathPrefix.replace(/\/+$/, "")}${pathname}${suffix}`;
+    }
+
     const fromDirectory = ensureDirectoryUrl(splitUrl(currentPageUrl).pathname || "/");
     let relativePath = path.posix.relative(fromDirectory, pathname);
 
@@ -145,8 +162,6 @@ module.exports = function (eleventyConfig) {
 
     return `${relativePath}${suffix}`;
   });
-
-  const pathPrefix = process.env.ELEVENTY_PATH_PREFIX || "/";
 
   return {
     pathPrefix,
