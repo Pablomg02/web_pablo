@@ -181,13 +181,18 @@
     {{ content | safe }}
   </main>
   <footer class="site-footer" aria-label="Site footer">
-    <a href="{{ '/' | relativeUrl(page.url) }}">Pablo Magariños</a>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <a href="{{ '/privacy/' | relativeUrl(page.url) }}">Privacy</a>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <a href="{{ '/how-i-made-the-web/' | relativeUrl(page.url) }}">How I Made the Web</a>
+    {#- The name is a plain label, not a link: the brand in the header already
+       goes home, and as a link it read as a fourth footer entry. #}
+    <span class="site-footer__name">Pablo Magariños</span>
+    {#- The links are one group, so a footer too narrow for a single line
+       breaks between the name and the links, not in the middle of them. #}
+    <div class="site-footer__links">
+      <a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a>
+      <span class="site-footer__separator" aria-hidden="true">|</span>
+      <a href="{{ '/privacy/' | relativeUrl(page.url) }}">Privacy</a>
+      <span class="site-footer__separator" aria-hidden="true">|</span>
+      <a href="{{ '/how-i-made-the-web/' | relativeUrl(page.url) }}">How I Made the Web</a>
+    </div>
   </footer>
   <script data-goatcounter="https://justgoatcounter.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   <script defer src="{{ '/js/site.js' | relativeUrl(page.url) }}"></script>

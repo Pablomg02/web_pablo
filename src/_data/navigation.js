@@ -4,27 +4,26 @@ module.exports = [
     url: "/",
   },
   {
-    title: "Thoughts",
-    url: "/thoughts/",
+    title: "Experience",
+    url: "/experience/",
   },
   {
-    title: "Notebook",
-    url: "/notebook/",
+    title: "Research",
+    url: "/research/",
   },
+  // Both writing sections are small for now, so they share one dropdown
+  // instead of taking two slots in the header. Links is deliberately absent:
+  // it lives in the footer only.
   {
-    title: "More",
+    title: "Notes",
     children: [
       {
-        title: "Experience",
-        url: "/experience/",
+        title: "Thoughts",
+        url: "/thoughts/",
       },
       {
-        title: "Research",
-        url: "/research/",
-      },
-      {
-        title: "Links",
-        url: "/links/",
+        title: "Tech Notes",
+        url: "/notebook/",
       },
     ],
   },
