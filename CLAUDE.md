@@ -50,6 +50,13 @@ Each Notebook article (`src/notebook/<slug>.md`) can have a matching `src/notebo
 Notebook articles inherit `math: true` from `src/notebook/notebook.json`, so
 their pages load KaTeX CSS. Other pages intentionally omit that stylesheet.
 
+`@mdit/plugin-katex` is held at `^0.25.2` on purpose: 1.x requires
+markdown-it 15, and Eleventy 3 pins markdown-it `^14.1.1`, which is the
+instance `amendLibrary("md", ...)` in `.eleventy.js` hands the plugin. Bump it
+only once Eleventy moves to markdown-it 15. `katex` itself is free to track
+latest — the stylesheet and fonts are copied out of `node_modules` by
+`.eleventy.js`, so the CSS can never drift from the rendering version.
+
 PDFs are generated locally, not in CI — the GitHub Pages build (`npm run build`) does not have Pandoc/LaTeX installed, so the PDF must already exist in the repo before pushing.
 
 Process when adding or editing a Notebook article:
