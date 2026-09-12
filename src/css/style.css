@@ -51,15 +51,19 @@
   --color-muted: #626262;
   --color-border: #bcbcbc;
   --color-header-bg: rgba(255, 255, 255, 0.92);
+  --color-surface: rgba(255, 255, 255, 0.72);
+  --color-surface-solid: #ffffff;
+  --color-accent-soft: rgba(138, 101, 0, 0.09);
   --color-grid: rgba(26, 26, 26, 0.035);
   --color-shadow: rgba(184, 137, 0, 0.25);
   --color-notes-shadow: rgba(234, 183, 47, 0.26);
   --footer-link-opacity: 1;
   --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
   --font-brand: 'Press Start 2P', monospace;
-  --max-width: 720px;
-  --spacing: 2rem;
+  --max-width: 1080px;
+  --reading-width: 760px;
+  --spacing: clamp(2rem, 5vw, 3.5rem);
 }
 
 :root[data-theme='light'] {
@@ -78,6 +82,9 @@
   --color-muted: #b5aa84;
   --color-border: #4e4529;
   --color-header-bg: rgba(10, 9, 7, 0.92);
+  --color-surface: rgba(19, 17, 12, 0.78);
+  --color-surface-solid: #13110c;
+  --color-accent-soft: rgba(224, 181, 58, 0.09);
   --color-grid: rgba(244, 236, 209, 0.05);
   --color-shadow: rgba(224, 181, 58, 0.25);
   --color-notes-shadow: rgba(242, 207, 102, 0.28);
@@ -96,6 +103,9 @@
     --color-muted: #b5aa84;
     --color-border: #4e4529;
     --color-header-bg: rgba(10, 9, 7, 0.92);
+    --color-surface: rgba(19, 17, 12, 0.78);
+    --color-surface-solid: #13110c;
+    --color-accent-soft: rgba(224, 181, 58, 0.09);
     --color-grid: rgba(244, 236, 209, 0.05);
     --color-shadow: rgba(224, 181, 58, 0.25);
     --color-notes-shadow: rgba(242, 207, 102, 0.28);
@@ -105,31 +115,12 @@
 
 /* --- Base --- */
 html {
-  font-size: 17px;
-}
-
-/* The content column widens on larger screens (the header caps at 1100px),
-   while the lead paragraph and subtitle keep their own `ch` limits so the
-   measure of the intro text stays comfortable. */
-@media (min-width: 900px) {
-  :root {
-    --max-width: 800px;
-  }
+  font-size: 18px;
 }
 
 @media (min-width: 1100px) {
   html {
-    font-size: 18px;
-  }
-
-  :root {
-    --max-width: 880px;
-  }
-}
-
-@media (min-width: 1500px) {
-  :root {
-    --max-width: 940px;
+    font-size: 19px;
   }
 }
 
@@ -147,11 +138,13 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   background-image:
+    radial-gradient(circle at 15% 4%, var(--color-accent-soft), transparent 24rem),
     linear-gradient(var(--color-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-size: auto, 24px 24px, 24px 24px;
   background-position: top left;
-  line-height: 1.8;
+  font-weight: 500;
+  line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -363,7 +356,7 @@ main {
   flex: 1;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--spacing) 1.5rem 3rem;
+  padding: clamp(2.5rem, 7vw, 5.5rem) 1.5rem clamp(4rem, 8vw, 7rem);
 }
 
 /* --- Footer --- */
@@ -371,12 +364,13 @@ main {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1.5rem 1.5rem;
+  padding: 1.5rem 1.5rem 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.85rem;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.025em;
   text-align: center;
   color: var(--color-muted);
 }
@@ -397,11 +391,11 @@ main {
 /* --- Typography --- */
 h1 {
   font-family: var(--font-heading);
-  font-size: clamp(2.35rem, 6vw, 3.1rem);
+  font-size: clamp(2.8rem, 7vw, 4.6rem);
   font-weight: 700;
   line-height: 1.08;
-  letter-spacing: -0.035em;
-  margin-bottom: 1.4rem;
+  letter-spacing: -0.055em;
+  margin-bottom: 1.6rem;
 }
 
 h1::after {
@@ -412,36 +406,36 @@ h1::after {
 
 h2 {
   font-family: var(--font-heading);
-  font-size: 1.75rem;
+  font-size: clamp(1.55rem, 3vw, 2rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
   color: var(--color-header-accent);
 }
 
 h3 {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.015em;
-  margin-top: 1.75rem;
-  margin-bottom: 0.65rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.55rem;
   color: var(--color-subheading);
 }
 
 p {
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.4rem;
 }
 
 .content > h1:first-child + p {
-  max-width: 58ch;
-  margin-bottom: 1.5rem;
+  max-width: 62ch;
+  margin-bottom: 2rem;
   color: var(--color-muted);
-  font-size: 1.08rem;
-  line-height: 1.8;
+  font-size: clamp(1.06rem, 2vw, 1.18rem);
+  line-height: 1.68;
 }
 
 /* --- Home page title block --- */
@@ -451,11 +445,11 @@ p {
    The blinking `_` from h1::after still applies (.home-title is an h1). */
 .home-title {
   font-family: var(--font-brand);
-  font-size: clamp(1.5rem, 5vw, 2.4rem);
-  line-height: 1.25;
+  font-size: clamp(1.75rem, 5vw, 3.25rem);
+  line-height: 1.22;
   letter-spacing: normal;
   overflow-wrap: break-word;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.35rem;
 }
 
 /* The compound selector outranks `.content > h1:first-child + p`, which would
@@ -469,7 +463,7 @@ p {
   line-height: 1.55;
   letter-spacing: 0.01em;
   color: var(--color-subheading);
-  margin-bottom: 2.25rem;
+  margin-bottom: 0;
 }
 
 /* Each line is its own block so the tagline always breaks after "Applied
@@ -536,12 +530,245 @@ hr {
   border: none;
   border-top: 2px dashed var(--color-muted);
   margin: var(--spacing) 0;
-  opacity: 0.4;
+  opacity: 0.28;
 }
 
 /* --- Article content --- */
+.content {
+  max-width: var(--reading-width);
+}
+
+.content > h1:first-child {
+  position: relative;
+  padding-bottom: 1.25rem;
+}
+
+.content > h1:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--color-header-accent);
+}
+
+.content > h2 {
+  padding-top: 0.2rem;
+}
+
+.content > h3 {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.content > h3 em {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 .content > *:first-child {
-  margin-top: 1rem;
+  margin-top: 0;
+}
+
+/* --- Home / profile composition --- */
+.page-index .content {
+  max-width: none;
+}
+
+.home-hero {
+  position: relative;
+  max-width: 960px;
+  padding: clamp(1.75rem, 5vw, 3.5rem);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 8px 8px 0 var(--color-accent-soft);
+}
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(5rem, 14vw, 9rem);
+  height: 3px;
+  background: var(--color-header-accent);
+}
+
+.home-kicker {
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-header-accent);
+}
+
+.home-intro {
+  max-width: 73ch;
+  margin: clamp(2rem, 5vw, 3.25rem) 0 0;
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--color-border);
+  font-size: clamp(1rem, 1.5vw, 1.08rem);
+  color: var(--color-text);
+}
+
+.home-section {
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.home-section:last-child {
+  padding-bottom: 1rem;
+  border-bottom: 0;
+}
+
+.home-section__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.home-section__heading h2 {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.home-section__index {
+  font-family: var(--font-brand);
+  font-size: 0.58rem;
+  color: var(--color-header-accent);
+}
+
+.education-grid {
+  display: grid;
+  gap: 0;
+}
+
+.education-card {
+  padding: 0 0 1.75rem;
+}
+
+.education-card + .education-card {
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.education-card:last-child {
+  padding-bottom: 0;
+}
+
+.education-card__degree {
+  margin-bottom: 0.35rem;
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-strong);
+}
+
+.education-card__school {
+  margin-bottom: 1.25rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.education-card > p:last-child,
+.home-section__body > p:last-child {
+  margin-bottom: 0;
+}
+
+.home-section__body {
+  max-width: 700px;
+}
+
+.section-lead {
+  font-size: clamp(1.2rem, 2.25vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.48;
+  letter-spacing: -0.018em;
+  color: var(--color-text);
+}
+
+@media (min-width: 820px) {
+  .home-section--split {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1.45fr);
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .home-section--split .home-section__heading {
+    align-items: flex-start;
+    margin-bottom: 0;
+  }
+
+}
+
+/* Dense CV and publication pages get a wider editorial measure. */
+.page-experience .content,
+.page-research .content {
+  max-width: 900px;
+}
+
+.page-experience .content > h2,
+.page-research .content > h2 {
+  margin-top: 1.75rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.page-experience .content > hr,
+.page-research .content > hr {
+  margin: 3.75rem 0 0;
+  border-top: 1px solid var(--color-border);
+  opacity: 1;
+}
+
+.page-experience .content > h3 {
+  max-width: 32ch;
+  margin-top: 3.25rem;
+  padding-top: 0;
+  border-top: 0;
+  color: var(--color-text);
+}
+
+.page-experience .content > h3 + p {
+  margin: 0.2rem 0 1.4rem;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.page-experience .content > h3 + p em {
+  color: inherit;
+  font-style: normal;
+}
+
+.page-experience .content > ul {
+  padding-left: 1.2rem;
+  background: transparent;
+  border-left: 0;
+}
+
+.page-experience .content > h2,
+.page-research .content > h2 {
+  max-width: 28ch;
+  color: var(--color-text);
 }
 
 /* --- Blinking cursor animation --- */
@@ -587,31 +814,58 @@ hr {
 
 /* --- Essay list --- */
 .essay-list {
+  display: grid;
+  gap: 0.85rem;
   list-style: none;
   padding-left: 0;
 }
 
 .essay-list__item {
-  margin-bottom: 1.5rem;
+  position: relative;
+  margin-bottom: 0;
+  padding: 1.35rem 1.4rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.essay-list__item::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 2rem;
+  height: 2px;
+  background: var(--color-header-accent);
+}
+
+@media (hover: hover) {
+  .essay-list__item:hover {
+    transform: translate(-2px, -2px);
+    border-color: var(--color-header-accent);
+    box-shadow: 5px 5px 0 var(--color-accent-soft);
+  }
 }
 
 .essay-list__item a {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--color-header-accent);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+  text-decoration-color: var(--color-header-accent);
+  text-underline-offset: 0.18em;
 }
 
 .essay-list__meta {
   display: block;
   font-size: 0.85rem;
   color: var(--color-muted);
-  margin-top: 0.15rem;
+  margin-top: 0.45rem;
 }
 
 .essay-list__description {
-  margin-top: 0.25rem;
+  margin-top: 0.75rem;
   margin-bottom: 0;
   color: var(--color-muted);
 }
@@ -712,7 +966,7 @@ img {
 /* --- Responsive --- */
 @media (max-width: 600px) {
   html {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .site-header__inner {
@@ -770,7 +1024,46 @@ img {
   }
 
   main {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem 3.5rem;
+  }
+
+  .home-hero {
+    padding: 1.5rem 1.25rem;
+    box-shadow: 5px 5px 0 var(--color-accent-soft);
+  }
+
+  .home-kicker {
+    font-size: 0.65rem;
+  }
+
+  .home-intro {
+    margin-top: 1.75rem;
+  }
+
+  .home-section {
+    padding: 3.25rem 0;
+  }
+
+  .education-card {
+    padding-bottom: 1.5rem;
+  }
+
+  .education-card + .education-card {
+    padding-top: 1.5rem;
+  }
+
+  .content > h1:first-child {
+    padding-bottom: 1rem;
+  }
+
+  .page-experience .content > h2,
+  .page-research .content > h2 {
+    margin-top: 1.5rem;
+  }
+
+  .page-experience .content > hr,
+  .page-research .content > hr {
+    margin-top: 3rem;
   }
 
   .site-footer {

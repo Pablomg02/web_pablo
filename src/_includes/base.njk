@@ -111,7 +111,7 @@
     }
   </script>
 </head>
-<body>
+<body class="{% if page.url == '/' %}page-index{% else %}page-{{ page.fileSlug }}{% endif %}">
   <header class="site-header">
     <div class="site-header__inner">
       <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">{{ site.brand }}</a>
