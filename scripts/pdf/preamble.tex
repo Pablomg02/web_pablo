@@ -13,6 +13,10 @@
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{enumitem}
+% Keep figures where the text puts them: the caption that follows an image
+% in the Markdown is a separate paragraph and would otherwise drift away.
+\usepackage{float}
+\floatplacement{figure}{H}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage[dvipsnames]{xcolor}

@@ -47,6 +47,14 @@ alongside `note` / `summary`.
 
 Each Notebook article (`src/notebook/<slug>.md`) can have a matching `src/notebook/<slug>.pdf` rendered in an academic style (Pandoc + LaTeX: Palatino body/math with TeX Gyre Adventor headings, see `scripts/pdf/preamble.tex`). The article page shows a "Download as PDF" link automatically when the file exists (see `src/_includes/essay.njk`), served via Eleventy passthrough copy (`src/notebook/*.pdf` in `.eleventy.js`).
 
+An article's images go in `src/notebook/<slug>/` and are referenced by bare
+file name (`![alt](figure.png)`): they are copied next to the page, and the PDF
+script passes that folder to Pandoc as `--resource-path`. Figures are pinned in
+place in the PDF (`float` / `H` in the preamble) so the italic caption paragraph
+that follows an image stays with it. Prompts or long quotes can be folded in a
+`<details class="prompt">` with a `<summary class="prompt__label">`; the PDF
+prints them expanded.
+
 Notebook articles inherit `math: true` from `src/notebook/notebook.json`, so
 their pages load KaTeX CSS. Other pages intentionally omit that stylesheet.
 

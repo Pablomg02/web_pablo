@@ -51,6 +51,9 @@ module.exports = function (eleventyConfig) {
   // PDFs are generated locally (npm run notebook:pdf) and committed
   // alongside the article source, not rebuilt in CI.
   eleventyConfig.addPassthroughCopy("src/notebook/*.pdf");
+  // An article's images live in src/notebook/<slug>/ so they are served next
+  // to the page and Pandoc finds them through --resource-path.
+  eleventyConfig.addPassthroughCopy("src/notebook/*/*.{png,jpg,jpeg,svg,webp}");
   eleventyConfig.addPassthroughCopy({
     "node_modules/katex/dist/katex.min.css": "assets/katex/katex.min.css",
     "node_modules/katex/dist/fonts": "assets/katex/fonts",

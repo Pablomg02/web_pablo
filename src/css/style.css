@@ -1003,6 +1003,46 @@ hr {
   color: var(--color-notes-link);
 }
 
+/* --- Quotations --- */
+.content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  border-left: 3px solid var(--color-header-accent);
+  color: var(--color-muted);
+}
+
+.content blockquote > :first-child {
+  margin-top: 0;
+}
+
+.content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* A prompt quoted in an article, collapsible so a long one can be folded. */
+.prompt {
+  margin: 1.5rem 0;
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-border);
+}
+
+.prompt__label {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-notes-link);
+}
+
+.prompt[open] > .prompt__label {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prompt > blockquote {
+  margin: 1rem;
+}
+
 /* --- Images (future) --- */
 img {
   max-width: 100%;

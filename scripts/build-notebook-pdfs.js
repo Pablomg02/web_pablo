@@ -133,6 +133,8 @@ for (const file of articles) {
         "citecolor=NavyBlue",
         "--metadata",
         "lang=en",
+        "--resource-path",
+        [path.join(notebookDir, slug), notebookDir].join(path.delimiter),
       ],
       { stdio: "inherit" },
     );
