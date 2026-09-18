@@ -1,5 +1,5 @@
 ---
-title: "Delegating an Engineering Tool to AI: A Personal Use Case"
+title: "Letting AI Build an Engineering Tool: What to Expect"
 description: A first-hand case study of building IDLEDrones, a conceptual design optimiser for fixed-wing competition drones, with Codex from two main prompts, and an honest look at what came out of it.
 date: 2026-09-18
 topics:
