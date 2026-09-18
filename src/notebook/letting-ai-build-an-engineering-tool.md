@@ -11,9 +11,9 @@ topics:
 
 ## What I am doing
 
-This is not *vibe coding* in the sense of asking for something in two lines and accepting whatever comes out. The AI wrote practically all of the code, but the weight of my work was in defining the problem well, answering its questions and reviewing the result with an engineer's judgement.
+First of all, this is not **vibe coding** in the sense of asking for something in two lines and accepting whatever comes out. The AI wrote practically all of the code, but the weight of my work was in defining the problem well, answering its questions and reviewing the result with an engineer's judgement.
 
-I wanted to build an aircraft optimisation tool for university fixed-wing drone competitions, where each team designs and builds its own aircraft to complete a flight mission: carry as much payload as possible, fly a circuit as fast as possible, or both, within a set of design rules. I called it **IDLEDrones**, for *I Don't Like Engineering: Drones*. These competitions have objective scoring systems, at least for the flight part; the *technical reports* and other sections are more subjective. So everything that is objective can be optimised, if you simplify it enough :)
+I wanted to build an aircraft optimisation tool for university fixed-wing drone competitions, where each team designs and builds its own aircraft to complete a flight mission: carry as much payload as possible, fly a circuit as fast as possible, or both, within a set of design rules. I called it *IDLEDrones*, for *I Don't Like Engineering: Drones*. These competitions have objective scoring systems, at least for the flight part; the **technical reports** and other sections are more subjective. So everything that is objective can be optimised, if you simplify it enough :)
 
 This post is not a tutorial on building an application from scratch, nor a universal recipe: I have not done any master's degree in AI programming. I want to share what you can expect when you give an AI the ability to build an application with barely any human control, through the story of how this first version came out of two main prompts. Of course I cannot include all of my reasoning here, but I think I have captured the essentials, and what results a simple approach can get you, without an endless collection of extra tools.
 
@@ -21,9 +21,9 @@ This post is not a tutorial on building an application from scratch, nor a unive
 
 I used Codex exclusively, specifically Codex CLI, that is, Codex from the terminal, although there is also a desktop app. I do it this way because when I started there was no app for Ubuntu and I got used to it. It also lets me open several Codex terminals in parallel and watch them all progress at once: sometimes two on the same project, or a few more if I am working on two projects at the same time.
 
-I work on Ubuntu because Linux saves me some compatibility problems with scientific Python libraries. This particular version was built and verified on Linux; it can probably be adapted to Windows or macOS, but I have not checked. To manage Python locally I recommend [uv](https://docs.astral.sh/uv/#highlights): anyone can download the project and run `uv sync` to get the right Python version and the pinned dependencies. And however much AI you use to program, version control is still essential. Being honest, in this project everything ended up in a single initial *commit*; it is from now on, iterating on this base, that Git becomes really useful.
+I work on Ubuntu because Linux saves me some compatibility problems with scientific Python libraries. This particular version was built and verified on Linux; it can probably be adapted to Windows or macOS, but I have not checked. To manage Python locally I recommend [uv](https://docs.astral.sh/uv/#highlights): anyone can download the project and run `uv sync` to get the right Python version and the pinned dependencies. And however much AI you use to program, version control is still essential. Being honest, in this project everything ended up in a single initial **commit**; it is from now on, iterating on this base, that Git becomes really useful.
 
-The part that may surprise people with more experience: for this project I did not create any special `AGENTS.md`, any *skill* or any MCP. I used Codex practically *vanilla*, as it comes. My reason is simple: OpenAI does a much better job than I do at optimising these tools for this kind of task, and too many instructions can also degrade how they work. Don't tell it upfront how to do absolutely everything. Give it some freedom and restrict whatever you see failing.
+The part that may surprise people with more experience: for this project I did not create any special `AGENTS.md`, any **skill** or any MCP. I used Codex practically **vanilla**, as it comes. My reason is simple: OpenAI does a much better job than I do at optimising these tools for this kind of task, and too many instructions can also degrade how they work. Don't tell it upfront how to do absolutely everything. Give it some freedom and restrict whatever you see failing.
 
 In other projects I do usually create an `AGENTS.md` or a `CLAUDE.md` with simple instructions when I need them: use `uv` to manage Python, keep documentation in `docs/`, write code in English even though I write in Spanish, or question decisions that could be improved. I try not to overcomplicate it and only add rules I have seen work. Don't do it before you know you need it. That is my personal advice.
 
@@ -44,7 +44,7 @@ First I wrote my ideas in a file, `idea_inicial.md`. Both prompts are translated
 
 > I want to build an optimiser of fixed-wing drones for drone competitions. The goal of the competition is to fly a circuit meeting several objectives. The goal of the optimisation is, therefore, to get the optimal drone for it. For this version, the optimisation circuit will be a 100-metre straight, a tight 20-metre-radius turn, and the same again, 10 times. So the optimisation has to give the optimal drone for that.
 >
-> For now, I was thinking of doing the optimisation with a genetic algorithm, iterating over drone designs. For the constraints you have to give me, on the web, a *drag and drop* option. Some examples: maximum wingspan, maximum drone length, maximum motor power (for this test we assume one motor), etc. Add more if you think of a key constraint.
+> For now, I was thinking of doing the optimisation with a genetic algorithm, iterating over drone designs. For the constraints you have to give me, on the web, a **drag and drop** option. Some examples: maximum wingspan, maximum drone length, maximum motor power (for this test we assume one motor), etc. Add more if you think of a key constraint.
 >
 > Then, under design, you have to give me options: rib material (balsa wood, aluminium, carbon, etc.), skin material (carbon fibre, vinyl, etc.), installed power (remember that if I install X power, I can't then use maximum power as a constraint; maybe I can also fix the motor weight here) and more things if you think of them. It is the space of possibilities that has to be chosen and that aren't trivial, mainly materials and motors.
 >
@@ -113,7 +113,7 @@ The drones it proposes make sense from an engineering point of view, but for now
 
 Another limitation of the verification is that, without me knowing it during the run, the environment had no access to a graphical browser. The web flow was checked through API tests and tests of the built application, but not through a real interactive session in a browser. The visual review was limited to the rendered PDFs.
 
-At a midpoint I counted 34 tests. The delivery ended with 47 passing tests, which is still modest coverage for a tool you would want to consider critical. If I started again, I would push earlier for building the models with more engineering rigour. I would probably go from *documentation → tool* to:
+At a midpoint I counted 34 tests. The delivery ended with 47 passing tests, which is still modest coverage for a tool you would want to consider critical. If I started again, I would push earlier for building the models with more engineering rigour. I would probably go from **documentation → tool** to:
 
 1. Documentation.
 2. Scientific cross-checking of formulas and data.
@@ -122,7 +122,7 @@ At a midpoint I counted 34 tests. The delivery ended with 47 passing tests, whic
 
 I would probably keep GPT-6 Astra for the documentation and use GPT-5.6 Sol for the other three phases.
 
-Something else to improve is that there are still some heuristic constants inside the models, such as the size of the speed grid or the discretisation of the turns. Not everything is *hardcoded*: catalogues, components, mission parameters, constraints and the main physical options are editable. Still, it would be worth identifying and centralising the constants that affect numerical fidelity, so they can be reviewed and studied easily.
+Something else to improve is that there are still some heuristic constants inside the models, such as the size of the speed grid or the discretisation of the turns. Not everything is **hardcoded**: catalogues, components, mission parameters, constraints and the main physical options are editable. Still, it would be worth identifying and centralising the constants that affect numerical fidelity, so they can be reviewed and studied easily.
 
 As a starting point the result is impressive, but there is still work to do for it to be really useful. The weakest part is the interface: it mixes editing a specific aircraft with defining the space of an optimisation. For example, asking upfront for the wingspan and the dimensions suggests you have to fix the aircraft before optimising it, when they should be ranges, limits or variables the optimiser decides. It also lets you pick a base family while the optimisation can explore all three, without explaining the relationship well.
 
@@ -160,6 +160,6 @@ Having such a powerful tool creates the temptation to build ever bigger things. 
 
 ### Reflection
 
-It is essential to keep studying and learning new things, because however far AI advances, you can never ask for something you don't know exists. It sounds silly, but it matters. At least for now, we are the ones who decide what to do: we can delegate the *how* to the AI, but we still decide the *what*. You cannot want a fixed-wing drone if you don't know fixed-wing drones exist. If you only say "drone", the AI may lean towards a quadcopter.
+It is essential to keep studying and learning new things, because however far AI advances, you can never ask for something you don't know exists. It sounds silly, but it matters. At least for now, we are the ones who decide what to do: we can delegate the **how** to the AI, but we still decide the **what**. You cannot want a fixed-wing drone if you don't know fixed-wing drones exist. If you only say "drone", the AI may lean towards a quadcopter.
 
 On the other hand, the space of possibilities is practically infinite. A problem can have countless solutions and ways to approach it. As you add constraints, concrete objectives and context, you close that space. Asking an AI for the optimal solution to your problem in five lines will almost never work, because it lacks an enormous amount of context that you do have. Being precise when framing the problem and learning about the subject will remain useful. It is not only a question of the AI's capability, but of the space of possibilities and the information available. Models will have more and more intuition, but they cannot faithfully rebuild a context you never gave them.

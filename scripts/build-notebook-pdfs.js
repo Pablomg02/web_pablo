@@ -80,7 +80,6 @@ function metaFileContents(meta, slug) {
   out += def("PaperAuthor", escapeLatex(site.author));
   out += def("PaperDate", formatDate(meta.date));
   out += def("PaperUpdated", formatDate(meta.updated));
-  out += def("PaperAbstract", meta.description ? escapeLatex(meta.description) : "");
   const topics = Array.isArray(meta.topics) ? meta.topics : [];
   out += def(
     "PaperKeywords",

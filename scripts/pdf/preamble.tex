@@ -32,7 +32,6 @@
 \providecommand{\PaperAuthor}{}
 \providecommand{\PaperDate}{}
 \providecommand{\PaperUpdated}{}
-\providecommand{\PaperAbstract}{}
 \providecommand{\PaperKeywords}{}
 \providecommand{\PaperUrl}{}
 \providecommand{\PaperSite}{}
@@ -48,7 +47,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 % --- Title block ------------------------------------------------------------
-% Layout: Title / Abstract / Author -- Date / Keywords / rule / body.
+% Layout: Title / Author -- Date / Keywords / rule / body.
 \newcommand{\PaperRule}{\noindent\textcolor{black!25}{\rule{\textwidth}{0.4pt}}}
 
 \renewcommand{\maketitle}{%
@@ -57,15 +56,6 @@
   \begin{center}
     {\sffamily\bfseries\LARGE\PaperTitle\par}
   \end{center}
-  % Abstract
-  \ifx\PaperAbstract\empty\else
-    \vspace{1.1em}
-    \begin{center}
-      \begin{minipage}{0.86\textwidth}
-        \small\noindent{\sffamily\bfseries Abstract.}\enspace\PaperAbstract\par
-      \end{minipage}
-    \end{center}
-  \fi
   % Author -- Date (serif, to sit with the Palatino body)
   \ifx\PaperAuthor\empty\else
     \vspace{1.1em}
