@@ -993,13 +993,214 @@ hr {
   font-style: italic;
 }
 
-/* Links */
-.link-group__title {
-  padding-top: 0.2rem;
+/* Links — also the page shared on its own, so it is laid out as a narrow,
+   centred column that reads the same on a phone: a profile header, then
+   every link as a card that is one tap target. */
+.page-links main {
+  max-width: calc(34rem + 3rem);
 }
 
-.link-group:first-of-type .link-group__title {
-  margin-top: 0;
+.links-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.links-profile__portrait {
+  width: 5rem;
+  aspect-ratio: 1;
+  margin-bottom: 1.1rem;
+  border: 2px solid var(--color-header-accent);
+  box-shadow: 4px 4px 0 var(--color-notes-shadow);
+}
+
+.links-profile__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.links-profile__kicker {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-brand);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-header-accent);
+}
+
+.links-profile__name {
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.1rem);
+  line-height: 1.2;
+}
+
+.links-profile__intro {
+  max-width: 30ch;
+  margin: 0.6rem 0 1.3rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.links-profile__share {
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-notes-link);
+  background: transparent;
+  border: 2px solid var(--color-notes-link);
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.links-profile__share:hover,
+.links-profile__share:focus-visible {
+  box-shadow: 4px 4px 0 var(--color-notes-shadow);
+  transform: translate(-2px, -2px);
+}
+
+.link-group + .link-group {
+  margin-top: 2rem;
+}
+
+.link-group__title {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.link-group__note {
+  margin: -0.35rem 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.link-cards {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link-cards + .link-cards {
+  margin-top: 0.6rem;
+}
+
+.link-cards li {
+  margin: 0;
+}
+
+.link-cards--compact {
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+}
+
+/* Profiles that need no note: a tile with the badge over the name, three to
+   a row even on a phone. */
+.link-cards--compact .link-card {
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 0.5rem;
+  text-align: center;
+}
+
+.link-cards--compact .link-card__label {
+  font-size: 0.9rem;
+  overflow-wrap: normal;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3.6rem;
+  height: 100%;
+  padding: 0.7rem 0.9rem;
+  color: var(--color-text);
+  text-decoration: none;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.link-card:hover,
+.link-card:focus-visible {
+  color: var(--color-text);
+  border-color: var(--color-notes-link);
+  box-shadow: 4px 4px 0 var(--color-notes-shadow);
+  transform: translate(-2px, -2px);
+  outline: none;
+}
+
+.link-card__badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  font-family: var(--font-brand);
+  font-size: 0.62rem;
+  color: var(--color-notes-link);
+  border: 2px solid currentColor;
+}
+
+.link-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.link-card__label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.link-card__note {
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.link-card__arrow {
+  flex: none;
+  color: var(--color-notes-link);
+  transition: transform 0.15s;
+}
+
+.link-card:hover .link-card__arrow,
+.link-card:focus-visible .link-card__arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-card,
+  .link-card__arrow,
+  .links-profile__share {
+    transition: none;
+  }
+
+  .link-card:hover,
+  .link-card:focus-visible,
+  .links-profile__share:hover,
+  .links-profile__share:focus-visible,
+  .link-card:hover .link-card__arrow,
+  .link-card:focus-visible .link-card__arrow {
+    transform: none;
+  }
 }
 
 /* --- Blinking cursor animation --- */
