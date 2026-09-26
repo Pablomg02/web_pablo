@@ -831,7 +831,7 @@ hr {
 
 .home-hero__portrait {
   flex: none;
-  width: clamp(7rem, 15vw, 9.5rem);
+  width: clamp(8rem, 17vw, 11.5rem);
 }
 
 .home-hero__portrait img {
