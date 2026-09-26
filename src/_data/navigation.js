@@ -19,13 +19,13 @@ module.exports = [
   },
   // Links is deliberately absent: it lives in the footer only.
   {
-    title: { en: "Thoughts", es: "Reflexiones" },
-    url: "/thoughts/",
+    title: { en: "Tech Notes", es: "Notas técnicas" },
+    url: "/notebook/",
     group: "personal",
   },
   {
-    title: { en: "Tech Notes", es: "Notas técnicas" },
-    url: "/notebook/",
+    title: { en: "Thoughts", es: "Reflexiones" },
+    url: "/thoughts/",
     group: "personal",
   },
   {
