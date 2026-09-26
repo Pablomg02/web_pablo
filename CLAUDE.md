@@ -72,6 +72,14 @@ added in one language must be added in the other.
   `/es/notebook/<slug>/`, so the Spanish article references them by bare name
   too.
 
+## Thoughts is hidden
+
+`site.showThoughts` (`src/_data/site.js`) is `false`: the essays under
+`src/thoughts/` and `src/es/thoughts/` stay in the repo, but their pages, the
+`/thoughts/` lists, the `/notes/` redirects, the nav entry, the home / 404
+links and the llms.txt section are not built. Setting it to `true` restores
+all of it; a new link to Thoughts must be wrapped in `{% if site.showThoughts %}`.
+
 ## Gallery — photos with a story
 
 Each photo is `src/gallery/<slug>.jpeg` plus its story in

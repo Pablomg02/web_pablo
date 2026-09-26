@@ -1,6 +1,9 @@
----
-permalink: /notes/
-eleventyExcludeFromCollections: true
+---js
+{
+  eleventyExcludeFromCollections: true,
+  // Hidden while site.showThoughts is false.
+  permalink: (data) => (data.site.showThoughts ? "/notes/" : false),
+}
 ---
 <!doctype html>
 <html lang="en">

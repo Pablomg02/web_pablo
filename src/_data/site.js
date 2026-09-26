@@ -3,6 +3,10 @@
 // URLs, handles) are the same in both.
 module.exports = {
   url: "https://pablomagarinos.es",
+  // Thoughts (/thoughts/ and its essays) is hidden from the built site while
+  // this is false: the sources stay in the repo, but no page, link, sitemap
+  // entry or llms.txt line is generated. Set it to true to publish it again.
+  showThoughts: false,
   name: "Pablo Magariños",
   brand: "PMD",
   author: "Pablo Magariños",

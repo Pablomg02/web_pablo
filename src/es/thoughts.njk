@@ -1,9 +1,12 @@
----
-layout: page.njk
-title: Reflexiones
-description: Textos largos sobre temas que me importan.
-permalink: /es/thoughts/
-pageKey: thoughts
+---js
+{
+  layout: "page.njk",
+  title: "Reflexiones",
+  description: "Textos largos sobre temas que me importan.",
+  pageKey: "thoughts",
+  // Hidden while site.showThoughts is false.
+  permalink: (data) => (data.site.showThoughts ? "/es/thoughts/" : false),
+}
 ---
 
 <h1>Reflexiones</h1>

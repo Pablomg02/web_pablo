@@ -31,7 +31,9 @@ eleventyExcludeFromCollections: true
     <li><a href="{{ '/' | relativeUrl(page.url) }}">About</a> &#8212; background, current work, education, and research focus.</li>
     <li><a href="{{ '/experience/' | relativeUrl(page.url) }}">Experience</a> &#8212; research, engineering, and teaching roles.</li>
     <li><a href="{{ '/research/' | relativeUrl(page.url) }}">Research</a> &#8212; publications and academic work.</li>
+    {% if site.showThoughts %}
     <li><a href="{{ '/thoughts/' | relativeUrl(page.url) }}">Thoughts</a> &#8212; long-form writing on what I care about.</li>
+    {% endif %}
     <li><a href="{{ '/notebook/' | relativeUrl(page.url) }}">Tech Notes</a> &#8212; technical articles on what I am learning.</li>
     <li><a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a> &#8212; profiles, projects, and contact details.</li>
   </ul>
@@ -50,7 +52,9 @@ eleventyExcludeFromCollections: true
     <li><a href="{{ '/es/' | relativeUrl(page.url) }}">Sobre mí</a> &#8212; trayectoria, trabajo actual, formación y líneas de investigación.</li>
     <li><a href="{{ '/es/experience/' | relativeUrl(page.url) }}">Experiencia</a> &#8212; puestos en investigación, ingeniería y docencia.</li>
     <li><a href="{{ '/es/research/' | relativeUrl(page.url) }}">Investigación</a> &#8212; publicaciones y trabajo académico.</li>
+    {% if site.showThoughts %}
     <li><a href="{{ '/es/thoughts/' | relativeUrl(page.url) }}">Reflexiones</a> &#8212; textos largos sobre lo que me importa.</li>
+    {% endif %}
     <li><a href="{{ '/es/notebook/' | relativeUrl(page.url) }}">Notas técnicas</a> &#8212; artículos técnicos sobre lo que estoy aprendiendo.</li>
     <li><a href="{{ '/es/links/' | relativeUrl(page.url) }}">Enlaces</a> &#8212; perfiles, proyectos y datos de contacto.</li>
   </ul>

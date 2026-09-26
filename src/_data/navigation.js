@@ -4,6 +4,8 @@
 // `group: "personal"` marks the entries that are Pablo's own writing and
 // photos rather than his professional profile; the header sets them in a
 // second tone, after a divider, so the two halves read apart.
+const site = require("./site.js");
+
 module.exports = [
   {
     title: { en: "About", es: "Sobre mí" },
@@ -33,4 +35,4 @@ module.exports = [
     url: "/gallery/",
     group: "personal",
   },
-];
+].filter((entry) => entry.url !== "/thoughts/" || site.showThoughts);
