@@ -163,7 +163,7 @@
                 {% set entryUrl = entry.url | localeUrl(lang) %}
                 <a
                   href="{{ entryUrl | relativeUrl(page.url) }}"
-                  class="site-nav__link{% if entryUrl == page.url %} is-active{% endif %}"
+                  class="site-nav__link{% if entry.group %} site-nav__link--{{ entry.group }}{% endif %}{% if entryUrl == page.url %} is-active{% endif %}"
                   {% if entryUrl == page.url %}aria-current="page"{% endif %}
                 >
                   {{ entry.title | localize(lang) }}

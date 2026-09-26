@@ -107,6 +107,10 @@ module.exports = [
 ];
 ```
 
+Las entradas con `group: "personal"` (Thoughts, Tech Notes, Gallery) salen en
+el tono del texto en vez de en dorado, tras una rayita que las separa del perfil
+profesional. En el movil el menu va en una segunda fila bajo `PMD`.
+
 ## Anadir una pagina nueva
 
 1. Si es prosa, crea un markdown dentro de `src/` y su traduccion en `src/es/`
