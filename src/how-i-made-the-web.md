@@ -16,15 +16,27 @@ That does not mean every line is complicated. In fact, the point is almost the o
 
 The site is built with Node.js. More specifically, Node.js runs the build process that turns the source files into the final website.
 
-The tool that converts Markdown into HTML is **Eleventy**, a static site generator that runs on Node.js. In practical terms, Eleventy reads the Markdown files, applies the Nunjucks templates that define the layout, copies the assets, and writes the final static website into the *_site* folder.
+The tool that turns the source files into HTML is **Eleventy**, a static site generator that runs on Node.js. In practical terms, Eleventy reads the content, applies the Nunjucks templates that define the layout, processes the images, copies the assets, and writes the final static website into the *_site* folder.
 
-The basic idea is that I can write pages and notes in **Markdown**, a plain-text format that is comfortable for writing and easy to keep under version control. A template then wraps that content, so each page keeps the same structure without me having to repeat the same layout by hand.
+## Markdown and Templates
 
-Writing in Markdown is useful for me because it is simple, but it is also useful for the people and systems reading the site. The visitor receives mostly plain HTML, CSS, and JavaScript. The browser does not have to build the page from a complex application, and search engines can read the content without needing to understand a large client-side framework.
+When I started, almost everything on the site was written in **Markdown**, a plain-text format that is comfortable for writing and easy to keep under version control. A template wrapped each file, so every page kept the same structure without me having to repeat the layout by hand.
+
+That works very well for prose, but less so for the pages that are really lists: my experience, my publications, my links. The styles had to guess what each piece of text was from its position (the paragraph after a heading was a date, the italics inside a heading were a job title), and the design depended on that guess.
+
+So Markdown is now reserved for writing: **Thoughts** and **Tech Notes**, plus a couple of plain pages like this one. The structured pages keep their content in small data files, one entry per role or publication, and have their own templates in which every element has a name. That gives me much more **flexibility with the style** of each page, and adding a publication is just adding an entry. Even the *llms.txt* file, a summary of the site for language models, is generated from the same data, so it cannot fall out of date.
+
+Either way, the visitor receives mostly plain HTML, CSS, and JavaScript. The browser does not have to build the page from a complex application, and search engines can read the content without needing to understand a large client-side framework.
+
+## Two Languages
+
+The whole site exists in English and Spanish. Every page has its Spanish version at the same address under */es/*, and the data files carry both languages side by side. If a translation is missing, the build fails instead of publishing a half-empty page.
 
 ## Static Files
 
 The result of the build is a **static website**. The published site is made of files: HTML documents, stylesheets, scripts, images, and metadata.
+
+Photos go through the build too: Eleventy generates several sizes in WebP and JPEG and removes the camera metadata, so the originals are never published. Tech Notes can also be downloaded as PDF, typeset with Pandoc and LaTeX. I generate those on my own computer, because the automatic build does not have LaTeX installed.
 
 There is no private server generating each page when someone visits it. Once the site has been built, the files are already there, ready to be served. For a personal website like mine, that is enough, and it keeps the whole system lighter.
 
@@ -66,6 +78,6 @@ I like the approach because it keeps the website close to the material it is mad
 
 I also think more people should try setups like mine, especially now that AI makes it easier to work through the technical parts. You can make pages that stay on the internet, host them for free, and keep them portable. If GitHub Pages ever stopped being free, or stopped existing, a static website like mine would still be simple to host somewhere else.
 
-Most importantly, the approach gives you more control over what your website is. Not only its design, but also its values. In my case, for example, I liked being able to choose a setup that does not sell user information to third parties.
+Most importantly, the approach gives you more control over what your website is. Not only its design, but also its values. In my case, for example, I liked being able to choose a setup that does not track visitors or sell their information to third parties.
 
 It is not the only way to make a website, but for mine it feels right: **simple files, simple publishing, and very little machinery between the writing and the reader**.
