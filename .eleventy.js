@@ -74,15 +74,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/notebook/*.pdf");
   // An article's images live in src/notebook/<slug>/ so they are served next
   // to the page and Pandoc finds them through --resource-path.
-  eleventyConfig.addPassthroughCopy("src/notebook/*/*.{png,jpg,jpeg,svg,webp}");
+  const articleImages = "*.{png,jpg,jpeg,svg,webp}";
+  eleventyConfig.addPassthroughCopy(`src/notebook/*/${articleImages}`);
   // The Spanish translation of an article references the same images by bare
-  // file name, so each image folder is copied next to it as well. The images
-  // themselves are not translated.
+  // file name, so each image folder is copied next to it as well, with the
+  // same file types. The images themselves are not translated.
   eleventyConfig.addPassthroughCopy("src/es/notebook/*.pdf");
   for (const entry of fs.readdirSync("src/notebook", { withFileTypes: true })) {
     if (entry.isDirectory()) {
       eleventyConfig.addPassthroughCopy({
-        [`src/notebook/${entry.name}`]: `es/notebook/${entry.name}`,
+        [`src/notebook/${entry.name}/${articleImages}`]: `es/notebook/${entry.name}`,
       });
     }
   }

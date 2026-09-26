@@ -6,10 +6,14 @@ eleventyExcludeFromCollections: true
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {% for entry in collections.all %}
   {% if entry.url and entry.data.layout %}
-  {% set lastmod = entry.data.updated or entry.date %}
+  {#- Only a date written in the front matter. `entry.date` falls back to the
+     file's creation time, which on a fresh CI checkout is the build itself. #}
+  {% set lastmod = entry.data.updated or entry.data.date %}
   <url>
     <loc>{{ entry.url | absoluteUrl(site.url) }}</loc>
+    {%- if lastmod %}
     <lastmod>{{ lastmod | dateToFormat('yyyy-MM-dd') }}</lastmod>
+    {%- endif %}
     {%- for alternateLang in languages %}
     <xhtml:link rel="alternate" hreflang="{{ alternateLang }}" href="{{ entry.url | localeUrl(alternateLang) | absoluteUrl(site.url) }}"/>
     {%- endfor %}

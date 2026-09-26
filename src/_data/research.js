@@ -32,7 +32,7 @@ module.exports = {
         es: "Trabajo Fin de Máster - Máster en Matemática Industrial",
       },
       summary:
-        "multi-agent reinforcement learning architectures for drone search and rescue, analysing stability, convergence and genuine collaboration. Complete, not yet published.",
+        "Multi-agent reinforcement learning architectures for drone search and rescue, analysing stability, convergence and genuine collaboration. Complete, not yet published.",
       body: {
         en: [
           "My Master's thesis studies different <strong>multi-agent AI architectures based on reinforcement learning</strong>, with particular attention to their stability, convergence behaviour, and collaborative dynamics. The work evaluates these architectures across environments of increasing complexity, designed to resemble search and rescue missions where teams of drones must locate one or more targets in novel scenarios.",
@@ -55,7 +55,7 @@ module.exports = {
         es: "Agosto de 2026 — Applied Sciences (MDPI), vol. 16, n.º 17",
       },
       summary:
-        "weakly supervised macroalgae segmentation, analysing CNN gradients across all intermediate layers to guide SAM2 from image-level labels alone.",
+        "Weakly supervised macroalgae segmentation, analysing CNN gradients across all intermediate layers to guide SAM2 from image-level labels alone.",
       body: {
         en: [
           "This paper explores a practical way to understand what a convolutional neural network learns when distinguishing between different macroalgae genera. Instead of looking only at the final convolutional layer, as Grad-CAM typically does, we analyse the <strong>gradients across all intermediate layers</strong>, revealing how early spatial details and deeper semantic features complement one another. We then use that information to guide SAM2 in locating and segmenting the algae <strong>from image-level labels alone</strong>.",
@@ -79,7 +79,7 @@ module.exports = {
         es: "Noviembre de 2025 — Aerospace (MDPI), vol. 12, n.º 11",
       },
       summary:
-        "aerospace research applying PPO to real-time airfoil optimisation under geometric constraints.",
+        "Aerospace research applying PPO to real-time airfoil optimisation under geometric constraints.",
       body: {
         en: [
           "This work began as my Bachelor's thesis and eventually developed into a published paper. It applies <strong>deep reinforcement learning</strong> with Proximal Policy Optimisation (PPO) to optimise aerodynamic airfoil profiles in real time within the context of <strong>morphing wings</strong>. The approach learns to satisfy both aerodynamic objectives and complex geometric constraints while maintaining low computational cost and millisecond-level optimisation speed.",

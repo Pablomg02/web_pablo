@@ -76,9 +76,13 @@ function parseFrontmatter(raw) {
 }
 
 // --- LaTeX helpers ----------------------------------------------------------
+// Entities are decoded before `&` is escaped, and the backslash goes through a
+// placeholder so the braces of \textbackslash{} are not escaped themselves.
 function escapeLatex(input) {
   return String(input)
-    .replace(/\\/g, "\\textbackslash{}")
+    .replace(/&mdash;/g, "—")
+    .replace(/&ndash;/g, "–")
+    .replace(/\\/g, "\u0000")
     .replace(/[&%$#_{}]/g, (c) => `\\${c}`)
     .replace(/~/g, "\\textasciitilde{}")
     .replace(/\^/g, "\\textasciicircum{}")
@@ -89,8 +93,7 @@ function escapeLatex(input) {
     .replace(/“/g, "``")
     .replace(/”/g, "''")
     .replace(/…/g, "\\ldots{}")
-    .replace(/&mdash;/g, "---")
-    .replace(/&ndash;/g, "--");
+    .replace(/\u0000/g, "\\textbackslash{}");
 }
 
 function formatDate(value, language) {

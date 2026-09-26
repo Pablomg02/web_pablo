@@ -28,7 +28,7 @@
 
   <dialog class="gallery-viewer" aria-label="{{ t.photoViewer }}" data-gallery-viewer>
     <div class="gallery-viewer__bar">
-      <span class="gallery-viewer__count" data-gallery-count></span>
+      <span class="gallery-viewer__count" data-gallery-count aria-live="polite"></span>
       <button type="button" class="gallery-viewer__button" data-gallery-step="-1" aria-label="{{ t.previousPhoto }}" title="{{ t.previousPhoto }}">&lt;</button>
       <button type="button" class="gallery-viewer__button" data-gallery-step="1" aria-label="{{ t.nextPhoto }}" title="{{ t.nextPhoto }}">&gt;</button>
       <button type="button" class="gallery-viewer__button gallery-viewer__close" data-gallery-close aria-label="{{ t.closePhoto }}" title="{{ t.closePhoto }}">&times;</button>

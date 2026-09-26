@@ -6,7 +6,7 @@
 {% set topics = articles | uniqueTopics %}
 {% if articles.length %}
   {% if topics.length %}
-    <div class="topic-filter" data-topic-filter aria-label="{{ t.filterByCategory }}">
+    <div class="topic-filter" role="group" data-topic-filter aria-label="{{ t.filterByCategory }}">
       <button type="button" class="topic-filter__btn is-active" data-filter="*" aria-pressed="true">{{ t.all }}</button>
       {% for topic in topics %}
         <button type="button" class="topic-filter__btn" data-filter="{{ topic }}" aria-pressed="false">{{ topic }}</button>

@@ -240,7 +240,6 @@ body {
 .site-nav__link:hover,
 .site-nav__link:focus-visible {
   color: var(--color-notes-link);
-  border-bottom-color: transparent;
   border-color: var(--color-notes-link);
   outline: none;
 }
@@ -1655,7 +1654,6 @@ hr {
   .scroll-rail__mark {
     position: absolute;
     top: calc(var(--at) * 100%);
-    left: 0;
     display: block;
     left: 1px;
     width: 7px;

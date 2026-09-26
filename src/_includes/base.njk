@@ -24,7 +24,7 @@
   <link rel="icon" href="{{ site.favicon | relativeUrl(page.url) }}" type="image/svg+xml">
   <link rel="icon" href="{{ site.faviconPng | relativeUrl(page.url) }}" type="image/png" sizes="256x256">
   <link rel="apple-touch-icon" href="{{ site.faviconPng | relativeUrl(page.url) }}">
-  <meta name="theme-color" content="#100f0c" id="theme-color-meta">
+  <meta name="theme-color" content="#0a0907" id="theme-color-meta">
   {% if not untranslated %}
     {% for alternateLang in languages %}
   <link rel="alternate" hreflang="{{ alternateLang }}" href="{{ page.url | localeUrl(alternateLang) | absoluteUrl(site.url) | escape }}">
@@ -69,7 +69,7 @@
         root.dataset.theme = appliedTheme;
 
         if (themeMeta) {
-          themeMeta.setAttribute('content', appliedTheme === 'dark' ? '#100f0c' : '#ffffff');
+          themeMeta.setAttribute('content', appliedTheme === 'dark' ? '#0a0907' : '#ffffff');
         }
       }
 
