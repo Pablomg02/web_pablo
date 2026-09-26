@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { katex } = require("@mdit/plugin-katex");
 const markdownItFootnote = require("markdown-it-footnote");
+const Image = require("@11ty/eleventy-img").default;
 const i18n = require("./src/_data/i18n.js");
 
 // GitHub Pages serves this page in place of any missing URL. It is declared
@@ -35,6 +36,19 @@ function ensureDirectoryUrl(url = "/") {
 
   return `${path.posix.dirname(url)}/`;
 }
+
+// Photos are resized at build time into /img/, in WebP and JPEG at a few
+// widths (never wider than the original). Re-encoding also drops the camera
+// metadata. The originals stay in src/ and are never published as-is.
+const IMAGE_OPTIONS = {
+  formats: ["webp", "jpeg"],
+  // A touch below the defaults (80): invisible at these sizes, and it takes a
+  // fifth or so off every photo.
+  sharpWebpOptions: { quality: 72 },
+  sharpJpegOptions: { quality: 76, progressive: true, mozjpeg: true },
+  outputDir: "_site/img/",
+  urlPath: "/img/",
+};
 
 function normalizeDate(date) {
   if (date instanceof Date) {
@@ -94,6 +108,65 @@ module.exports = function (eleventyConfig) {
       '<ol class="footnotes-list">\n';
     mdLib.renderer.rules.footnote_block_close = () => "</ol>\n</section>\n";
   });
+  // `{% picture src, alt, options %}` prints a responsive <picture>. It is
+  // asynchronous, so inside a loop it needs `{% asyncEach %}`, not `{% for %}`.
+  const relativeUrl = (...args) => eleventyConfig.getFilter("relativeUrl")(...args);
+
+  eleventyConfig.addAsyncShortcode("picture", async function (src, alt, options = {}) {
+    if (alt === undefined) {
+      throw new Error(`Missing alt text for ${src}`);
+    }
+
+    const metadata = await Image(src, {
+      ...IMAGE_OPTIONS,
+      widths: options.widths || [480, 960, "auto"],
+    });
+    const pageUrl = this.page.url;
+    const srcset = (format) =>
+      metadata[format].map((entry) => `${relativeUrl(entry.url, pageUrl)} ${entry.width}w`).join(", ");
+    const fallback = metadata.jpeg[metadata.jpeg.length - 1];
+    const sizes = options.sizes || "100vw";
+    const attributes = [
+      `src="${relativeUrl(fallback.url, pageUrl)}"`,
+      `srcset="${srcset("jpeg")}"`,
+      `sizes="${sizes}"`,
+      `alt="${String(alt).replace(/"/g, "&quot;")}"`,
+      `width="${fallback.width}"`,
+      `height="${fallback.height}"`,
+      `loading="${options.loading || "lazy"}"`,
+      `decoding="async"`,
+    ];
+
+    if (options.class) {
+      attributes.push(`class="${options.class}"`);
+    }
+
+    if (options.fetchpriority) {
+      attributes.push(`fetchpriority="${options.fetchpriority}"`);
+    }
+
+    return (
+      `<picture><source type="image/webp" srcset="${srcset("webp")}" sizes="${sizes}">` +
+      `<img ${attributes.join(" ")}></picture>`
+    );
+  });
+  // Oldest first, so the gallery reads as a story. Photos from the same year
+  // keep their file-name order; set `order` in the front matter to override.
+  eleventyConfig.addFilter("galleryOrder", (items = []) =>
+    [...items].sort(
+      (a, b) =>
+        (a.data.year - b.data.year) ||
+        ((a.data.order ?? 0) - (b.data.order ?? 0)) ||
+        a.page.fileSlug.localeCompare(b.page.fileSlug),
+    ),
+  );
+  // The photos marked `featured: true` are the strip at the foot of the home.
+  eleventyConfig.addFilter("featuredPhotos", (items = []) =>
+    items.filter((item) => item.data.featured),
+  );
+  eleventyConfig.addFilter("findIndexByUrl", (items = [], url = "") =>
+    items.findIndex((item) => item.url === url),
+  );
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy("src/humans.txt");

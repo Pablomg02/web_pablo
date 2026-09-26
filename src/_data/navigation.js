@@ -23,4 +23,8 @@ module.exports = [
     title: { en: "Tech Notes", es: "Notas técnicas" },
     url: "/notebook/",
   },
+  {
+    title: { en: "Gallery", es: "Galería" },
+    url: "/gallery/",
+  },
 ];

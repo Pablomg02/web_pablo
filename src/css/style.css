@@ -654,7 +654,8 @@ hr {
   border-bottom: 1px solid var(--color-border);
 }
 
-.home-section:last-child {
+.home-section:last-child,
+.home-section:has(+ .photo-band) {
   padding-bottom: 1rem;
   border-bottom: 0;
 }
@@ -742,6 +743,97 @@ hr {
     margin-bottom: 0;
   }
 
+}
+
+/* The portrait sits beside the name. Square, with the hero's offset shadow,
+   so it reads as part of the same box; on a phone it moves above the name. */
+.home-hero__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.home-hero__heading {
+  min-width: 0;
+}
+
+/* Beside the portrait the name wraps onto two lines; this size keeps the
+   blinking cursor on the second one instead of alone on a third. */
+.home-hero__heading .home-title {
+  font-size: clamp(1.75rem, 4.2vw, 2.9rem);
+}
+
+.home-hero__portrait {
+  flex: none;
+  width: clamp(7rem, 15vw, 9.5rem);
+}
+
+.home-hero__portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+}
+
+/* A camera viewfinder around the portrait: four gold corner marks drawn as
+   gradients on one pseudo-element. They close in on the photo on hover, as
+   if it were being brought into focus. */
+.home-hero__portrait {
+  --finder-gap: 9px;
+  --finder-arm: 16px;
+  position: relative;
+}
+
+.home-hero__portrait::before {
+  --c: var(--color-header-accent);
+  --t: 2px;
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--finder-gap));
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) top left / var(--t) var(--finder-arm),
+    linear-gradient(var(--c), var(--c)) top right / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) top right / var(--t) var(--finder-arm),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--t) var(--finder-arm),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--t) var(--finder-arm);
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transition: inset 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* The focus point in the middle of the frame's top edge. */
+.home-hero__portrait::after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--finder-gap) - 2px);
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--color-header-accent);
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.45s;
+  pointer-events: none;
+}
+
+.home-hero__portrait:hover::before {
+  inset: -3px;
+}
+
+.home-hero__portrait:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__portrait::before,
+  .home-hero__portrait::after {
+    transition: none;
+  }
 }
 
 /* --- Templated pages: experience, research, links --- */
@@ -1067,6 +1159,389 @@ hr {
   margin: 1rem;
 }
 
+/* --- Gallery --- */
+/* The grid, each photo's own page and the viewer that opens over the grid
+   share one layout, .photo-view: the photo, and its story beside it. */
+.page-gallery main,
+.page-photo main {
+  max-width: var(--max-width);
+}
+
+/* Justified rows: each tile grows in proportion to its photo's aspect ratio
+   (--ratio, set inline from the image), so a row shares one height and no
+   photo is cropped. The trailing filler keeps a short last row from being
+   stretched to full width. */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery::after {
+  content: '';
+  flex: 10 1 0;
+}
+
+.gallery__item {
+  margin: 0;
+}
+
+.gallery__item {
+  flex: var(--ratio) 1 calc(var(--ratio) * 15rem);
+  min-width: 0;
+  /* A photo left alone on a row stops growing here instead of filling the
+     width at twice the height of its neighbours. */
+  max-width: calc(var(--ratio) * 24rem);
+}
+
+/* The home's band of featured photos: one row, wider than the text column
+   but short of the window's edges, and a single link to the gallery. On hover
+   the photos dim and the invitation to the gallery appears over them. The
+   page clips any overflow the viewport-relative width could cause. */
+.page-index {
+  overflow-x: clip;
+}
+
+.photo-band {
+  --band-width: min(calc(100vw - 2 * clamp(1rem, 7vw, 7rem)), 1320px);
+  position: relative;
+  display: flex;
+  gap: 4px;
+  width: var(--band-width);
+  margin: clamp(3rem, 7vw, 5.5rem) 0 0 calc(50% - var(--band-width) / 2);
+  text-decoration: none;
+}
+
+.photo-band__item {
+  flex: var(--ratio) 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.photo-band__item picture {
+  display: block;
+}
+
+.photo-band__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--ratio);
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.photo-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 9, 7, 0.5);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.photo-band__label {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  padding: 0.7rem 1.3rem;
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  font-weight: 700;
+  white-space: nowrap;
+  color: #f8f2dc;
+  background: rgba(10, 9, 7, 0.55);
+  border: 2px solid #e0b53a;
+  box-shadow: 4px 4px 0 rgba(224, 181, 58, 0.3);
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 0.6rem));
+  transition: opacity 0.4s, transform 0.4s;
+  pointer-events: none;
+}
+
+.photo-band:hover::after,
+.photo-band:focus-visible::after,
+.photo-band:hover .photo-band__label,
+.photo-band:focus-visible .photo-band__label {
+  opacity: 1;
+}
+
+.photo-band:hover .photo-band__label,
+.photo-band:focus-visible .photo-band__label {
+  transform: translate(-50%, -50%);
+}
+
+.photo-band:hover .photo-band__image {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-band__image,
+  .photo-band__label {
+    transition: none;
+  }
+
+  .photo-band:hover .photo-band__image {
+    transform: none;
+  }
+}
+
+/* A photo as a link: just the image. Title and year appear over it on hover
+   or keyboard focus; on a touch screen the photo stands alone. */
+.photo-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: #f8f2dc;
+  text-decoration: none;
+  background: var(--color-surface-solid);
+}
+
+.photo-tile picture {
+  display: block;
+}
+
+.photo-tile__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--ratio);
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;
+}
+
+.photo-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 9, 7, 0.82), rgba(10, 9, 7, 0.25) 45%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.photo-tile__caption {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.photo-tile__title {
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.photo-tile__year {
+  flex: none;
+  font-family: var(--font-brand);
+  font-size: 0.55rem;
+  color: #e0b53a;
+}
+
+.photo-tile:hover::after,
+.photo-tile:focus-visible::after,
+.photo-tile:hover .photo-tile__caption,
+.photo-tile:focus-visible .photo-tile__caption {
+  opacity: 1;
+  transform: none;
+}
+
+.photo-tile:hover .photo-tile__image,
+.photo-tile:focus-visible .photo-tile__image {
+  transform: scale(1.035);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-tile__image,
+  .photo-tile__caption {
+    transition: none;
+  }
+
+  .photo-tile:hover .photo-tile__image,
+  .photo-tile:focus-visible .photo-tile__image {
+    transform: none;
+  }
+}
+
+.photo-view {
+  display: grid;
+  gap: 1.75rem;
+}
+
+@media (min-width: 900px) {
+  .photo-view {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 2.75rem;
+  }
+
+  /* A long story scrolls past the photo, which stays in view. */
+  .photo-view__figure {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .gallery-viewer .photo-view__figure {
+    top: 0;
+  }
+}
+
+.photo-view__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+}
+
+.photo-view__meta {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-header-accent);
+}
+
+.photo-view__title {
+  margin: 0 0 1.4rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: var(--color-text);
+}
+
+.photo-view__text {
+  line-height: 1.75;
+}
+
+.photo-view__text > p:last-child {
+  margin-bottom: 0;
+}
+
+.photo-pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.photo-pager__link {
+  color: var(--color-notes-link);
+  text-decoration: none;
+}
+
+.photo-pager__link:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.photo-pager__link--next {
+  margin-left: auto;
+  text-align: right;
+}
+
+/* The viewer: a modal <dialog> over the grid. The photo is capped to the
+   window's height so it is seen whole; the story scrolls with the panel. */
+html:has(.gallery-viewer[open]) {
+  overflow: hidden;
+}
+
+.gallery-viewer {
+  width: min(1240px, calc(100vw - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 2px solid var(--color-notes-link);
+  box-shadow: 8px 8px 0 var(--color-notes-shadow);
+}
+
+.gallery-viewer[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-viewer::backdrop {
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(3px);
+}
+
+.gallery-viewer__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem 0.25rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gallery-viewer__count {
+  margin-right: auto;
+  font-family: var(--font-brand);
+  font-size: 0.6rem;
+  color: var(--color-muted);
+}
+
+.gallery-viewer__button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.gallery-viewer__button:hover,
+.gallery-viewer__button:focus-visible {
+  color: var(--color-header-accent);
+}
+
+.gallery-viewer__close {
+  font-size: 1.6rem;
+}
+
+.gallery-viewer__body {
+  overflow-y: auto;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.gallery-viewer .photo-view__figure img {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 9rem);
+  margin: 0 auto;
+}
+
 /* --- Images (future) --- */
 img {
   max-width: 100%;
@@ -1078,14 +1553,11 @@ img {
 }
 
 /* --- Responsive --- */
-@media (max-width: 600px) {
-  html {
-    font-size: 17px;
-  }
-
+/* Below the width where the whole navigation fits, the header tightens its
+   spacing and, as a last resort, scrolls sideways instead of widening the
+   page. Keep this width in step with `headerScrollQuery` in site.js. */
+@media (max-width: 1100px) {
   .site-header__inner {
-    padding: 0.9rem 1rem;
-    gap: 0.75rem;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -1095,16 +1567,17 @@ img {
     display: none;
   }
 
-  .site-brand {
-    font-size: 0.75rem;
+  .site-nav,
+  .site-header__actions {
+    gap: 0.3rem;
   }
 
   .site-nav__link {
-    font-size: 0.85rem;
+    padding-inline: 0.55rem;
   }
 
-  /* The header scrolls horizontally on mobile; a fixed dropdown escapes that
-     overflow clipping. JS anchors it under the trigger. */
+  /* A scrolling header would clip an absolute dropdown; a fixed one escapes
+     it. JS anchors it under the trigger. */
   .site-nav__dropdown {
     position: fixed;
     margin-top: 0;
@@ -1112,6 +1585,25 @@ img {
 
   .site-nav__dropdown::before {
     content: none;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 17px;
+  }
+
+  .site-header__inner {
+    padding: 0.9rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .site-brand {
+    font-size: 0.75rem;
+  }
+
+  .site-nav__link {
+    font-size: 0.85rem;
   }
 
   h1 {
@@ -1156,6 +1648,81 @@ img {
 
   .home-intro {
     margin-top: 1.75rem;
+  }
+
+  /* On a phone the portrait stays beside the name: the kicker spans the top,
+     the name and the portrait share a row, and the subtitle runs below. The
+     name shrinks with the screen so its cursor stays on the second line. */
+  .home-hero__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "kicker kicker"
+      "title portrait"
+      "subtitle subtitle";
+    align-items: center;
+    column-gap: 1rem;
+  }
+
+  .home-hero__heading {
+    display: contents;
+  }
+
+  .home-hero__top .home-kicker {
+    grid-area: kicker;
+  }
+
+  .home-hero__top .home-title {
+    grid-area: title;
+    margin-bottom: 0;
+  }
+
+  .home-hero__heading .home-title {
+    font-size: min(1.45rem, 5vw);
+  }
+
+  .home-hero__top .home-subtitle {
+    grid-area: subtitle;
+    margin-top: 1.25rem;
+  }
+
+  .home-hero__portrait {
+    grid-area: portrait;
+    width: clamp(3.75rem, 19vw, 4.5rem);
+  }
+
+  .home-hero__portrait {
+    --finder-gap: 6px;
+    --finder-arm: 11px;
+  }
+
+  /* On a phone the rows are shorter, so two or three photos share one. */
+  .gallery {
+    gap: 0.35rem;
+    margin-top: 1.75rem;
+  }
+
+  .gallery__item {
+    flex-basis: calc(var(--ratio) * 6rem);
+    max-width: calc(var(--ratio) * 10rem);
+  }
+
+  /* On a phone the band scrolls sideways instead of shrinking to slivers. */
+  .photo-band {
+    --band-width: 100vw;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .photo-band::-webkit-scrollbar {
+    display: none;
+  }
+
+  .photo-band__item {
+    flex: none;
+    width: calc(15rem * var(--ratio));
+    scroll-snap-align: start;
   }
 
   .home-section {
@@ -1208,7 +1775,11 @@ img {
 .share-link:focus-visible,
 .linkedin-share-link:focus-visible,
 .x-share-link:focus-visible,
-.pdf-download-link:focus-visible {
+.pdf-download-link:focus-visible,
+.photo-tile:focus-visible,
+.photo-band:focus-visible,
+.gallery-viewer__button:focus-visible,
+.photo-pager__link:focus-visible {
   outline: 2px solid var(--color-header-accent);
   outline-offset: 3px;
 }

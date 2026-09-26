@@ -1,0 +1,16 @@
+{#- One photo and its story, side by side: the photo page renders it, and the
+   gallery page puts a copy of it in a <template> for its viewer. Expects
+   `photo` (the photo's data), `story` (its rendered Markdown) and
+   `photoHeading` ('h1' on the page, 'h2' in the viewer). #}
+<article class="photo-view">
+  <figure class="photo-view__figure">
+    {% picture photo.image, photo.alt, { widths: [960, "auto"], sizes: "(min-width: 900px) 62vw, 100vw", loading: photoLoading or "lazy" } %}
+  </figure>
+  <div class="photo-view__story">
+    <p class="photo-view__meta">{% if photo.place %}{{ photo.place }} <span aria-hidden="true">·</span> {% endif %}{{ photo.year }}</p>
+    <{{ photoHeading }} class="photo-view__title">{{ photo.title }}</{{ photoHeading }}>
+    <div class="photo-view__text">
+      {{ story | safe }}
+    </div>
+  </div>
+</article>

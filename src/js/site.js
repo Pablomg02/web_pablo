@@ -53,7 +53,8 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     return;
   }
 
-  var mobileQuery = window.matchMedia('(max-width: 600px)');
+  // The width below which the header scrolls: keep in step with style.css.
+  var headerScrollQuery = window.matchMedia('(max-width: 1100px)');
 
   function clearPosition(dropdown) {
     var menu = dropdown.querySelector('.site-nav__dropdown');
@@ -65,12 +66,12 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     }
   }
 
-  // The mobile header scrolls horizontally, so its fixed dropdown is anchored
+  // A narrow header scrolls horizontally, so its fixed dropdown is anchored
   // under the trigger instead of being clipped by the header overflow.
   function positionDropdown(dropdown, button) {
     var menu = dropdown.querySelector('.site-nav__dropdown');
 
-    if (!menu || !mobileQuery.matches) {
+    if (!menu || !headerScrollQuery.matches) {
       return;
     }
 
@@ -117,7 +118,7 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     });
   });
 
-  mobileQuery.addEventListener('change', function () {
+  headerScrollQuery.addEventListener('change', function () {
     dropdowns.forEach(clearPosition);
     closeAll(null);
   });

@@ -158,6 +158,33 @@ description: Optional short summary.
 ---
 ```
 
+## Anadir una foto a la galeria
+
+Cada foto es un par imagen + historia:
+
+1. Deja la imagen en `src/gallery/<slug>.jpeg` (a la mayor resolucion que
+   tengas; la web genera los tamanos y el WebP al compilar, y no publica el
+   original).
+2. Escribe la historia en `src/gallery/<slug>.md` y su traduccion en
+   `src/es/gallery/<slug>.md`, con el mismo nombre:
+
+```md
+---
+title: Nuestra primera competición
+year: 2022
+place: Múnich, Alemania
+featured: true
+alt: Descripcion de la foto para quien no la ve.
+---
+
+La historia, en Markdown.
+```
+
+La galeria se ordena por `year` (y, dentro del mismo ano, por nombre de archivo;
+`order: 1`, `2`... lo fuerza). `place` es opcional. `featured: true` la saca en
+la banda de fotos del final de la portada (conviene que sean tres). El retrato de
+la portada es `src/images/portrait.jpeg`.
+
 ## Desarrollo local
 
 ```bash

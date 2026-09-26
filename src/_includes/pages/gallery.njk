@@ -1,0 +1,190 @@
+{#- The photo grid of /gallery/ and /es/gallery/, oldest first. Each tile links
+   to the photo's own page, which works without JavaScript; with it, the
+   script below opens the photo and its story in a viewer over the grid
+   instead. The viewer's copy of each photo waits in a <template>, so its
+   large image is only downloaded when opened. #}
+{% set t = i18n[lang] %}
+{% set photos = collections.photo | inLanguage(lang) | galleryOrder %}
+{% if photos.length %}
+  <ul class="gallery" data-gallery>
+    {% asyncEach item in photos %}
+      <li class="gallery__item" style="--ratio: {{ item.data.ratio }}">
+        <a class="photo-tile" href="{{ item.url | relativeUrl(page.url) }}" data-gallery-link>
+          {% picture item.data.image, item.data.alt, { widths: [320, 640, 960], sizes: "(min-width: 1100px) 560px, (min-width: 600px) 50vw, 55vw", class: "photo-tile__image" } %}
+          <span class="photo-tile__caption">
+            <span class="photo-tile__title">{{ item.data.title }}</span>
+            <span class="photo-tile__year">{{ item.data.year }}</span>
+          </span>
+        </a>
+        <template data-gallery-story data-url="{{ item.url | relativeUrl(page.url) }}">
+          {% set photo = item.data %}
+          {% set story = item.templateContent %}
+          {% set photoHeading = 'h2' %}
+          {% include "partials/photo-view.njk" %}
+        </template>
+      </li>
+    {% endeach %}
+  </ul>
+
+  <dialog class="gallery-viewer" aria-label="{{ t.photoViewer }}" data-gallery-viewer>
+    <div class="gallery-viewer__bar">
+      <span class="gallery-viewer__count" data-gallery-count></span>
+      <button type="button" class="gallery-viewer__button" data-gallery-step="-1" aria-label="{{ t.previousPhoto }}" title="{{ t.previousPhoto }}">&lt;</button>
+      <button type="button" class="gallery-viewer__button" data-gallery-step="1" aria-label="{{ t.nextPhoto }}" title="{{ t.nextPhoto }}">&gt;</button>
+      <button type="button" class="gallery-viewer__button gallery-viewer__close" data-gallery-close aria-label="{{ t.closePhoto }}" title="{{ t.closePhoto }}">&times;</button>
+    </div>
+    <div class="gallery-viewer__body" data-gallery-body></div>
+  </dialog>
+
+  <script>
+    // Justified rows. The CSS alone wraps greedily, which can leave a photo
+    // alone and oversized on its row; this fills each row with the photos
+    // that bring it nearest a target height, then sizes them to fit the
+    // width exactly. The last row keeps the target height, left-aligned.
+    (function () {
+      var gallery = document.querySelector('[data-gallery]');
+      var items = gallery ? Array.prototype.slice.call(gallery.children) : [];
+
+      if (!items.length || typeof ResizeObserver === 'undefined') {
+        return;
+      }
+
+      function ratio(item) {
+        return parseFloat(item.style.getPropertyValue('--ratio')) || 1;
+      }
+
+      function place(row, height) {
+        row.forEach(function (item) {
+          item.style.flex = 'none';
+          item.style.maxWidth = 'none';
+          // Rounded down so sub-pixel sums never push the row into a wrap.
+          item.style.width = Math.floor(ratio(item) * height * 100) / 100 + 'px';
+        });
+      }
+
+      function layout() {
+        var width = gallery.clientWidth;
+        var gap = parseFloat(getComputedStyle(gallery).columnGap) || 0;
+        var target = width < 600 ? 120 : width < 900 ? 210 : 270;
+        var row = [];
+        var sum = 0;
+
+        function heightOf(count, ratios) {
+          return (width - gap * (count - 1)) / ratios;
+        }
+
+        items.forEach(function (item) {
+          var withItem = heightOf(row.length + 1, sum + ratio(item));
+
+          // Once the row is short enough, close it at whichever break leaves
+          // it nearer the target: before this photo, or after it.
+          if (row.length && withItem <= target) {
+            var without = heightOf(row.length, sum);
+
+            if (without - target < target - withItem) {
+              place(row, without);
+              row = [item];
+              sum = ratio(item);
+              return;
+            }
+
+            row.push(item);
+            place(row, withItem);
+            row = [];
+            sum = 0;
+            return;
+          }
+
+          row.push(item);
+          sum += ratio(item);
+        });
+
+        if (row.length) {
+          place(row, target);
+        }
+      }
+
+      var lastWidth = 0;
+      new ResizeObserver(function () {
+        if (gallery.clientWidth !== lastWidth) {
+          lastWidth = gallery.clientWidth;
+          layout();
+        }
+      }).observe(gallery);
+    }());
+
+    (function () {
+      var viewer = document.querySelector('[data-gallery-viewer]');
+      var body = viewer && viewer.querySelector('[data-gallery-body]');
+      var count = viewer && viewer.querySelector('[data-gallery-count]');
+      var links = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-link]'));
+
+      if (!viewer || typeof viewer.showModal !== 'function' || !links.length) {
+        return;
+      }
+
+      var current = -1;
+
+      function show(index) {
+        current = (index + links.length) % links.length;
+        var template = links[current].parentNode.querySelector('[data-gallery-story]');
+        var pageUrl = new URL(template.dataset.url, window.location.href);
+
+        body.replaceChildren(template.content.cloneNode(true));
+        // The story's own links were written relative to the photo's page.
+        body.querySelectorAll('a[href]').forEach(function (link) {
+          link.href = new URL(link.getAttribute('href'), pageUrl).href;
+        });
+        body.scrollTop = 0;
+        count.textContent = (current + 1) + ' / ' + links.length;
+      }
+
+      links.forEach(function (link, index) {
+        link.addEventListener('click', function (event) {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            return;
+          }
+
+          event.preventDefault();
+          show(index);
+          viewer.showModal();
+        });
+      });
+
+      viewer.querySelectorAll('[data-gallery-step]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          show(current + Number(button.dataset.galleryStep));
+        });
+      });
+
+      viewer.querySelector('[data-gallery-close]').addEventListener('click', function () {
+        viewer.close();
+      });
+
+      // A click on the backdrop, outside the panel, closes the viewer.
+      viewer.addEventListener('click', function (event) {
+        if (event.target === viewer) {
+          viewer.close();
+        }
+      });
+
+      viewer.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') {
+          show(current - 1);
+        } else if (event.key === 'ArrowRight') {
+          show(current + 1);
+        }
+      });
+
+      viewer.addEventListener('close', function () {
+        body.replaceChildren();
+
+        if (links[current]) {
+          links[current].focus();
+        }
+      });
+    }());
+  </script>
+{% else %}
+  <p>{{ t.noPhotos }}</p>
+{% endif %}

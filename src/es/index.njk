@@ -8,9 +8,14 @@ pageKey: index
 ---
 
 <header class="home-hero">
-  <p class="home-kicker">Investigador e ingeniero en IA</p>
-  <h1 class="home-title">Pablo Magariños</h1>
-  <p class="home-subtitle"><span class="home-subtitle__line">Ingeniero aeroespacial <span class="home-subtitle__sep">/</span> Matemático aplicado</span><span class="home-subtitle__line">Investigación y desarrollo en inteligencia artificial corporeizada</span></p>
+  <div class="home-hero__top">
+    <div class="home-hero__heading">
+      <p class="home-kicker">Investigador e ingeniero en IA</p>
+      <h1 class="home-title">Pablo Magariños</h1>
+      <p class="home-subtitle"><span class="home-subtitle__line">Ingeniero aeroespacial <span class="home-subtitle__sep">/</span> Matemático aplicado</span><span class="home-subtitle__line">Investigación y desarrollo en inteligencia artificial corporeizada</span></p>
+    </div>
+    <div class="home-hero__portrait">{% picture "src/images/portrait.jpeg", "Retrato de Pablo Magariños", { widths: ["auto"], sizes: "9rem", loading: "eager", fetchpriority: "high" } %}</div>
+  </div>
   <p class="home-intro">La ingeniería aeroespacial me dio una base técnica amplia. Hace más de cinco años, un interés de siempre por la inteligencia me llevó a la inteligencia artificial, y las ganas de entenderla desde sus fundamentos me animaron a cursar un Máster en Matemática Industrial. Hoy me dedico a la investigación e intento aportar algo al campo: mi trabajo se sitúa en el <strong>aprendizaje por refuerzo</strong>, centrado en el problema de la <strong>observabilidad parcial</strong>, junto con el <strong>metaaprendizaje</strong> y los <strong>modelos del mundo</strong>. Lo hago movido por una firme creencia en el conocimiento abierto.</p>
 </header>
 
@@ -72,5 +77,19 @@ pageKey: index
     <p>Me encanta la fotografía. Lo que me atrae es experimentar con la cámara, entender la óptica a nivel físico y probar cosas nuevas para ver cómo funcionan realmente la luz y las imágenes.</p>
     <p>También me apasiona la producción musical, que forma parte de mi vida desde hace más de ocho años. Toqué la guitarra varios años y después me pasé al piano, pero lo que de verdad se ha quedado conmigo es la producción musical, sobre todo por su lado creativo y por el placer de experimentar con el sonido y el software.</p>
     <p>También disfruto dejando que mis pensamientos divaguen, teniendo ideas y pensando por el gusto de pensar. Soy una persona curiosa, y escribo algunas de esas reflexiones en <a href="{{ '/es/thoughts/' | relativeUrl(page.url) }}">Reflexiones</a>.</p>
+    <p>Algunos momentos de los últimos años, cada uno con la historia que hay detrás, están en la <a href="{{ '/es/gallery/' | relativeUrl(page.url) }}">Galería</a>.</p>
   </div>
 </section>
+
+{#- A band of the photos marked `featured: true`, wider than the text column,
+   in one justified row: each photo's width follows its aspect ratio, so none
+   is cropped. The whole band is one link to the gallery. #}
+{% set featuredPhotos = collections.photo | inLanguage(lang) | galleryOrder | featuredPhotos %}
+{% if featuredPhotos.length %}
+  <a class="photo-band" href="{{ '/es/gallery/' | relativeUrl(page.url) }}">
+    {% asyncEach item in featuredPhotos %}
+      <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, "", { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
+    {% endeach %}
+    <span class="photo-band__label">{{ i18n[lang].viewFullGallery }} <span aria-hidden="true">&rarr;</span></span>
+  </a>
+{% endif %}

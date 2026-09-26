@@ -1,0 +1,24 @@
+---
+layout: base.njk
+---
+{% set t = i18n[lang] %}
+{% set galleryUrl = '/gallery/' | localeUrl(lang) %}
+<a class="notes-back-link" href="{{ galleryUrl | relativeUrl(page.url) }}">&lt;&lt; {{ t.backTo }} {{ t.gallery }}</a>
+
+{% set photo = { title: title, year: year, place: place, image: image, alt: alt } %}
+{% set story = content %}
+{% set photoHeading = 'h1' %}
+{% set photoLoading = 'eager' %}
+{% include "partials/photo-view.njk" %}
+
+{#- Previous and next photo in gallery order, in this page's language. #}
+{% set photos = collections.photo | inLanguage(lang) | galleryOrder %}
+{% set position = photos | findIndexByUrl(page.url) %}
+{% set previousPhoto = photos[position - 1] if position > 0 %}
+{% set nextPhoto = photos[position + 1] if position >= 0 %}
+{% if previousPhoto or nextPhoto %}
+  <nav class="photo-pager" aria-label="{{ t.gallery }}">
+    {% if previousPhoto %}<a class="photo-pager__link" rel="prev" href="{{ previousPhoto.url | relativeUrl(page.url) }}">&lt; {{ previousPhoto.data.title }}</a>{% endif %}
+    {% if nextPhoto %}<a class="photo-pager__link photo-pager__link--next" rel="next" href="{{ nextPhoto.url | relativeUrl(page.url) }}">{{ nextPhoto.data.title }} &gt;</a>{% endif %}
+  </nav>
+{% endif %}

@@ -66,6 +66,32 @@ added in one language must be added in the other.
   `/es/notebook/<slug>/`, so the Spanish article references them by bare name
   too.
 
+## Gallery — photos with a story
+
+Each photo is `src/gallery/<slug>.jpeg` plus its story in
+`src/gallery/<slug>.md` and `src/es/gallery/<slug>.md` (front matter: `title`,
+`year`, optional `place`, `alt`, optional `featured`, optional `order`). The
+directory data (`src/gallery/gallery.11tydata.js`, re-exported by the Spanish
+folder) derives `image` from the slug, so both languages share the file, and
+reads its aspect `ratio`, which sizes the justified rows of the grid and the
+home band without cropping. In the grid, a script in `pages/gallery.njk` picks
+the row breaks (nearest a target height) and sizes each row to the width; the
+flex-wrap CSS is only the fallback without JavaScript. Keep originals around
+2400 px on the long side: they are committed to the repo.
+Each photo has its own page (`src/_includes/photo.njk`); `/gallery/` shows the
+grid and, with JavaScript, opens a photo and its story in a `<dialog>` instead
+of navigating. Both render `src/_includes/partials/photo-view.njk`; the grid
+keeps the viewer's copy in a `<template>` and needs `eleventyImport` so the
+stories are rendered before it reads `templateContent`. Tiles show only the photo; title and year
+appear on hover or focus (`.photo-tile`). Photos marked `featured: true` form
+the band at the foot of the home (one link to the gallery); the portrait in the
+home hero is `src/images/portrait.jpeg`.
+
+Images go through `{% picture src, alt, options %}` (`.eleventy.js`, backed by
+`@11ty/eleventy-img`), which writes WebP and JPEG widths into `/img/` at build
+time and strips camera metadata; the originals are never published. The
+shortcode is async: inside a loop use `{% asyncEach %}`, not `{% for %}`.
+
 ## llms.txt is generated, not hand-written
 
 `src/llms.txt.njk` builds `/llms.txt` from the same sources as the pages:

@@ -7,9 +7,14 @@ pageKey: index
 ---
 
 <header class="home-hero">
-  <p class="home-kicker">AI researcher &amp; engineer</p>
-  <h1 class="home-title">Pablo Magariños</h1>
-  <p class="home-subtitle"><span class="home-subtitle__line">Aerospace Engineer <span class="home-subtitle__sep">/</span> Applied Mathematician</span><span class="home-subtitle__line">Research and development in embodied artificial intelligence</span></p>
+  <div class="home-hero__top">
+    <div class="home-hero__heading">
+      <p class="home-kicker">AI researcher &amp; engineer</p>
+      <h1 class="home-title">Pablo Magariños</h1>
+      <p class="home-subtitle"><span class="home-subtitle__line">Aerospace Engineer <span class="home-subtitle__sep">/</span> Applied Mathematician</span><span class="home-subtitle__line">Research and development in embodied artificial intelligence</span></p>
+    </div>
+    <div class="home-hero__portrait">{% picture "src/images/portrait.jpeg", "Portrait of Pablo Magariños", { widths: ["auto"], sizes: "9rem", loading: "eager", fetchpriority: "high" } %}</div>
+  </div>
   <p class="home-intro">Aerospace engineering gave me a broad technical foundation. More than five years ago, a long-standing interest in intelligence led me to artificial intelligence, and the desire to understand it from first principles motivated me to pursue a Master's in Industrial Mathematics. I now work in research, trying to contribute to the field: my work sits in <strong>reinforcement learning</strong>, centred on the problem of <strong>partial observability</strong>, together with <strong>meta-learning</strong> and <strong>world modelling</strong>. I do it driven by a strong belief in open knowledge.</p>
 </header>
 
@@ -71,5 +76,19 @@ pageKey: index
     <p>I love photography. What draws me in is experimenting with my camera, understanding optics at a physical level, and trying new things to see how light and images actually work.</p>
     <p>I'm also passionate about music production, which has been part of my life for more than eight years. I played guitar for several years and later picked up the piano, but music production is what has truly stayed with me, especially for its creative side and the joy of experimenting with sound and software.</p>
     <p>I also enjoy letting my thoughts wander, having ideas, and thinking for the sake of thinking. I am a curious person, and I write some of those reflections in <a href="{{ '/thoughts/' | relativeUrl(page.url) }}">Thoughts</a>.</p>
+    <p>A few moments from the last few years, each with the story behind it, are in the <a href="{{ '/gallery/' | relativeUrl(page.url) }}">Gallery</a>.</p>
   </div>
 </section>
+
+{#- A band of the photos marked `featured: true`, wider than the text column,
+   in one justified row: each photo's width follows its aspect ratio, so none
+   is cropped. The whole band is one link to the gallery. #}
+{% set featuredPhotos = collections.photo | inLanguage(lang) | galleryOrder | featuredPhotos %}
+{% if featuredPhotos.length %}
+  <a class="photo-band" href="{{ '/gallery/' | relativeUrl(page.url) }}">
+    {% asyncEach item in featuredPhotos %}
+      <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, "", { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
+    {% endeach %}
+    <span class="photo-band__label">{{ i18n[lang].viewFullGallery }} <span aria-hidden="true">&rarr;</span></span>
+  </a>
+{% endif %}
