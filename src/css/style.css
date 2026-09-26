@@ -826,12 +826,12 @@ hr {
 /* Beside the portrait the name wraps onto two lines; this size keeps the
    blinking cursor on the second one instead of alone on a third. */
 .home-hero__heading .home-title {
-  font-size: clamp(1.75rem, 4.2vw, 2.9rem);
+  font-size: clamp(1.75rem, 4.2vw, 2.7rem);
 }
 
 .home-hero__portrait {
   flex: none;
-  width: clamp(8rem, 17vw, 11.5rem);
+  width: clamp(7rem, 16vw, 11rem);
 }
 
 .home-hero__portrait img {
