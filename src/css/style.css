@@ -1565,6 +1565,142 @@ hr {
   }
 }
 
+/* Scroll story, on the home, /experience/ and /research/. Both parts are
+   added by site.js from the `data-scroll-step` / `data-reveal` hooks in the
+   markup, so without JavaScript the page is static. As each step is reached
+   its parts rise into place one after another (`--reveal-delay`); the rail
+   on the left fills with the scroll and lights each step's number as the
+   reader gets there. With reduced motion only the rail is kept. */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s ease var(--reveal-delay, 0s),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s);
+}
+
+/* The page's measure, so the rail sits in the middle of the margin. */
+.page-experience,
+.page-research {
+  --rail-page: calc(900px + 3rem);
+}
+
+.scroll-rail {
+  position: fixed;
+  z-index: 5;
+  /* Below the sticky header; site.js sets its height. */
+  top: var(--rail-top, 0);
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.scroll-rail.is-shown {
+  opacity: 1;
+}
+
+.scroll-rail__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-header-accent);
+  transform: scaleY(var(--progress, 0));
+  transform-origin: top;
+}
+
+.scroll-rail__mark {
+  display: none;
+}
+
+/* Where the page leaves a wide enough margin, the rail becomes a short
+   track in it, centred in the window, with the section numbers to its
+   left, so the line runs between them and the text. The
+   rail is 9px wide (odd, so there is a middle pixel) and the track, the
+   fill and every 7px mark are centred on that pixel column; its left
+   edge is rounded to a whole pixel so none of them lands between two. */
+@media (min-width: 1280px) {
+  .scroll-rail {
+    top: 50%;
+    bottom: auto;
+    left: calc((100vw - var(--rail-page, var(--max-width))) / 4 - 4px);
+    left: round(calc((100vw - var(--rail-page, var(--max-width))) / 4 - 4px), 1px);
+    width: 9px;
+    height: min(22rem, 55vh);
+    margin-top: calc(min(22rem, 55vh) / -2);
+  }
+
+  .scroll-rail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .scroll-rail__fill {
+    left: 4px;
+    right: 4px;
+    opacity: 0.75;
+  }
+
+  .scroll-rail__mark {
+    position: absolute;
+    top: calc(var(--at) * 100%);
+    left: 0;
+    display: block;
+    left: 1px;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .scroll-rail__label {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.55rem);
+    font-family: var(--font-brand);
+    font-size: 0.45rem;
+    line-height: 1;
+    color: var(--color-muted);
+    opacity: 0.7;
+    transform: translateY(-50%);
+    transition: color 0.3s ease;
+  }
+
+  .scroll-rail__mark.is-passed {
+    background: var(--color-header-accent);
+    border-color: var(--color-header-accent);
+  }
+
+  .scroll-rail__mark.is-passed .scroll-rail__label {
+    color: var(--color-header-accent);
+    opacity: 0.85;
+  }
+}
+
+@media print {
+  .scroll-rail {
+    display: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* A photo as a link: just the image. Title and year appear over it on hover
    or keyboard focus; on a touch screen the photo stands alone. */
 .photo-tile {

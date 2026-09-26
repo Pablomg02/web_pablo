@@ -5,7 +5,7 @@
 
 {% for publication in research.publications %}
   {% set publicationId = 'publication-' + loop.index %}
-  <article class="publication" aria-labelledby="{{ publicationId }}">
+  <article class="publication" data-scroll-step aria-labelledby="{{ publicationId }}">
     <h2 class="publication__title" id="{{ publicationId }}">{{ publication.title | localize(lang) }}</h2>
     <p class="publication__venue">{{ publication.venue | localize(lang) }}</p>
     {% for paragraph in publication.body | localize(lang) %}

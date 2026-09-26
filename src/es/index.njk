@@ -19,24 +19,24 @@ pageKey: index
   <p class="home-intro">La ingeniería aeroespacial me dio una base técnica amplia. Hace más de cinco años, un interés de siempre por la inteligencia me llevó a la inteligencia artificial, y las ganas de entenderla desde sus fundamentos me animaron a cursar un Máster en Matemática Industrial. Hoy me dedico a la investigación e intento aportar algo al campo: mi trabajo se sitúa en el <strong>aprendizaje por refuerzo</strong>, centrado en el problema de la <strong>observabilidad parcial</strong>, junto con el <strong>metaaprendizaje</strong> y los <strong>modelos del mundo</strong>. Lo hago movido por una firme creencia en el conocimiento abierto.</p>
 </header>
 
-<section class="home-section home-section--split" aria-labelledby="current-work-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="current-work-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">01</span>
     <h2 id="current-work-title">Trabajo actual</h2>
   </div>
-  <div class="home-section__body">
+  <div class="home-section__body" data-reveal-each>
     <p class="section-lead">Estoy empezando un doctorado en Ingeniería Aeroespacial en la Universidade de Vigo, centrado en la <strong>inteligencia artificial corporeizada</strong>.</p>
     <p>En paralelo al doctorado, investigo en <strong>ATRG</strong>, el Aerospace Technology Research Group de la misma universidad, y acabo de empezar a dar clase en la Escuela de Ingeniería Aeroespacial, donde me formé como ingeniero.</p>
     <p>Hay más detalles de cada cosa en <a href="{{ '/es/experience/' | relativeUrl(page.url) }}">Experiencia</a> e <a href="{{ '/es/research/' | relativeUrl(page.url) }}">Investigación</a>.</p>
   </div>
 </section>
 
-<section class="home-section home-section--split" aria-labelledby="education-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="education-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">02</span>
     <h2 id="education-title">Formación</h2>
   </div>
-  <div class="education-grid home-section__body">
+  <div class="education-grid home-section__body" data-reveal-each>
     <article class="education-card">
       <p class="education-card__degree">Doctorado en Ingeniería Aeroespacial</p>
       <p class="education-card__school">Universidade de Vigo</p>
@@ -55,12 +55,12 @@ pageKey: index
   </div>
 </section>
 
-<section class="home-section home-section--split" aria-labelledby="research-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="research-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">03</span>
     <h2 id="research-title">Líneas de investigación</h2>
   </div>
-  <div class="home-section__body">
+  <div class="home-section__body" data-reveal-each>
     <p class="section-lead">Mi investigación se centra en desarrollar una inteligencia que entienda de verdad su entorno, en lugar de limitarse a identificar correlaciones estadísticas en los datos.</p>
     <p>Mi área principal es el <strong>aprendizaje por refuerzo</strong>: agentes que tienen que actuar sin ver nunca el cuadro completo, que aprenden a aprender y que construyen su propio modelo interno del mundo. El objetivo a largo plazo es construir sistemas de IA capaces de generar conocimiento nuevo y de desarrollar sus propios métodos.</p>
     <p>Lo que mejor se me da es investigar y explorar ideas nuevas. Tengo una base sólida en los fundamentos matemáticos de la inteligencia artificial, desde los algoritmos de entrenamiento y la estabilidad numérica hasta las propiedades matemáticas de las redes neuronales. Eso me permite tomar decisiones informadas y originales al diseñar arquitecturas.</p>
@@ -68,12 +68,12 @@ pageKey: index
   </div>
 </section>
 
-<section class="home-section home-section--split" aria-labelledby="about-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="about-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">04</span>
     <h2 id="about-title">Más sobre mí</h2>
   </div>
-  <div class="home-section__body">
+  <div class="home-section__body" data-reveal-each>
     <p>Me encanta la fotografía. Lo que me atrae es experimentar con la cámara, entender la óptica a nivel físico y probar cosas nuevas para ver cómo funcionan realmente la luz y las imágenes.</p>
     <p>También me apasiona la producción musical, que forma parte de mi vida desde hace más de ocho años. Toqué la guitarra varios años y después me pasé al piano, pero lo que de verdad se ha quedado conmigo es la producción musical, sobre todo por su lado creativo y por el placer de experimentar con el sonido y el software.</p>
     <p>También disfruto dejando que mis pensamientos divaguen, teniendo ideas y pensando por el gusto de pensar. Soy una persona curiosa, y escribo algunas de esas reflexiones en <a href="{{ '/es/thoughts/' | relativeUrl(page.url) }}">Reflexiones</a>.</p>
@@ -86,7 +86,7 @@ pageKey: index
    is cropped. The whole band is one link to the gallery. #}
 {% set featuredPhotos = collections.photo | inLanguage(lang) | galleryOrder | featuredPhotos %}
 {% if featuredPhotos.length %}
-  <a class="photo-band" href="{{ '/es/gallery/' | relativeUrl(page.url) }}">
+  <a class="photo-band" data-reveal href="{{ '/es/gallery/' | relativeUrl(page.url) }}">
     {% asyncEach item in featuredPhotos %}
       <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, "", { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
     {% endeach %}

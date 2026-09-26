@@ -18,24 +18,24 @@ pageKey: index
   <p class="home-intro">Aerospace engineering gave me a broad technical foundation. More than five years ago, a long-standing interest in intelligence led me to artificial intelligence, and the desire to understand it from first principles motivated me to pursue a Master's in Industrial Mathematics. I now work in research, trying to contribute to the field: my work sits in <strong>reinforcement learning</strong>, centred on the problem of <strong>partial observability</strong>, together with <strong>meta-learning</strong> and <strong>world modelling</strong>. I do it driven by a strong belief in open knowledge.</p>
 </header>
 
-<section class="home-section home-section--split" aria-labelledby="current-work-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="current-work-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">01</span>
     <h2 id="current-work-title">Current Work</h2>
   </div>
-  <div class="home-section__body">
+  <div class="home-section__body" data-reveal-each>
     <p class="section-lead">I am starting a PhD in Aerospace Engineering at the Universidade de Vigo, centred on <strong>embodied artificial intelligence</strong>.</p>
     <p>Alongside the doctorate, I do research with <strong>ATRG</strong>, the Aerospace Technology Research Group at the same university, and I have just started teaching at the School of Aerospace Engineering, where I trained as an engineer.</p>
     <p>There is more detail on each of these in <a href="{{ '/experience/' | relativeUrl(page.url) }}">Experience</a> and <a href="{{ '/research/' | relativeUrl(page.url) }}">Research</a>.</p>
   </div>
 </section>
 
-<section class="home-section home-section--split" aria-labelledby="education-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="education-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">02</span>
     <h2 id="education-title">Education</h2>
   </div>
-  <div class="education-grid home-section__body">
+  <div class="education-grid home-section__body" data-reveal-each>
     <article class="education-card">
       <p class="education-card__degree">PhD in Aerospace Engineering</p>
       <p class="education-card__school">Universidade de Vigo</p>
@@ -54,12 +54,12 @@ pageKey: index
   </div>
 </section>
 
-<section class="home-section home-section--split" aria-labelledby="research-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="research-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">03</span>
     <h2 id="research-title">Research Focus</h2>
   </div>
-  <div class="home-section__body">
+  <div class="home-section__body" data-reveal-each>
     <p class="section-lead">My research is centred on the development of intelligence that genuinely understands its environment, rather than merely identifying statistical correlations in data.</p>
     <p>My main area is <strong>reinforcement learning</strong>: agents that must act without ever seeing the whole picture, that learn how to learn, and that build their own internal model of the world. The long-term objective is to build AI systems capable of generating new knowledge and developing their own methods.</p>
     <p>What I do best is research and the exploration of novel ideas. I have a strong foundation in the mathematical underpinnings of artificial intelligence, from training algorithms and numerical stability to the mathematical properties of neural networks. This allows me to make informed and original decisions when designing architectures.</p>
@@ -67,12 +67,12 @@ pageKey: index
   </div>
 </section>
 
-<section class="home-section home-section--split" aria-labelledby="about-title">
+<section class="home-section home-section--split" data-scroll-step aria-labelledby="about-title">
   <div class="home-section__heading">
     <span class="home-section__index" aria-hidden="true">04</span>
     <h2 id="about-title">More About Me</h2>
   </div>
-  <div class="home-section__body">
+  <div class="home-section__body" data-reveal-each>
     <p>I love photography. What draws me in is experimenting with my camera, understanding optics at a physical level, and trying new things to see how light and images actually work.</p>
     <p>I'm also passionate about music production, which has been part of my life for more than eight years. I played guitar for several years and later picked up the piano, but music production is what has truly stayed with me, especially for its creative side and the joy of experimenting with sound and software.</p>
     <p>I also enjoy letting my thoughts wander, having ideas, and thinking for the sake of thinking. I am a curious person, and I write some of those reflections in <a href="{{ '/thoughts/' | relativeUrl(page.url) }}">Thoughts</a>.</p>
@@ -85,7 +85,7 @@ pageKey: index
    is cropped. The whole band is one link to the gallery. #}
 {% set featuredPhotos = collections.photo | inLanguage(lang) | galleryOrder | featuredPhotos %}
 {% if featuredPhotos.length %}
-  <a class="photo-band" href="{{ '/gallery/' | relativeUrl(page.url) }}">
+  <a class="photo-band" data-reveal href="{{ '/gallery/' | relativeUrl(page.url) }}">
     {% asyncEach item in featuredPhotos %}
       <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, "", { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
     {% endeach %}

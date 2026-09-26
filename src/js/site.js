@@ -217,3 +217,120 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     });
   });
 }());
+
+// Scroll story (see "Scroll story" in style.css), on the pages whose markup
+// asks for it:
+// - `data-scroll-step` marks a step of the page (a home section, a role, a
+//   publication). It gets a numbered mark on the rail on the left, which
+//   follows the scroll and lights each mark as its step is reached. The
+//   attribute's value is the label; empty, the steps are numbered 01, 02...
+// - Each step's children rise into place one after another when it comes
+//   into view; a child with `data-reveal-each` passes that on to its own
+//   children. `data-reveal` outside a step rises as a single block.
+// Reduced motion keeps only the rail, which moves with the reader's own
+// scrolling. What is already on screen when the page opens is left still.
+(function () {
+  var steps = Array.prototype.slice.call(document.querySelectorAll('[data-scroll-step]'));
+  if (!steps.length) {
+    return;
+  }
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var blocks = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'))
+      .filter(function (block) {
+        return !block.closest('[data-scroll-step]');
+      });
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        // A step above the window (a reload halfway down) shows at once.
+        if (!entry.isIntersecting && entry.boundingClientRect.top > 0) {
+          return;
+        }
+        entry.target.__revealItems.forEach(function (item) {
+          item.classList.add('is-visible');
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+
+    steps.concat(blocks).forEach(function (target) {
+      if (target.getBoundingClientRect().top < window.innerHeight) {
+        return;
+      }
+      var items = target.hasAttribute('data-reveal') ? [target] : [];
+      if (!items.length) {
+        Array.prototype.forEach.call(target.children, function (child) {
+          items = items.concat(child.hasAttribute('data-reveal-each')
+            ? Array.prototype.slice.call(child.children)
+            : [child]);
+        });
+      }
+      items.forEach(function (item, index) {
+        item.classList.add('reveal');
+        item.style.setProperty('--reveal-delay', Math.min(index * 0.09, 0.45) + 's');
+      });
+      target.__revealItems = items;
+      observer.observe(target);
+    });
+  }
+
+  var rail = document.createElement('div');
+  rail.className = 'scroll-rail';
+  rail.setAttribute('aria-hidden', 'true');
+  rail.innerHTML = '<span class="scroll-rail__fill"></span>';
+
+  var marks = steps.map(function (step, index) {
+    var mark = document.createElement('span');
+    mark.className = 'scroll-rail__mark';
+    var label = document.createElement('span');
+    label.className = 'scroll-rail__label';
+    label.textContent = step.getAttribute('data-scroll-step') || String(index + 1).padStart(2, '0');
+    mark.appendChild(label);
+    rail.appendChild(mark);
+    return { step: step, el: mark, at: 0 };
+  });
+  document.body.appendChild(rail);
+
+  var header = document.querySelector('.site-header');
+  var maxScroll = 1;
+  var ticking = false;
+
+  // A step counts as reached when its top crosses the middle of the window;
+  // its mark sits at that point of the page's scroll.
+  function measure() {
+    rail.style.setProperty('--rail-top', (header ? header.offsetHeight : 0) + 'px');
+    maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    marks.forEach(function (mark) {
+      var top = mark.step.getBoundingClientRect().top + window.scrollY;
+      mark.at = Math.min(1, Math.max(0, (top - window.innerHeight * 0.5) / maxScroll));
+      mark.el.style.setProperty('--at', mark.at);
+    });
+    update();
+  }
+
+  function update() {
+    ticking = false;
+    var progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    rail.style.setProperty('--progress', progress);
+    rail.classList.toggle('is-shown', window.scrollY > window.innerHeight * 0.15);
+    marks.forEach(function (mark) {
+      mark.el.classList.toggle('is-passed', progress >= mark.at - 0.001);
+    });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(measure).observe(document.body);
+  }
+  measure();
+}());

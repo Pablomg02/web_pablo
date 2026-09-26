@@ -6,9 +6,9 @@
 {% for group in experience.groups %}
   {% set groupId = 'experience-group-' + loop.index %}
   <section class="experience-group" aria-labelledby="{{ groupId }}">
-    <h2 class="experience-group__title" id="{{ groupId }}">{{ group.title | localize(lang) }}</h2>
+    <h2 class="experience-group__title" id="{{ groupId }}" data-reveal>{{ group.title | localize(lang) }}</h2>
     {% for role in group.roles %}
-      <article class="role">
+      <article class="role" data-scroll-step>
         <h3 class="role__title">{{ role.org | localize(lang) }}<span class="role__role">&#8212; {{ role.role | localize(lang) }}</span></h3>
         <p class="role__period">{{ role.period | localize(lang) }}</p>
         {% for paragraph in role.body | localize(lang) %}
