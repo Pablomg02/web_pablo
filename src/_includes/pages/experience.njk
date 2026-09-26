@@ -1,0 +1,34 @@
+{#- Body of /experience/ and /es/experience/, from src/_data/experience.js.
+   The page files only set the front matter for their language. #}
+<h1>{{ experience.title | localize(lang) }}</h1>
+<p class="page-lead">{{ experience.lead | localize(lang) | safe }}</p>
+
+{% for group in experience.groups %}
+  {% set groupId = 'experience-group-' + loop.index %}
+  <section class="experience-group" aria-labelledby="{{ groupId }}">
+    <h2 class="experience-group__title" id="{{ groupId }}">{{ group.title | localize(lang) }}</h2>
+    {% for role in group.roles %}
+      <article class="role">
+        <h3 class="role__title">{{ role.org | localize(lang) }}<span class="role__role">&#8212; {{ role.role | localize(lang) }}</span></h3>
+        <p class="role__period">{{ role.period | localize(lang) }}</p>
+        {% for paragraph in role.body | localize(lang) %}
+          <p>{{ paragraph | safe }}</p>
+        {% endfor %}
+        {% set bullets = role.bullets | localize(lang) %}
+        {% if bullets and bullets.length %}
+          <ul>
+            {% for bullet in bullets %}<li>{{ bullet | safe }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+        {% if role.links and role.links.length %}
+          <p class="role__links">
+            {%- for link in role.links %}
+              {%- if not loop.first %} <span class="role__links-separator" aria-hidden="true">|</span> {% endif -%}
+              <a href="{{ link.url }}">{{ link.label | localize(lang) }}</a>
+            {%- endfor %}
+          </p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </section>
+{% endfor %}

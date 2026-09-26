@@ -9,9 +9,11 @@ Two content models, chosen by the shape of the page, not by habit:
 - **Prose → Markdown.** `src/thoughts/*.md`, `src/notebook/*.md`,
   `src/privacy.md`, `src/how-i-made-the-web.md`. Text corrido, footnotes, KaTeX.
 - **Structure → data + Nunjucks.** A page that is really a list of records gets
-  its content in `src/_data/<name>.js` and its markup in `src/<name>.njk`:
-  `/experience/`, `/research/`, `/links/`. The home (`src/index.njk`) is plain
-  HTML because it is a composition, not prose.
+  its content in `src/_data/<name>.js` and its markup in
+  `src/_includes/pages/<name>.njk`, included by one thin page file per language
+  (`src/<name>.njk`, `src/es/<name>.njk`) that only holds the front matter:
+  `/experience/`, `/research/`, `/links/`. The home (`src/index.njk`,
+  `src/es/index.njk`) is plain HTML because it is a composition, not prose.
 
 To add a role or a publication, append an object to the array in the data file —
 do not touch the template or the stylesheet. Rich-text fields (`lead`, `body`,
@@ -30,6 +32,40 @@ file), not from `page.fileSlug` — a slug-derived class would let an article
 named `research.md` inherit the CV styling. Pages without a `pageKey` render as
 `page-doc`.
 
+## Languages — English at the root, Spanish under /es/
+
+Every page exists in both languages at mirrored paths: `/research/` and
+`/es/research/`, `/thoughts/<slug>/` and `/es/thoughts/<slug>/`. URLs and file
+names are never translated; the mirror is the only link between translations,
+and the `localeUrl` filter (`.eleventy.js`) swaps the prefix. The header's
+EN/ES switch, the hreflang alternates and the sitemap all rely on it, so a page
+added in one language must be added in the other.
+
+- **Page language** is the `lang` data key: `"en"` globally
+  (`addGlobalData`), `"es"` for everything under `src/es/` via `src/es/es.json`.
+  `<html lang>`, `og:locale` and every string lookup follow it.
+- **Prose and the home**: one file per language. The Spanish file sits at the
+  same path under `src/es/`. Markdown under `src/es/thoughts/` and
+  `src/es/notebook/` has its own directory data file, same as the English.
+- **Data files**: a field whose text changes with the language is
+  `{ en, es }` and is printed through `| localize(lang)`; a field that reads the
+  same in both (a name, a URL, a published paper's title) stays a plain value.
+  `localize` throws on a missing language, so a half-translated record fails
+  the build instead of rendering blank.
+- **Interface strings** (nav chrome, footer, article meta, list pages) live in
+  `src/_data/i18n.js`, read as `i18n[lang].key`. Strings the browser script
+  writes (theme toggle label, "Copied") are at the top of `src/js/site.js`.
+  Navigation URLs in `_data/navigation.js` are written in English and mapped
+  with `localeUrl`.
+- **Collections** (`thought`, `notebook`) hold both languages; list them with
+  `| inLanguage(lang)`.
+- **404**: GitHub Pages serves one `/404.html`, so it carries both languages and
+  a small script shows the Spanish block when the missing URL is under `/es/`.
+  It is `untranslated: true` (no alternates, no language switch).
+- Article images are not translated: `src/notebook/<slug>/` is also copied to
+  `/es/notebook/<slug>/`, so the Spanish article references them by bare name
+  too.
+
 ## llms.txt is generated, not hand-written
 
 `src/llms.txt.njk` builds `/llms.txt` from the same sources as the pages:
@@ -43,9 +79,13 @@ Two things to respect there: it is plain text, so every interpolation takes
 third person, so entries whose page copy is first person carry an `llmsNote`
 alongside `note` / `summary`.
 
+It is English only: it reads bilingual fields with `localize('en')` and filters
+the collections with `inLanguage('en')`. `summary` and `llmsNote` are therefore
+plain English strings, not `{ en, es }` objects.
+
 ## Notebook articles — PDF generation
 
-Each Notebook article (`src/notebook/<slug>.md`) can have a matching `src/notebook/<slug>.pdf` rendered in an academic style (Pandoc + LaTeX: Palatino body/math with TeX Gyre Adventor headings, see `scripts/pdf/preamble.tex`). The article page shows a "Download as PDF" link automatically when the file exists (see `src/_includes/essay.njk`), served via Eleventy passthrough copy (`src/notebook/*.pdf` in `.eleventy.js`).
+Each Notebook article (`src/notebook/<slug>.md`, and its translation `src/es/notebook/<slug>.md`) can have a matching `.pdf` next to it rendered in an academic style (Pandoc + LaTeX: Palatino body/math with TeX Gyre Adventor headings, see `scripts/pdf/preamble.tex`). The article page shows a "Download as PDF" link automatically when the file exists (see `src/_includes/essay.njk`), served via Eleventy passthrough copy (`src/notebook/*.pdf` and `src/es/notebook/*.pdf` in `.eleventy.js`).
 
 An article's images go in `src/notebook/<slug>/` and are referenced by bare
 file name (`![alt](figure.png)`): they are copied next to the page, and the PDF
@@ -65,14 +105,19 @@ only once Eleventy moves to markdown-it 15. `katex` itself is free to track
 latest — the stylesheet and fonts are copied out of `node_modules` by
 `.eleventy.js`, so the CSS can never drift from the rendering version.
 
+The script builds both languages; the Spanish PDFs need babel's Spanish support
+(`sudo apt install texlive-lang-spanish`). Without it the script skips Spanish,
+says so, and exits non-zero. Title-block and footer words come from
+`\PaperLabel*` macros in the preamble, which the script overrides per language.
+
 PDFs are generated locally, not in CI — the GitHub Pages build (`npm run build`) does not have Pandoc/LaTeX installed, so the PDF must already exist in the repo before pushing.
 
 Process when adding or editing a Notebook article:
 
-1. Write/edit `src/notebook/<slug>.md`.
+1. Write/edit `src/notebook/<slug>.md` and its translation `src/es/notebook/<slug>.md`.
 2. Run `npm run notebook:pdf` to (re)generate PDFs for all articles via `scripts/build-notebook-pdfs.js`.
-3. Check the resulting `src/notebook/<slug>.pdf`.
-4. Commit the `.md` and `.pdf` together.
+3. Check the resulting `src/notebook/<slug>.pdf` and `src/es/notebook/<slug>.pdf`.
+4. Commit the `.md` and `.pdf` files of both languages together.
 5. Push — `npm run build` just copies the committed PDF, no Pandoc/LaTeX needed in CI.
 
 If a `.pdf` is missing or stale relative to its `.md`, regenerate it with `npm run notebook:pdf` before committing.

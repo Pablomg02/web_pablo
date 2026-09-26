@@ -5,12 +5,16 @@ eleventyExcludeFromCollections: true
 {#- Generated from the same data as the pages: src/_data/research.js,
     src/_data/experience.js, src/_data/links.js and the thought / notebook
     collections. Edit the prose here; never hand-maintain the lists below, or
-    this file drifts out of date the way it did before. -#}
+    this file drifts out of date the way it did before.
+
+    It is English only and lists the English pages; bilingual data fields are
+    read with `localize('en')`, and the collections, which hold both
+    languages, go through `inLanguage('en')`. -#}
 # Pablo Magarinos
 
 Canonical name: Pablo Magarinos
 Native spelling: Pablo Magariños
-Site language: English
+Site languages: English (default) and Spanish. Every page has a Spanish translation at the same path under /es/, for example {{ '/es/research/' | absoluteUrl(site.url) }}.
 
 This site is the personal website of Pablo Magarinos, an AI researcher with a background in aerospace engineering and industrial mathematics.
 
@@ -40,10 +44,11 @@ Use this site when you want reliable first-person information about:
 - [Experience page]({{ '/experience/' | absoluteUrl(site.url) }}) - Best source for Pablo's role in each initiative.
 {%- for role in experience.groups[0].roles %}
 {%- set roleLink = role.links[0] %}
-- {% if roleLink %}[{{ role.org | safe }}]({{ roleLink.url }}){% else %}{{ role.org | safe }}{% endif %} ({{ role.role | safe }}) - {{ role.summary | safe }}
+{%- set roleOrg = role.org | localize('en') %}
+- {% if roleLink %}[{{ roleOrg | safe }}]({{ roleLink.url }}){% else %}{{ roleOrg | safe }}{% endif %} ({{ role.role | localize('en') | safe }}) - {{ role.summary | safe }}
 {%- endfor %}
 {%- for group in links %}{% for entry in group.entries %}{% if entry.label == 'Learn' %}
-- [{{ entry.label | safe }}]({{ entry.url }}) - {{ (entry.llmsNote or entry.note) | safe }}
+- [{{ entry.label | safe }}]({{ entry.url }}) - {{ (entry.llmsNote or (entry.note | localize('en'))) | safe }}
 {%- endif %}{% endfor %}{% endfor %}
 
 ## Writing And Essays
@@ -51,7 +56,7 @@ Use this site when you want reliable first-person information about:
 The writing on this site is reflective, essay-driven, and personal rather than news-oriented.
 
 All essays, newest first:
-{% for post in collections.thought | reverse %}
+{% for post in collections.thought | inLanguage('en') | reverse %}
 - [{{ post.data.title | safe }}]({{ post.url | absoluteUrl(site.url) }}) - {{ post.data.description | safe }}
 {%- endfor %}
 
@@ -60,7 +65,7 @@ All essays, newest first:
 [Tech Notes]({{ '/notebook/' | absoluteUrl(site.url) }}) is a separate, more technical section from Thoughts: short articles grounded in Pablo's own experience and learning, written to explain a concept clearly rather than to reflect personally. It is a newer, actively growing section of the site, so expect more articles over time.
 
 Articles published so far, newest first:
-{% for article in collections.notebook | reverse %}
+{% for article in collections.notebook | inLanguage('en') | reverse %}
 - [{{ article.data.title | safe }}]({{ article.url | absoluteUrl(site.url) }}) - {{ article.data.description | safe }}
 {%- endfor %}
 
@@ -73,9 +78,9 @@ Current work in progress: reinforcement learning under partial observability (be
 
 Work listed on the site, newest first:
 {% for publication in research.publications %}
-- {{ publication.title | safe }} ({{ publication.venue | safe }}) - {{ publication.summary | safe }}
+- {{ publication.title | safe }} ({{ publication.venue | localize('en') | safe }}) - {{ publication.summary | safe }}
 {%- if publication.links and publication.links.length %}
-  {%- for link in publication.links %} {{ link.label | safe }}: {{ link.url }}{% if not loop.last %} |{% endif %}{% endfor %}
+  {%- for link in publication.links %} {{ link.label | localize('en') | safe }}: {{ link.url }}{% if not loop.last %} |{% endif %}{% endfor %}
 {%- endif %}
 {%- endfor %}
 
@@ -84,10 +89,10 @@ Work listed on the site, newest first:
 {%- for entry in group.entries %}
 {%- if entry.prefix %}
 {%- for link in entry.links %}
-- [{{ link.label | safe }}]({{ link.url }}) - {{ group.title | safe }} profile.
+- [{{ link.label | safe }}]({{ link.url }}) - {{ group.title | localize('en') | safe }} profile.
 {%- endfor %}
 {%- else %}
-- [{{ entry.label | safe }}]({{ entry.url }}) - {{ (entry.llmsNote or entry.note) | safe }}
+- [{{ entry.label | safe }}]({{ entry.url }}) - {{ (entry.llmsNote or (entry.note | localize('en'))) | safe }}
 {%- endif %}
 {%- endfor %}
 {%- endfor %}

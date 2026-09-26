@@ -2,11 +2,18 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { katex } = require("@mdit/plugin-katex");
 const markdownItFootnote = require("markdown-it-footnote");
+const i18n = require("./src/_data/i18n.js");
 
 // GitHub Pages serves this page in place of any missing URL. It is declared
 // here as well as in src/404.njk's permalink because `relativeUrl` has to
 // recognise it: see the comment in that filter.
 const NOT_FOUND_URL = "/404.html";
+
+// English lives at the site root and Spanish under /es/, with the same path
+// after the prefix: /research/ and /es/research/ are one page in two
+// languages. That mirror is the only link between translations.
+const LANGUAGES = ["en", "es"];
+const DEFAULT_LANGUAGE = "en";
 
 function splitUrl(url = "") {
   const match = url.match(/^([^?#]*)([?#].*)?$/);
@@ -54,6 +61,17 @@ module.exports = function (eleventyConfig) {
   // An article's images live in src/notebook/<slug>/ so they are served next
   // to the page and Pandoc finds them through --resource-path.
   eleventyConfig.addPassthroughCopy("src/notebook/*/*.{png,jpg,jpeg,svg,webp}");
+  // The Spanish translation of an article references the same images by bare
+  // file name, so each image folder is copied next to it as well. The images
+  // themselves are not translated.
+  eleventyConfig.addPassthroughCopy("src/es/notebook/*.pdf");
+  for (const entry of fs.readdirSync("src/notebook", { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      eleventyConfig.addPassthroughCopy({
+        [`src/notebook/${entry.name}`]: `es/notebook/${entry.name}`,
+      });
+    }
+  }
   eleventyConfig.addPassthroughCopy({
     "node_modules/katex/dist/katex.min.css": "assets/katex/katex.min.css",
     "node_modules/katex/dist/fonts": "assets/katex/fonts",
@@ -68,9 +86,11 @@ module.exports = function (eleventyConfig) {
   // "References" section at the foot of an article.
   eleventyConfig.amendLibrary("md", (mdLib) => {
     mdLib.use(markdownItFootnote);
-    mdLib.renderer.rules.footnote_block_open = () =>
+    // Eleventy passes the page data as the render env, so the heading
+    // follows the article's language.
+    mdLib.renderer.rules.footnote_block_open = (tokens, idx, options, env = {}) =>
       '<section class="footnotes">\n' +
-      '<h2 class="footnotes__title">References</h2>\n' +
+      `<h2 class="footnotes__title">${i18n[env.lang || DEFAULT_LANGUAGE].references}</h2>\n` +
       '<ol class="footnotes-list">\n';
     mdLib.renderer.rules.footnote_block_close = () => "</ol>\n</section>\n";
   });
@@ -86,6 +106,37 @@ module.exports = function (eleventyConfig) {
 
     return new URL(targetUrl, normalizedBaseUrl).toString();
   });
+  // A bilingual field is an object keyed by language ({ en, es }); a field
+  // that reads the same in both (a name, a URL) stays a plain value and passes
+  // through. A missing translation fails the build instead of rendering blank.
+  eleventyConfig.addFilter("localize", (value, lang = DEFAULT_LANGUAGE) => {
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      return value;
+    }
+
+    if (!(lang in value)) {
+      throw new Error(`Missing "${lang}" translation in ${JSON.stringify(value).slice(0, 120)}`);
+    }
+
+    return value[lang];
+  });
+  // The same page in another language: swap the /es/ prefix. Only for
+  // site-root paths; everything else is returned untouched.
+  eleventyConfig.addFilter("localeUrl", (url = "/", lang = DEFAULT_LANGUAGE) => {
+    if (!url.startsWith("/")) {
+      return url;
+    }
+
+    const bare = url.replace(/^\/es(?=\/|$)/, "") || "/";
+    return lang === DEFAULT_LANGUAGE ? bare : `/${lang}${bare}`;
+  });
+  eleventyConfig.addFilter("inLanguage", (items = [], lang = DEFAULT_LANGUAGE) =>
+    items.filter((item) => (item.data.lang || DEFAULT_LANGUAGE) === lang),
+  );
+  // Every page is English unless its folder says otherwise: src/es/es.json
+  // sets `lang: "es"` for everything under src/es/.
+  eleventyConfig.addGlobalData("lang", DEFAULT_LANGUAGE);
+  eleventyConfig.addGlobalData("languages", LANGUAGES);
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
   eleventyConfig.addFilter("uniqueTopics", (items = []) => {
     const topics = new Set();

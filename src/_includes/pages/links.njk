@@ -1,0 +1,23 @@
+{#- Body of /links/ and /es/links/, from src/_data/links.js. #}
+<h1>{{ i18n[lang].links }}</h1>
+
+{% for group in links %}
+  {% set groupId = 'link-group-' + loop.index %}
+  <section class="link-group" aria-labelledby="{{ groupId }}">
+    <h2 class="link-group__title" id="{{ groupId }}">{{ group.title | localize(lang) }}</h2>
+    <ul class="link-list">
+      {% for entry in group.entries %}
+        <li>
+          {%- if entry.prefix -%}
+            {{ entry.prefix | localize(lang) }}
+            {%- for link in entry.links %} <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %},{% endif %}{% endfor -%}
+            .
+          {%- else -%}
+            <a href="{{ entry.url }}">{{ entry.label }}</a>
+            {%- if entry.note %} &#8212; {{ entry.note | localize(lang) }}{% endif -%}
+          {%- endif -%}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}

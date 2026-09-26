@@ -1,30 +1,26 @@
+// Header navigation. URLs are the English ones; the header maps each to the
+// current language with the `localeUrl` filter, so a Spanish page links to
+// /es/research/ without this file knowing about it.
 module.exports = [
   {
-    title: "About",
+    title: { en: "About", es: "Sobre mí" },
     url: "/",
   },
   {
-    title: "Experience",
+    title: { en: "Experience", es: "Experiencia" },
     url: "/experience/",
   },
   {
-    title: "Research",
+    title: { en: "Research", es: "Investigación" },
     url: "/research/",
   },
-  // Both writing sections are small for now, so they share one dropdown
-  // instead of taking two slots in the header. Links is deliberately absent:
-  // it lives in the footer only.
+  // Links is deliberately absent: it lives in the footer only.
   {
-    title: "Notes",
-    children: [
-      {
-        title: "Thoughts",
-        url: "/thoughts/",
-      },
-      {
-        title: "Tech Notes",
-        url: "/notebook/",
-      },
-    ],
+    title: { en: "Thoughts", es: "Reflexiones" },
+    url: "/thoughts/",
+  },
+  {
+    title: { en: "Tech Notes", es: "Notas técnicas" },
+    url: "/notebook/",
   },
 ];

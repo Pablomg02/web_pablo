@@ -1,10 +1,15 @@
----
-pagination:
-  data: collections.thought
-  size: 1
-  alias: post
-permalink: "/notes/{{ post.fileSlug }}/"
-eleventyExcludeFromCollections: true
+---js
+{
+  // The old /notes/<slug>/ addresses only ever held the English essays.
+  pagination: {
+    data: "collections.thought",
+    size: 1,
+    alias: "post",
+    before: (posts) => posts.filter((post) => post.data.lang === "en"),
+  },
+  permalink: "/notes/{{ post.fileSlug }}/",
+  eleventyExcludeFromCollections: true,
+}
 ---
 <!doctype html>
 <html lang="en">

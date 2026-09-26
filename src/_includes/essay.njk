@@ -1,9 +1,12 @@
 ---
 layout: base.njk
 ---
-{% set backUrl = backUrl or '/thoughts/' %}
-{% set backLabel = backLabel or 'Thoughts' %}
-<a class="notes-back-link" href="{{ backUrl | relativeUrl(page.url) }}">&lt;&lt; Back to {{ backLabel }}</a>
+{% set t = i18n[lang] %}
+{#- backUrl is written as the English path in the directory data file and
+   mapped to the page's language here. #}
+{% set backUrl = (backUrl or '/thoughts/') | localeUrl(lang) %}
+{% set backLabel = t[backLabelKey or 'thoughts'] %}
+<a class="notes-back-link" href="{{ backUrl | relativeUrl(page.url) }}">&lt;&lt; {{ t.backTo }} {{ backLabel }}</a>
 
 <article class="content essay">
   <header class="essay__header">
@@ -16,7 +19,7 @@ layout: base.njk
         {% endif %}
         {% if updated %}
           <span class="essay__meta-separator" aria-hidden="true">|</span>
-          <span class="essay__updated">Last edited <time datetime="{{ updated | dateToFormat }}">{{ updated | dateToFormat('dd-MM-yyyy') }}</time></span>
+          <span class="essay__updated">{{ t.lastEdited }} <time datetime="{{ updated | dateToFormat }}">{{ updated | dateToFormat('dd-MM-yyyy') }}</time></span>
         {% endif %}
         {% if date or updated %}<span class="essay__meta-separator" aria-hidden="true">|</span>{% endif %}
         <a
@@ -26,16 +29,16 @@ layout: base.njk
           data-share-link
           data-share-title="{{ title | escape }}"
           data-share-url="{{ page.url | absoluteUrl(site.url) | escape }}"
-          aria-label="Share {{ title | escape }}"
-        >Share</a>
+          aria-label="{{ t.share }}: {{ title | escape }}"
+        >{{ t.share }}</a>
         <span class="essay__share-separator essay__share-separator--linkedin" aria-hidden="true">|</span>
         <a
           class="linkedin-share-link"
           href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absoluteUrl(site.url) | urlEncode }}"
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on LinkedIn"
-          aria-label="Share {{ title | escape }} on LinkedIn"
+          title="{{ t.share }} {{ t.shareOn }} LinkedIn"
+          aria-label="{{ t.share }} {{ t.shareOn }} LinkedIn: {{ title | escape }}"
         >LinkedIn</a>
         <span class="essay__share-separator essay__share-separator--x" aria-hidden="true">|</span>
         <a
@@ -43,8 +46,8 @@ layout: base.njk
           href="https://twitter.com/intent/tweet?url={{ page.url | absoluteUrl(site.url) | urlEncode }}&amp;text={{ title | urlEncode }}"
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on X"
-          aria-label="Share {{ title | escape }} on X"
+          title="{{ t.share }} {{ t.shareOn }} X"
+          aria-label="{{ t.share }} {{ t.shareOn }} X: {{ title | escape }}"
         >X</a>
         {% if hasPdf %}
           {% set pdfUrl = (page.url | stripTrailingSlash) + '.pdf' %}
@@ -53,9 +56,9 @@ layout: base.njk
             class="pdf-download-link"
             href="{{ pdfUrl | relativeUrl(page.url) }}"
             download
-            title="Download as PDF"
-            aria-label="Download {{ title | escape }} as PDF"
-          >Download PDF</a>
+            title="{{ t.downloadAsPdf }}"
+            aria-label="{{ t.downloadAsPdf }}: {{ title | escape }}"
+          >{{ t.downloadPdf }}</a>
         {% endif %}
       </div>
       {% if topics and topics.length %}

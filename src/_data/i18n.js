@@ -1,0 +1,55 @@
+// Interface strings: the words that belong to the site's chrome (header,
+// footer, article meta, list pages) rather than to any one page's copy.
+// Templates read them as `i18n[lang].key`; `.eleventy.js` reads `references`
+// for the footnotes heading. Both languages must carry the same keys.
+//
+// Page copy does not go here. A page's own text lives in its source file
+// (src/<page> and src/es/<page>), and a record's text in its data file.
+module.exports = {
+  en: {
+    languageName: "English",
+    switchTo: "Leer en español",
+    toggleTheme: "Toggle colour theme",
+    primaryNavigation: "Primary navigation",
+    siteFooter: "Site footer",
+    links: "Links",
+    privacy: "Privacy",
+    howIMadeTheWeb: "How I Made the Web",
+    thoughts: "Thoughts",
+    techNotes: "Tech Notes",
+    backTo: "Back to",
+    lastEdited: "Last edited",
+    share: "Share",
+    shareOn: "on",
+    downloadPdf: "Download PDF",
+    downloadAsPdf: "Download as PDF",
+    filterByCategory: "Filter articles by category",
+    all: "All",
+    noNotes: "No notes published yet.",
+    noArticles: "No articles published yet.",
+    references: "References",
+  },
+  es: {
+    languageName: "Español",
+    switchTo: "Read in English",
+    toggleTheme: "Cambiar el tema de color",
+    primaryNavigation: "Navegación principal",
+    siteFooter: "Pie de página",
+    links: "Enlaces",
+    privacy: "Privacidad",
+    howIMadeTheWeb: "Cómo hice la web",
+    thoughts: "Reflexiones",
+    techNotes: "Notas técnicas",
+    backTo: "Volver a",
+    lastEdited: "Última edición",
+    share: "Compartir",
+    shareOn: "en",
+    downloadPdf: "Descargar PDF",
+    downloadAsPdf: "Descargar en PDF",
+    filterByCategory: "Filtrar artículos por categoría",
+    all: "Todas",
+    noNotes: "Todavía no hay reflexiones publicadas.",
+    noArticles: "Todavía no hay artículos publicados.",
+    references: "Referencias",
+  },
+};

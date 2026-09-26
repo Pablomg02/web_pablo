@@ -1,0 +1,23 @@
+{#- Body of /research/ and /es/research/, from src/_data/research.js. #}
+<h1>{{ research.title | localize(lang) }}</h1>
+<p class="research-orcid"><a href="{{ research.orcid.url }}">ORCID: {{ research.orcid.id }}</a></p>
+<p class="research-intro">{{ research.lead | localize(lang) | safe }}</p>
+
+{% for publication in research.publications %}
+  {% set publicationId = 'publication-' + loop.index %}
+  <article class="publication" aria-labelledby="{{ publicationId }}">
+    <h2 class="publication__title" id="{{ publicationId }}">{{ publication.title | localize(lang) }}</h2>
+    <p class="publication__venue">{{ publication.venue | localize(lang) }}</p>
+    {% for paragraph in publication.body | localize(lang) %}
+      <p>{{ paragraph | safe }}</p>
+    {% endfor %}
+    {% if publication.links and publication.links.length %}
+      <p class="publication__links">
+        {%- for link in publication.links %}
+          {%- if not loop.first %} <span class="publication__links-separator" aria-hidden="true">&#8212;</span> {% endif -%}
+          <a href="{{ link.url }}">{{ link.label | localize(lang) }}</a>
+        {%- endfor %}
+      </p>
+    {% endif %}
+  </article>
+{% endfor %}

@@ -1,11 +1,16 @@
-{% set seoTitle = metaTitle or (site.defaultTitle if page.url == '/' else title + ' | ' + site.name) %}
-{% set seoDescription = description or site.defaultDescription %}
+{% set t = i18n[lang] %}
+{% set seoTitle = metaTitle or ((site.defaultTitle | localize(lang)) if page.url == ('/' | localeUrl(lang)) else title + ' | ' + site.name) %}
+{% set seoDescription = description or (site.defaultDescription | localize(lang)) %}
 {% set canonicalUrl = page.url | absoluteUrl(site.url) %}
 {% set robotsContent = robots or 'index, follow' %}
 {% set socialImagePath = socialImage or site.socialImage %}
 {% set socialImageUrl = socialImagePath | absoluteUrl(site.url) %}
+{#- Every page exists in both languages at mirrored paths, except the few that
+   set `untranslated: true` (the error page), which get no alternates and no
+   language switch. #}
+{% set otherLang = 'es' if lang == 'en' else 'en' %}
 <!DOCTYPE html>
-<html lang="{{ site.locale }}">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +25,14 @@
   <link rel="icon" href="{{ site.faviconPng | relativeUrl(page.url) }}" type="image/png" sizes="256x256">
   <link rel="apple-touch-icon" href="{{ site.faviconPng | relativeUrl(page.url) }}">
   <meta name="theme-color" content="#100f0c" id="theme-color-meta">
-  <meta property="og:locale" content="{{ site.ogLocale | escape }}">
+  {% if not untranslated %}
+    {% for alternateLang in languages %}
+  <link rel="alternate" hreflang="{{ alternateLang }}" href="{{ page.url | localeUrl(alternateLang) | absoluteUrl(site.url) | escape }}">
+    {% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | localeUrl('en') | absoluteUrl(site.url) | escape }}">
+  {% endif %}
+  <meta property="og:locale" content="{{ site.ogLocale | localize(lang) | escape }}">
+  {% if not untranslated %}<meta property="og:locale:alternate" content="{{ site.ogLocale | localize(otherLang) | escape }}">{% endif %}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name | escape }}">
   <meta property="og:title" content="{{ seoTitle | escape }}">
@@ -28,14 +40,14 @@
   <meta property="og:url" content="{{ canonicalUrl | escape }}">
   <meta property="og:image" content="{{ socialImageUrl | escape }}">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="{{ site.socialImageAlt | escape }}">
+  <meta property="og:image:alt" content="{{ site.socialImageAlt | localize(lang) | escape }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ seoTitle | escape }}">
   <meta name="twitter:description" content="{{ seoDescription | escape }}">
   <meta name="twitter:image" content="{{ socialImageUrl | escape }}">
-  <meta name="twitter:image:alt" content="{{ site.socialImageAlt | escape }}">
+  <meta name="twitter:image:alt" content="{{ site.socialImageAlt | localize(lang) | escape }}">
   <meta name="twitter:creator" content="{{ site.twitterHandle | escape }}">
   <script>
     (function () {
@@ -103,9 +115,9 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": {{ site.name | json | safe }},
-      "jobTitle": {{ site.jobTitle | json | safe }},
+      "jobTitle": {{ site.jobTitle | localize(lang) | json | safe }},
       "url": {{ site.url | json | safe }},
-      "description": {{ site.defaultDescription | json | safe }},
+      "description": {{ site.defaultDescription | localize(lang) | json | safe }},
       "image": {{ socialImageUrl | json | safe }},
       "sameAs": {{ site.sameAs | json | safe }}
     }
@@ -117,10 +129,10 @@
 <body class="page-{{ pageKey or 'doc' }}">
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-brand" href="{{ '/' | relativeUrl(page.url) }}">{{ site.brand }}</a>
+      <a class="site-brand" href="{{ '/' | localeUrl(lang) | relativeUrl(page.url) }}">{{ site.brand }}</a>
       <div class="site-header__actions">
         {% if navigation and navigation.length %}
-          <nav class="site-nav" aria-label="Primary navigation">
+          <nav class="site-nav" aria-label="{{ t.primaryNavigation }}">
             {% for entry in navigation %}
               {% if entry.children and entry.children.length %}
                 <div class="site-nav__group" data-nav-dropdown>
@@ -130,35 +142,49 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    {{ entry.title }}
+                    {{ entry.title | localize(lang) }}
                     <span class="site-nav__caret" aria-hidden="true">v</span>
                   </button>
                   <div class="site-nav__dropdown" role="menu">
                     {% for child in entry.children %}
+                      {% set childUrl = child.url | localeUrl(lang) %}
                       <a
-                        href="{{ child.url | relativeUrl(page.url) }}"
-                        class="site-nav__dropdown-link{% if child.url == page.url %} is-active{% endif %}"
+                        href="{{ childUrl | relativeUrl(page.url) }}"
+                        class="site-nav__dropdown-link{% if childUrl == page.url %} is-active{% endif %}"
                         role="menuitem"
-                        {% if child.url == page.url %}aria-current="page"{% endif %}
+                        {% if childUrl == page.url %}aria-current="page"{% endif %}
                       >
-                        {{ child.title }}
+                        {{ child.title | localize(lang) }}
                       </a>
                     {% endfor %}
                   </div>
                 </div>
               {% else %}
+                {% set entryUrl = entry.url | localeUrl(lang) %}
                 <a
-                  href="{{ entry.url | relativeUrl(page.url) }}"
-                  class="site-nav__link{% if entry.url == page.url %} is-active{% endif %}"
-                  {% if entry.url == page.url %}aria-current="page"{% endif %}
+                  href="{{ entryUrl | relativeUrl(page.url) }}"
+                  class="site-nav__link{% if entryUrl == page.url %} is-active{% endif %}"
+                  {% if entryUrl == page.url %}aria-current="page"{% endif %}
                 >
-                  {{ entry.title }}
+                  {{ entry.title | localize(lang) }}
                 </a>
               {% endif %}
             {% endfor %}
           </nav>
         {% endif %}
-        <button class="theme-toggle" type="button" aria-label="Toggle colour theme">
+        {% if not untranslated %}
+          {#- Names the other language in that language, so it reads right to
+             the visitor who needs it. #}
+          <a
+            class="lang-switch"
+            href="{{ page.url | localeUrl(otherLang) | relativeUrl(page.url) }}"
+            hreflang="{{ otherLang }}"
+            lang="{{ otherLang }}"
+            title="{{ t.switchTo }}"
+            aria-label="{{ t.switchTo }}"
+          >{{ otherLang | upper }}</a>
+        {% endif %}
+        <button class="theme-toggle" type="button" aria-label="{{ t.toggleTheme }}">
           <svg class="theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
@@ -180,18 +206,18 @@
   <main>
     {{ content | safe }}
   </main>
-  <footer class="site-footer" aria-label="Site footer">
+  <footer class="site-footer" aria-label="{{ t.siteFooter }}">
     {#- The name is a plain label, not a link: the brand in the header already
        goes home, and as a link it read as a fourth footer entry. #}
     <span class="site-footer__name">Pablo Magariños</span>
     {#- The links are one group, so a footer too narrow for a single line
        breaks between the name and the links, not in the middle of them. #}
     <div class="site-footer__links">
-      <a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a>
+      <a href="{{ '/links/' | localeUrl(lang) | relativeUrl(page.url) }}">{{ t.links }}</a>
       <span class="site-footer__separator" aria-hidden="true">|</span>
-      <a href="{{ '/privacy/' | relativeUrl(page.url) }}">Privacy</a>
+      <a href="{{ '/privacy/' | localeUrl(lang) | relativeUrl(page.url) }}">{{ t.privacy }}</a>
       <span class="site-footer__separator" aria-hidden="true">|</span>
-      <a href="{{ '/how-i-made-the-web/' | relativeUrl(page.url) }}">How I Made the Web</a>
+      <a href="{{ '/how-i-made-the-web/' | localeUrl(lang) | relativeUrl(page.url) }}">{{ t.howIMadeTheWeb }}</a>
     </div>
   </footer>
   <script data-goatcounter="https://justgoatcounter.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

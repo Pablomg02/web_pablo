@@ -1,30 +1,72 @@
 ---
-layout: page.njk
+layout: base.njk
 title: Page Not Found
 description: There is nothing at this address on pablomagarinos.es. Links to every section of the site.
 permalink: /404.html
 robots: noindex, follow
 pageKey: not-found
+untranslated: true
 eleventyExcludeFromCollections: true
 ---
 {#- Served by GitHub Pages for any missing URL, so it is rendered at /404.html
    but delivered from the address the visitor typed. Excluded from the
    collections so it stays out of the sitemap; its internal links go through
    `relativeUrl` like everywhere else, and that filter resolves them from the
-   site root on this page alone. See the comment in .eleventy.js. #}
-<h1>Page Not Found</h1>
+   site root on this page alone. See the comment in .eleventy.js.
 
-<p class="page-lead">There is nothing at this address. It was moved, it was renamed, or it never existed here.</p>
+   GitHub Pages serves this one file for both languages, so it carries both:
+   English by default, and the script below swaps to Spanish when the missing
+   address was under /es/. Each language is its own `.content` block (the
+   markup page.njk would add) so the heading styles, which key on
+   `.content > h1:first-child`, apply to both. It is `untranslated`, so the
+   layout gives it no hreflang alternates and no language switch. #}
+<article class="content" data-not-found="en">
+  <h1>Page Not Found</h1>
 
-<p>If an old link brought you here, whatever it pointed to has most likely moved rather than disappeared. These are the sections of the site:</p>
+  <p class="page-lead">There is nothing at this address. It was moved, it was renamed, or it never existed here.</p>
 
-<ul>
-  <li><a href="{{ '/' | relativeUrl(page.url) }}">About</a> &#8212; background, current work, education, and research focus.</li>
-  <li><a href="{{ '/experience/' | relativeUrl(page.url) }}">Experience</a> &#8212; research, engineering, and teaching roles.</li>
-  <li><a href="{{ '/research/' | relativeUrl(page.url) }}">Research</a> &#8212; publications and academic work.</li>
-  <li><a href="{{ '/thoughts/' | relativeUrl(page.url) }}">Thoughts</a> &#8212; long-form writing on what I care about.</li>
-  <li><a href="{{ '/notebook/' | relativeUrl(page.url) }}">Tech Notes</a> &#8212; technical articles on what I am learning.</li>
-  <li><a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a> &#8212; profiles, projects, and contact details.</li>
-</ul>
+  <p>If an old link brought you here, whatever it pointed to has most likely moved rather than disappeared. These are the sections of the site:</p>
 
-<p>If the broken link was one of mine, I would like to know: <a href="mailto:hi@pablomagarinos.es">hi@pablomagarinos.es</a>.</p>
+  <ul>
+    <li><a href="{{ '/' | relativeUrl(page.url) }}">About</a> &#8212; background, current work, education, and research focus.</li>
+    <li><a href="{{ '/experience/' | relativeUrl(page.url) }}">Experience</a> &#8212; research, engineering, and teaching roles.</li>
+    <li><a href="{{ '/research/' | relativeUrl(page.url) }}">Research</a> &#8212; publications and academic work.</li>
+    <li><a href="{{ '/thoughts/' | relativeUrl(page.url) }}">Thoughts</a> &#8212; long-form writing on what I care about.</li>
+    <li><a href="{{ '/notebook/' | relativeUrl(page.url) }}">Tech Notes</a> &#8212; technical articles on what I am learning.</li>
+    <li><a href="{{ '/links/' | relativeUrl(page.url) }}">Links</a> &#8212; profiles, projects, and contact details.</li>
+  </ul>
+
+  <p>If the broken link was one of mine, I would like to know: <a href="mailto:hi@pablomagarinos.es">hi@pablomagarinos.es</a>.</p>
+</article>
+
+<article class="content" data-not-found="es" lang="es" hidden>
+  <h1>Página no encontrada</h1>
+
+  <p class="page-lead">No hay nada en esta dirección. Se movió, cambió de nombre o nunca existió aquí.</p>
+
+  <p>Si has llegado desde un enlace antiguo, lo más probable es que lo que buscabas se haya movido, no que haya desaparecido. Estas son las secciones de la web:</p>
+
+  <ul>
+    <li><a href="{{ '/es/' | relativeUrl(page.url) }}">Sobre mí</a> &#8212; trayectoria, trabajo actual, formación y líneas de investigación.</li>
+    <li><a href="{{ '/es/experience/' | relativeUrl(page.url) }}">Experiencia</a> &#8212; puestos en investigación, ingeniería y docencia.</li>
+    <li><a href="{{ '/es/research/' | relativeUrl(page.url) }}">Investigación</a> &#8212; publicaciones y trabajo académico.</li>
+    <li><a href="{{ '/es/thoughts/' | relativeUrl(page.url) }}">Reflexiones</a> &#8212; textos largos sobre lo que me importa.</li>
+    <li><a href="{{ '/es/notebook/' | relativeUrl(page.url) }}">Notas técnicas</a> &#8212; artículos técnicos sobre lo que estoy aprendiendo.</li>
+    <li><a href="{{ '/es/links/' | relativeUrl(page.url) }}">Enlaces</a> &#8212; perfiles, proyectos y datos de contacto.</li>
+  </ul>
+
+  <p>Si el enlace roto era mío, me gustaría saberlo: <a href="mailto:hi@pablomagarinos.es">hi@pablomagarinos.es</a>.</p>
+</article>
+
+<script>
+  (function () {
+    if (!/^\/es(\/|$)/.test(window.location.pathname)) {
+      return;
+    }
+
+    document.querySelector('[data-not-found="en"]').hidden = true;
+    document.querySelector('[data-not-found="es"]').hidden = false;
+    document.documentElement.lang = 'es';
+    document.title = 'Página no encontrada | {{ site.name }}';
+  }());
+</script>

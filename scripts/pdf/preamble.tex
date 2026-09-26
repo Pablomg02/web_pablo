@@ -35,15 +35,21 @@
 \providecommand{\PaperKeywords}{}
 \providecommand{\PaperUrl}{}
 \providecommand{\PaperSite}{}
+% The words the preamble prints itself. English defaults; the script redefines
+% them for a Spanish article.
+\providecommand{\PaperLabelSite}{Web}
+\providecommand{\PaperLabelArticle}{Article}
+\providecommand{\PaperLabelUpdated}{last edited}
+\providecommand{\PaperLabelKeywords}{Keywords}
 
 % --- Running header / footer ------------------------------------------------
 % Footer carries labelled links ("Web", "Article") rather than bare URLs.
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\sffamily\itshape\PaperTitle}
-\fancyfoot[L]{\small\sffamily\ifx\PaperSite\empty\else\href{\PaperSite}{Web}\fi}
+\fancyfoot[L]{\small\sffamily\ifx\PaperSite\empty\else\href{\PaperSite}{\PaperLabelSite}\fi}
 \fancyfoot[C]{\small\thepage}
-\fancyfoot[R]{\small\sffamily\ifx\PaperUrl\empty\else\href{\PaperUrl}{Article}\fi}
+\fancyfoot[R]{\small\sffamily\ifx\PaperUrl\empty\else\href{\PaperUrl}{\PaperLabelArticle}\fi}
 \renewcommand{\headrulewidth}{0.4pt}
 
 % --- Title block ------------------------------------------------------------
@@ -62,7 +68,7 @@
     \begin{center}
       {\scshape\PaperAuthor
         \ifx\PaperDate\empty\else\enspace\textendash\enspace\textit{\PaperDate}\fi
-        \ifx\PaperUpdated\empty\else\enspace{\color{black!60}\small\textit{(last edited \PaperUpdated)}}\fi
+        \ifx\PaperUpdated\empty\else\enspace{\color{black!60}\small\textit{(\PaperLabelUpdated{} \PaperUpdated)}}\fi
         \par}
     \end{center}
   \fi
@@ -71,7 +77,7 @@
     \vspace{0.5em}
     \begin{center}
       \begin{minipage}{0.86\textwidth}
-        \centering\small{\sffamily\itshape Keywords:}\enspace\PaperKeywords\par
+        \centering\small{\sffamily\itshape \PaperLabelKeywords:}\enspace\PaperKeywords\par
       \end{minipage}
     \end{center}
   \fi

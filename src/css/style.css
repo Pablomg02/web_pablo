@@ -351,6 +351,30 @@ body {
   outline: none;
 }
 
+/* The language switch sits beside the theme toggle and reads as its sibling:
+   a bare two-letter code at the toggle's size, not another navigation tab. */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  border-bottom: none;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.lang-switch:hover,
+.lang-switch:focus-visible {
+  color: var(--color-header-accent);
+  outline: none;
+}
+
 /* `main` is the measure. It carries the width so that every direct child
    shares one left edge — on an article that means the "<< Back" link lines up
    with the prose, which it would not if the cap sat on `.content` alone.
@@ -1177,6 +1201,7 @@ img {
 .site-nav__link:focus-visible,
 .site-nav__dropdown-link:focus-visible,
 .theme-toggle:focus-visible,
+.lang-switch:focus-visible,
 .site-footer a:focus-visible,
 .topic-filter__btn:focus-visible,
 .notes-back-link:focus-visible,

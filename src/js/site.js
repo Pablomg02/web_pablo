@@ -1,3 +1,19 @@
+// The few strings this script writes itself, in the page's language
+// (<html lang>, set by the layout).
+var siteStringsByLang = {
+  en: {
+    switchToDark: 'Switch to dark mode',
+    switchToLight: 'Switch to light mode',
+    copied: 'Copied',
+  },
+  es: {
+    switchToDark: 'Cambiar a modo oscuro',
+    switchToLight: 'Cambiar a modo claro',
+    copied: 'Copiado',
+  },
+};
+var siteStrings = siteStringsByLang[document.documentElement.lang] || siteStringsByLang.en;
+
 (function () {
   var toggle = document.querySelector('.theme-toggle');
 
@@ -17,7 +33,7 @@
     function updateToggleLabel() {
       var activeTheme = getActiveTheme();
       var nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
-      toggle.setAttribute('aria-label', 'Switch to ' + nextTheme + ' mode');
+      toggle.setAttribute('aria-label', nextTheme === 'dark' ? siteStrings.switchToDark : siteStrings.switchToLight);
       toggle.dataset.theme = activeTheme;
     }
 
@@ -183,7 +199,7 @@
           }
 
           copyText(shareUrl).then(function () {
-            showTemporaryLabel(link, 'Copied');
+            showTemporaryLabel(link, siteStrings.copied);
           }).catch(function () {
             window.location.href = shareUrl;
           });
@@ -193,7 +209,7 @@
       }
 
       copyText(shareUrl).then(function () {
-        showTemporaryLabel(link, 'Copied');
+        showTemporaryLabel(link, siteStrings.copied);
       }).catch(function () {
         window.location.href = shareUrl;
       });

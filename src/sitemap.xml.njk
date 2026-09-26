@@ -3,13 +3,16 @@ permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {% for entry in collections.all %}
   {% if entry.url and entry.data.layout %}
   {% set lastmod = entry.data.updated or entry.date %}
   <url>
     <loc>{{ entry.url | absoluteUrl(site.url) }}</loc>
     <lastmod>{{ lastmod | dateToFormat('yyyy-MM-dd') }}</lastmod>
+    {%- for alternateLang in languages %}
+    <xhtml:link rel="alternate" hreflang="{{ alternateLang }}" href="{{ entry.url | localeUrl(alternateLang) | absoluteUrl(site.url) }}"/>
+    {%- endfor %}
   </url>
   {% endif %}
 {% endfor %}
