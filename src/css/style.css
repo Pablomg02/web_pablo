@@ -976,19 +976,19 @@ hr {
 
 .role__role {
   display: block;
-  margin-top: 0.4rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-text);
 }
 
 .role__period {
-  margin: 0.35rem 0 1.75rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  margin: 0.4rem 0 1.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-muted);
 }
