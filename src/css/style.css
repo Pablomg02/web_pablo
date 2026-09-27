@@ -518,18 +518,31 @@ h1::after {
 
 h2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.55rem, 3vw, 2rem);
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
   margin-top: 3.5rem;
   margin-bottom: 1.25rem;
-  color: var(--color-header-accent);
+  color: var(--color-text);
+}
+
+/* Short accent dash under h2, deliberately secondary to the h1 bar: less than
+   half its length (1.5rem vs 3.5rem), thinner (2px vs 3px) and rounded, so the
+   two levels read as family without looking identical. */
+h2::after {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  margin-top: 0.5rem;
+  border-radius: 2px;
+  background: var(--color-header-accent);
 }
 
 h3 {
   font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  font-size: clamp(1.32rem, 2.3vw, 1.55rem);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -734,6 +747,11 @@ hr {
 .home-section__heading h2 {
   margin: 0;
   color: var(--color-text);
+}
+
+.home-section__heading h2::after,
+.link-group__title::after {
+  display: none;
 }
 
 .home-section__index {
@@ -943,7 +961,7 @@ hr {
 .role__title {
   max-width: 32ch;
   margin-top: 3.25rem;
-  font-size: clamp(1.4rem, 2.6vw, 1.75rem);
+  font-size: clamp(1.55rem, 2.9vw, 1.9rem);
   line-height: 1.25;
   letter-spacing: -0.022em;
   color: var(--color-text);
@@ -2064,17 +2082,17 @@ img {
   }
 
   h2 {
-    font-size: 1.45rem;
+    font-size: 1.6rem;
     margin-top: 2.1rem;
   }
 
   h3 {
-    font-size: 1.15rem;
+    font-size: 1.27rem;
     margin-top: 1.5rem;
   }
 
   .role__title {
-    font-size: 1.3rem;
+    font-size: 1.42rem;
   }
 
   main {
