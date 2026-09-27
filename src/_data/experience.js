@@ -43,9 +43,10 @@ module.exports = {
             es: [
               "Soy doctorando del <strong>programa de doctorado en Tecnología Aeroespacial</strong> de la Universidade de Vigo.",
               "Mi tesis, <em>Aprendizaje basado en estados de creencia y modelos del mundo para sistemas aéreos autónomos en entornos parcialmente observables</em>, diseña, desarrolla y analiza métodos de aprendizaje basados en estados de creencia y modelos del mundo para mejorar la actuación y adaptación en línea de los sistemas aéreos autónomos cuando la información es incompleta.",
-              "El trabajo se centra en escenarios de alta incertidumbre, entrenando agentes que actúen en entornos desconocidos, bajo condiciones desconocidas y junto a compañeros y adversarios desconocidos — donde los métodos actuales presentan limitaciones de adaptación y generalización.",
+              "El trabajo se centra en escenarios de alta incertidumbre, entrenando agentes que actúen en entornos desconocidos, bajo condiciones desconocidas y junto a compañeros y adversarios desconocidos, donde los métodos actuales presentan limitaciones de adaptación y generalización.",
             ],
           },
+          links: [{ label: webpage, url: "https://www.uvigo.gal/" }],
         },
         {
           org: "ATRG",
@@ -65,7 +66,10 @@ module.exports = {
               "También realicé aquí mi <strong>Trabajo Fin de Máster</strong> sobre IA multiagente, con sistemas de drones como caso de estudio para analizar la interacción durante el aprendizaje y el despliegue, que fue el inicio de lo que hoy es mi doctorado.",
             ],
           },
-          links: [{ label: "LinkedIn", url: "https://www.linkedin.com/company/atrg" }],
+          links: [
+            { label: webpage, url: "https://aerospacetech.org/" },
+            { label: "LinkedIn", url: "https://www.linkedin.com/company/atrg" },
+          ],
         },
         {
           org: {
@@ -86,6 +90,7 @@ module.exports = {
               "Este curso imparto <strong>Sistemas en Tiempo Real</strong>, <strong>Tecnología Aeroespacial</strong> y <strong>Sistemas de Propulsión</strong>.",
             ],
           },
+          links: [{ label: webpage, url: "https://aero.uvigo.es/" }],
         },
         {
           org: "XISTRA",
@@ -103,7 +108,10 @@ module.exports = {
               "El proyecto está todavía en una fase muy temprana y le estoy dedicando el mimo que requiere a través de mi doctorado y mi investigación. En el futuro será algo público.",
             ],
           },
-          links: [{ label: "LinkedIn", url: "https://www.linkedin.com/company/xistra" }],
+          links: [
+            { label: webpage, url: "https://xistra.net" },
+            { label: "LinkedIn", url: "https://www.linkedin.com/company/xistra" },
+          ],
         },
       ],
     },
@@ -192,8 +200,9 @@ module.exports = {
             ],
           },
           links: [
+            { label: webpage, url: "https://aero.uvigo.es/" },
             {
-              label: webpage,
+              label: "LinkedIn",
               url: "https://www.linkedin.com/company/delegaci%C3%B3n-do-estudantado-da-eeae",
             },
           ],

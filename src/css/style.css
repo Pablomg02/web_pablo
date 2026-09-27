@@ -999,11 +999,26 @@ hr {
 }
 
 .role__period {
-  margin: 0.4rem 0 1.75rem;
+  margin: 0.4rem 0 0;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Links for the role live under the period, in the meta column. The header
+   carries the gap to the body so a role without links keeps the same rhythm. */
+.role__header {
+  margin-bottom: 1.75rem;
+}
+
+.role__links {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+}
+
+.role__links-separator {
   color: var(--color-muted);
 }
 

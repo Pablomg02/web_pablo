@@ -12,6 +12,14 @@
         <header class="role__header">
           <h3 class="role__title">{{ role.org | localize(lang) }}<span class="role__role">&#8212; {{ role.role | localize(lang) }}</span></h3>
           <p class="role__period">{{ role.period | localize(lang) }}</p>
+          {% if role.links and role.links.length %}
+            <p class="role__links">
+              {%- for link in role.links %}
+                {%- if not loop.first %} <span class="role__links-separator" aria-hidden="true">|</span> {% endif -%}
+                <a href="{{ link.url }}">{{ link.label | localize(lang) }}</a>
+              {%- endfor %}
+            </p>
+          {% endif %}
         </header>
         <div class="role__body">
           {% for paragraph in role.body | localize(lang) %}
@@ -22,14 +30,6 @@
             <ul>
               {% for bullet in bullets %}<li>{{ bullet | safe }}</li>{% endfor %}
             </ul>
-          {% endif %}
-          {% if role.links and role.links.length %}
-            <p class="role__links">
-              {%- for link in role.links %}
-                {%- if not loop.first %} <span class="role__links-separator" aria-hidden="true">|</span> {% endif -%}
-                <a href="{{ link.url }}">{{ link.label | localize(lang) }}</a>
-              {%- endfor %}
-            </p>
           {% endif %}
         </div>
       </article>

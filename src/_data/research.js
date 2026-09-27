@@ -52,7 +52,7 @@ module.exports = {
         "Weakly Supervised Segmentation of Macroalgae Through Gradient Analysis in Convolutional Neural Networks and Segment Anything Model",
       venue: {
         en: "August 2026 — Applied Sciences (MDPI), Vol. 16, Issue 17",
-        es: "Agosto de 2026 — Applied Sciences (MDPI), vol. 16, n.º 17",
+        es: "Agosto de 2026, Applied Sciences (MDPI), vol. 16, n.º 17",
       },
       summary:
         "Weakly supervised macroalgae segmentation, analysing CNN gradients across all intermediate layers to guide SAM2 from image-level labels alone.",
@@ -76,7 +76,7 @@ module.exports = {
         "Real-Time Aerodynamic Airfoil Optimisation Using Deep Reinforcement Learning with Proximal Policy Optimisation",
       venue: {
         en: "November 2025 — Aerospace (MDPI), Vol. 12, Issue 11",
-        es: "Noviembre de 2025 — Aerospace (MDPI), vol. 12, n.º 11",
+        es: "Noviembre de 2025, Aerospace (MDPI), vol. 12, n.º 11",
       },
       summary:
         "Aerospace research applying PPO to real-time airfoil optimisation under geometric constraints.",
