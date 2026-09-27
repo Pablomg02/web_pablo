@@ -223,11 +223,11 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
 // Scroll story (see "Scroll story" in style.css), on the pages whose markup
 // asks for it:
 // - `data-scroll-step` marks a step of the page (a home section, a role, a
-//   publication). It gets a numbered mark on the rail on the left, which
-//   follows the scroll and lights each mark as its step is reached. A mark is
-//   a button: clicking it brings its step's title just under the header, the
-//   point at which that mark lights. The attribute's value is the label;
-//   empty, the steps are numbered 01, 02...
+//   publication). It gets a square on the rail on the left, which follows
+//   the scroll and lights each square as its step is reached. A square is a
+//   button: clicking it brings its step's title just under the header, the
+//   point at which it lights. The attribute's value, if any, names the step
+//   for screen readers; empty, the step's heading does.
 // - Each step's children rise into place one after another when it comes
 //   into view; a child with `data-reveal-each` passes that on to its own
 //   children. `data-reveal` outside a step rises as a single block.
@@ -315,11 +315,6 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     mark.type = 'button';
     mark.className = 'scroll-rail__mark';
     mark.setAttribute('aria-label', stepTitle(step, index));
-    var label = document.createElement('span');
-    label.className = 'scroll-rail__label';
-    label.setAttribute('aria-hidden', 'true');
-    label.textContent = step.getAttribute('data-scroll-step') || String(index + 1).padStart(2, '0');
-    mark.appendChild(label);
     rail.appendChild(mark);
     return { step: step, el: mark, at: 0, target: 0 };
   });
@@ -400,7 +395,10 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     var y = window.scrollY;
     rail.style.setProperty('--progress', Math.min(1, Math.max(0, y / maxScroll)));
     rail.style.setProperty('--track', trackAt(y));
+    // The thin bar shows once the reader is under way; the track with its
+    // squares only when the first square lights.
     rail.classList.toggle('is-shown', y > window.innerHeight * 0.15);
+    rail.classList.toggle('is-started', y >= marks[0].target - 1);
     marks.forEach(function (mark) {
       mark.el.classList.toggle('is-passed', y >= mark.target - 1);
     });

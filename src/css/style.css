@@ -1657,7 +1657,7 @@ em {
    added by site.js from the `data-scroll-step` / `data-reveal` hooks in the
    markup, so without JavaScript the page is static. As each step is reached
    its parts rise into place one after another (`--reveal-delay`); the rail
-   on the left fills with the scroll and lights each step's number as the
+   on the left fills with the scroll and lights each step's square as the
    reader gets there. With reduced motion only the rail is kept. */
 .reveal {
   opacity: 0;
@@ -1708,22 +1708,34 @@ em {
 }
 
 /* Where the page leaves a wide enough margin, the rail becomes a short
-   track in it, centred in the window, with the section numbers to its
-   left, so the line runs between them and the text. It stays in view
-   from the top of the page, so every step can be reached from there. The
-   rail is 9px wide (odd, so there is a middle pixel) and the track, the
-   fill and every 7px mark are centred on that pixel column; its left
-   edge is rounded to a whole pixel so none of them lands between two. */
+   track in it, centred in the window, with a square for each step. It
+   fades in when the first square lights, and while hidden its squares
+   cannot be clicked or focused.
+   The rail is 11px wide (odd, so there is a middle pixel) and the track, the
+   fill and every 9px mark are centred on that pixel column; its left edge is
+   rounded to a whole pixel so none of them lands between two. */
 @media (min-width: 1280px) {
   .scroll-rail {
     top: 50%;
     bottom: auto;
-    left: calc((100vw - var(--rail-page, var(--max-width))) / 4 - 4px);
-    left: round(calc((100vw - var(--rail-page, var(--max-width))) / 4 - 4px), 1px);
-    width: 9px;
-    height: min(22rem, 55vh);
-    margin-top: calc(min(22rem, 55vh) / -2);
+    left: calc((100vw - var(--rail-page, var(--max-width))) / 4 - 5px);
+    left: round(calc((100vw - var(--rail-page, var(--max-width))) / 4 - 5px), 1px);
+    width: 11px;
+    height: min(28rem, 65vh);
+    margin-top: calc(min(28rem, 65vh) / -2);
+  }
+
+  .scroll-rail,
+  .scroll-rail.is-shown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+  }
+
+  .scroll-rail.is-started {
     opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
   }
 
   .scroll-rail::before {
@@ -1731,14 +1743,14 @@ em {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 4px;
+    left: 5px;
     width: 1px;
     background: var(--color-border);
   }
 
   .scroll-rail__fill {
-    left: 4px;
-    right: 4px;
+    left: 5px;
+    right: 5px;
     opacity: 0.75;
     transform: scaleY(var(--track, 0));
   }
@@ -1748,13 +1760,11 @@ em {
     top: calc(var(--at) * 100%);
     display: block;
     left: 1px;
-    width: 7px;
-    height: 7px;
-    margin-top: -3.5px;
+    width: 9px;
+    height: 9px;
+    margin-top: -4.5px;
     padding: 0;
     appearance: none;
-    /* Keep the label, which sits outside the 7px square, from being clipped. */
-    overflow: visible;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     cursor: pointer;
@@ -1763,32 +1773,18 @@ em {
     transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
+  .scroll-rail__mark:hover {
+    border-color: var(--color-header-accent);
+  }
+
   .scroll-rail__mark:focus-visible {
     outline: 2px solid var(--color-header-accent);
     outline-offset: 2px;
   }
 
-  .scroll-rail__label {
-    position: absolute;
-    top: 50%;
-    right: calc(100% + 0.55rem);
-    font-family: var(--font-brand);
-    font-size: 0.45rem;
-    line-height: 1;
-    color: var(--color-muted);
-    opacity: 0.7;
-    transform: translateY(-50%);
-    transition: color 0.3s ease;
-  }
-
   .scroll-rail__mark.is-passed {
     background: var(--color-header-accent);
     border-color: var(--color-header-accent);
-  }
-
-  .scroll-rail__mark.is-passed .scroll-rail__label {
-    color: var(--color-header-accent);
-    opacity: 0.85;
   }
 }
 
