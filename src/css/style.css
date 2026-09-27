@@ -423,6 +423,32 @@ body::before {
   display: none;
 }
 
+/* Until site.js puts the theme on the button there is nothing to read, and
+   both icons sit there. Show instead the icon for the theme the page is
+   showing: html's own data-theme when it has one, and the visitor's system
+   when it has none — which is what a page with no scripts falls back to. */
+.theme-toggle:not([data-theme]) .theme-toggle__sun {
+  display: none;
+}
+
+html[data-theme='dark'] .theme-toggle:not([data-theme]) .theme-toggle__sun {
+  display: block;
+}
+
+html[data-theme='dark'] .theme-toggle:not([data-theme]) .theme-toggle__moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .theme-toggle:not([data-theme]) .theme-toggle__sun {
+    display: block;
+  }
+
+  html:not([data-theme]) .theme-toggle:not([data-theme]) .theme-toggle__moon {
+    display: none;
+  }
+}
+
 .theme-toggle:hover,
 .theme-toggle:focus-visible {
   color: var(--color-header-accent);
@@ -1086,6 +1112,17 @@ em {
 }
 
 .publication__venue {
+  color: var(--color-muted);
+}
+
+/* The links under a publication read as a role's do: a small line of their
+   own, with the em-dashes between them held back from the text colour. */
+.publication__links {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+}
+
+.publication__links-separator {
   color: var(--color-muted);
 }
 
@@ -2066,32 +2103,36 @@ img {
 
 /* --- Responsive --- */
 /* Below the width where the whole navigation fits, the header tightens its
-   spacing and, as a last resort, scrolls sideways instead of widening the
-   page. Keep this width in step with `headerScrollQuery` in site.js. */
+   spacing and, as a last resort, the menu scrolls sideways instead of widening
+   the page. The menu is the only thing that scrolls: the brand and the
+   language and theme switches keep their place, so they stay reachable at any
+   width. Keep this width in step with `headerScrollQuery` in site.js. */
 @media (max-width: 1100px) {
-  .site-header__inner {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .site-header__inner::-webkit-scrollbar {
-    display: none;
+  .site-header__actions {
+    --actions-gap: 0.3rem;
+    flex: 0 1 auto;
+    min-width: 0;
   }
 
   .site-nav {
     --nav-gap: 0.3rem;
+    min-width: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-padding-inline: 0.2rem;
   }
 
-  .site-header__actions {
-    --actions-gap: 0.3rem;
+  .site-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .site-nav__link {
     padding-inline: 0.55rem;
   }
 
-  /* A scrolling header would clip an absolute dropdown; a fixed one escapes
+  /* A scrolling menu would clip an absolute dropdown; a fixed one escapes
      it. JS anchors it under the trigger. */
   .site-nav__dropdown {
     position: fixed;
@@ -2103,14 +2144,47 @@ img {
   }
 }
 
+/* The menu is now the box that scrolls, so it clips whatever leaves it: the
+   padding gives the active link's 4px shadow room to show, and the negative
+   margin keeps the header as tall as before. The switches beside it keep
+   their 44px tap target instead of shrinking to make room for the menu. The
+   phone layout sets its own padding, so keep this to 601px and up. */
+@media (min-width: 601px) and (max-width: 1100px) {
+  .site-nav {
+    padding: 0 6px 6px 0;
+    margin-bottom: -6px;
+  }
+
+  .lang-switch,
+  .theme-toggle {
+    flex-shrink: 0;
+  }
+}
+
+/* While the menu is cut short it fades out at its right edge, the way the
+   phone layout does, so it reads as "more of it" instead of as a wrong label.
+   site.js adds `is-scrollable`; a menu that fits is left untouched. The phone
+   layout below masks unconditionally, so keep this to 601px and up. */
+@media (min-width: 601px) and (max-width: 1100px) {
+  .site-nav.is-scrollable {
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+  }
+
+  .site-nav.is-scrollable::after {
+    content: "";
+    flex: 0 0 2.5rem;
+  }
+}
+
 @media (max-width: 600px) {
   html {
     font-size: 17px;
   }
 
   /* Two rows: the brand with the language and theme switches, then the
-     whole menu underneath. The header no longer scrolls; the menu row does,
-     and fades out at its right edge to show there is more of it. */
+     whole menu underneath. The header never scrolls; the menu row does, and
+     fades out at its right edge to show there is more of it. */
   .site-header__inner {
     flex-wrap: wrap;
     overflow: visible;

@@ -48,6 +48,31 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   }
 }());
 
+// The menu scrolls sideways on narrow windows (see the matching block in
+// style.css). It fades only while there really is more of it to reach, so a
+// menu that fits keeps its last item crisp.
+(function () {
+  var nav = document.querySelector('.site-nav');
+
+  if (!nav) {
+    return;
+  }
+
+  // Measured without the class: it adds a spacer at the end of the menu,
+  // which would keep the menu "scrollable" after the window grows to fit it.
+  function syncNavFade() {
+    nav.classList.remove('is-scrollable');
+    nav.classList.toggle('is-scrollable', nav.scrollWidth - nav.clientWidth > 1);
+  }
+
+  syncNavFade();
+  window.addEventListener('resize', syncNavFade);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncNavFade, syncNavFade);
+  }
+}());
+
 (function () {
   var dropdowns = document.querySelectorAll('[data-nav-dropdown]');
 

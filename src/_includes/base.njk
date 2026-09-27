@@ -161,10 +161,16 @@
                 </div>
               {% else %}
                 {% set entryUrl = entry.url | localeUrl(lang) %}
+                {#- A page inside a section (/notebook/<slug>/) still lights its
+                   section in the menu; only the section's own URL claims
+                   aria-current. The home entry is excluded from the prefix
+                   test so that "/" does not match every English page. #}
+                {% set isCurrent = page.url == entryUrl %}
+                {% set isInSection = entry.url != '/' and page.url.startsWith(entryUrl) %}
                 <a
                   href="{{ entryUrl | relativeUrl(page.url) }}"
-                  class="site-nav__link{% if entry.group %} site-nav__link--{{ entry.group }}{% endif %}{% if entryUrl == page.url %} is-active{% endif %}"
-                  {% if entryUrl == page.url %}aria-current="page"{% endif %}
+                  class="site-nav__link{% if entry.group %} site-nav__link--{{ entry.group }}{% endif %}{% if isCurrent or isInSection %} is-active{% endif %}"
+                  {% if isCurrent %}aria-current="page"{% endif %}
                 >
                   {{ entry.title | localize(lang) }}
                 </a>
