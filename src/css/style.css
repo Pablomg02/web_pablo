@@ -1041,14 +1041,10 @@ hr {
   color: var(--color-text);
 }
 
-/* Kept as the lead-sized line it has always been; the intro paragraph below
-   it stays at body size. */
+/* A plain body-sized line under the intro. */
 .research-orcid {
   max-width: 62ch;
-  margin-bottom: 2rem;
-  color: var(--color-muted);
-  font-size: clamp(1.06rem, 2vw, 1.18rem);
-  line-height: 1.68;
+  margin-bottom: 2.5rem;
 }
 
 /* Modern italics: Space Grotesk ships no true italics, so the browser would
