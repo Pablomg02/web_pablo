@@ -5,11 +5,13 @@ var siteStringsByLang = {
     switchToDark: 'Switch to dark mode',
     switchToLight: 'Switch to light mode',
     copied: 'Copied',
+    pageSections: 'Page sections',
   },
   es: {
     switchToDark: 'Cambiar a modo oscuro',
     switchToLight: 'Cambiar a modo claro',
     copied: 'Copiado',
+    pageSections: 'Secciones de la página',
   },
 };
 var siteStrings = siteStringsByLang[document.documentElement.lang] || siteStringsByLang.en;
@@ -222,8 +224,10 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
 // asks for it:
 // - `data-scroll-step` marks a step of the page (a home section, a role, a
 //   publication). It gets a numbered mark on the rail on the left, which
-//   follows the scroll and lights each mark as its step is reached. The
-//   attribute's value is the label; empty, the steps are numbered 01, 02...
+//   follows the scroll and lights each mark as its step is reached. A mark is
+//   a button: clicking it brings its step's title just under the header, the
+//   point at which that mark lights. The attribute's value is the label;
+//   empty, the steps are numbered 01, 02...
 // - Each step's children rise into place one after another when it comes
 //   into view; a child with `data-reveal-each` passes that on to its own
 //   children. `data-reveal` outside a step rises as a single block.
@@ -277,20 +281,47 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     });
   }
 
-  var rail = document.createElement('div');
+  // Each mark names its step for screen readers, preferring the step's own
+  // label and falling back to the heading it points to.
+  function stepTitle(step, index) {
+    var name = step.getAttribute('data-scroll-step');
+    if (name) {
+      return name;
+    }
+
+    var labelledBy = step.getAttribute('aria-labelledby');
+    if (labelledBy) {
+      var target = document.getElementById(labelledBy.split(/\s+/)[0]);
+      if (target) {
+        return target.textContent.trim();
+      }
+    }
+
+    var heading = step.querySelector('h1, h2, h3');
+    if (heading) {
+      return heading.textContent.trim();
+    }
+
+    return String(index + 1);
+  }
+
+  var rail = document.createElement('nav');
   rail.className = 'scroll-rail';
-  rail.setAttribute('aria-hidden', 'true');
+  rail.setAttribute('aria-label', siteStrings.pageSections);
   rail.innerHTML = '<span class="scroll-rail__fill"></span>';
 
   var marks = steps.map(function (step, index) {
-    var mark = document.createElement('span');
+    var mark = document.createElement('button');
+    mark.type = 'button';
     mark.className = 'scroll-rail__mark';
+    mark.setAttribute('aria-label', stepTitle(step, index));
     var label = document.createElement('span');
     label.className = 'scroll-rail__label';
+    label.setAttribute('aria-hidden', 'true');
     label.textContent = step.getAttribute('data-scroll-step') || String(index + 1).padStart(2, '0');
     mark.appendChild(label);
     rail.appendChild(mark);
-    return { step: step, el: mark, at: 0 };
+    return { step: step, el: mark, at: 0, target: 0 };
   });
   document.body.appendChild(rail);
 
@@ -298,26 +329,80 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   var maxScroll = 1;
   var ticking = false;
 
-  // A step counts as reached when its top crosses the middle of the window;
-  // its mark sits at that point of the page's scroll.
+  // The marks are spread evenly down the track, whatever the length of their
+  // steps, so none of them crowds or hides another.
+  marks.forEach(function (mark, index) {
+    mark.at = marks.length > 1 ? index / (marks.length - 1) : 0.5;
+    mark.el.style.setProperty('--at', mark.at);
+  });
+
+  // Each step's target is the scroll position that puts its top just under
+  // the sticky header; that is where a click on its mark goes and where the
+  // mark lights. Steps too near the foot of the page to get there share out
+  // the last stretch of scroll, a little apart, so each still has its own
+  // position and they light one by one.
   function measure() {
-    rail.style.setProperty('--rail-top', (header ? header.offsetHeight : 0) + 'px');
+    var headerHeight = header ? header.offsetHeight : 0;
+    var rem = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
+    var line = headerHeight + rem * 1.5;
+    rail.style.setProperty('--rail-top', headerHeight + 'px');
     maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    marks.forEach(function (mark) {
-      var top = mark.step.getBoundingClientRect().top + window.scrollY;
-      mark.at = Math.min(1, Math.max(0, (top - window.innerHeight * 0.5) / maxScroll));
-      mark.el.style.setProperty('--at', mark.at);
-    });
+
+    var next = maxScroll;
+    for (var i = marks.length - 1; i >= 0; i--) {
+      var top = marks[i].step.getBoundingClientRect().top + window.scrollY - line;
+      marks[i].target = Math.round(Math.max(0, Math.min(top, next)));
+      next = marks[i].target - rem * 3;
+    }
     update();
   }
 
+  // Where the fill's tip goes for a scroll position: between two targets it
+  // runs from one mark to the next, so it reaches each square exactly when
+  // its step arrives under the header.
+  function trackAt(y) {
+    var first = marks[0];
+    var last = marks[marks.length - 1];
+    if (y <= first.target) {
+      return first.target > 0 ? first.at * y / first.target : first.at;
+    }
+    if (y >= last.target) {
+      var rest = maxScroll - last.target;
+      return rest > 0 ? last.at + (1 - last.at) * Math.min(1, (y - last.target) / rest) : last.at;
+    }
+    for (var i = 1; i < marks.length; i++) {
+      var a = marks[i - 1];
+      var b = marks[i];
+      if (y < b.target) {
+        return a.at + (b.at - a.at) * (y - a.target) / Math.max(1, b.target - a.target);
+      }
+    }
+    return last.at;
+  }
+
+  function scrollToStep(mark) {
+    window.scrollTo({
+      top: mark.target,
+      behavior: reduceMotion ? 'auto' : 'smooth',
+    });
+  }
+
+  marks.forEach(function (mark) {
+    mark.el.addEventListener('click', function () {
+      scrollToStep(mark);
+    });
+  });
+
+  // `--progress` is the whole page's, for the thin bar of narrow screens;
+  // `--track` is the fill of the track with its marks.
   function update() {
     ticking = false;
-    var progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
-    rail.style.setProperty('--progress', progress);
-    rail.classList.toggle('is-shown', window.scrollY > window.innerHeight * 0.15);
+    var y = window.scrollY;
+    rail.style.setProperty('--progress', Math.min(1, Math.max(0, y / maxScroll)));
+    rail.style.setProperty('--track', trackAt(y));
+    rail.classList.toggle('is-shown', y > window.innerHeight * 0.15);
     marks.forEach(function (mark) {
-      mark.el.classList.toggle('is-passed', progress >= mark.at - 0.001);
+      mark.el.classList.toggle('is-passed', y >= mark.target - 1);
     });
   }
 
