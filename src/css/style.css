@@ -993,6 +993,39 @@ hr {
   color: var(--color-muted);
 }
 
+.role__body {
+  min-width: 0;
+}
+
+/* On wide screens each role splits like the home sections: meta (org, role,
+   period) pinned left, body text right. Mobile keeps the current stacked
+   layout — this block only applies at the home split breakpoint. */
+@media (min-width: 820px) {
+  .role {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.7fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .role + .role {
+    margin-top: 4rem;
+  }
+
+  .role:first-of-type {
+    margin-top: 2.5rem;
+  }
+
+  .role__title,
+  .role:first-of-type .role__title {
+    margin-top: 0;
+  }
+
+  .role__body {
+    padding-top: 0.35rem;
+  }
+}
+
 /* Research */
 .publication {
   margin-top: 3.75rem;

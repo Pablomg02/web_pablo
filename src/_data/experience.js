@@ -26,35 +26,43 @@ module.exports = {
       title: { en: "Current Experience", es: "Experiencia actual" },
       roles: [
         {
+          org: { en: "University of Vigo", es: "Universidade de Vigo" },
+          role: { en: "PhD Candidate", es: "Doctorando" },
+          period: {
+            en: "October 2026 – Present",
+            es: "octubre de 2026 – presente",
+          },
+          summary:
+            "PhD in Aerospace Technology at the University of Vigo on belief-state and world-model-based learning for autonomous aerial systems in partially observable environments.",
+          body: {
+            en: [
+              "I am a PhD candidate in the <strong>Aerospace Technology doctoral programme</strong> at the University of Vigo.",
+              "My thesis, <em>Belief-state and world-model-based learning for autonomous aerial systems in partially observable environments</em>, designs, develops and analyses belief-state and world-model learning methods to improve how autonomous aerial systems act and adapt online when information is incomplete.",
+              "The work focuses on high-uncertainty scenarios, training agents to act in unknown environments, under unknown conditions, and alongside unknown teammates and adversaries — where current methods struggle to adapt and generalise.",
+            ],
+            es: [
+              "Soy doctorando del <strong>programa de doctorado en Tecnología Aeroespacial</strong> de la Universidade de Vigo.",
+              "Mi tesis, <em>Aprendizaje basado en estados de creencia y modelos del mundo para sistemas aéreos autónomos en entornos parcialmente observables</em>, diseña, desarrolla y analiza métodos de aprendizaje basados en estados de creencia y modelos del mundo para mejorar la actuación y adaptación en línea de los sistemas aéreos autónomos cuando la información es incompleta.",
+              "El trabajo se centra en escenarios de alta incertidumbre, entrenando agentes que actúen en entornos desconocidos, bajo condiciones desconocidas y junto a compañeros y adversarios desconocidos — donde los métodos actuales presentan limitaciones de adaptación y generalización.",
+            ],
+          },
+        },
+        {
           org: "ATRG",
           role: { en: "Researcher", es: "Investigador" },
           period: { en: "November 2024 – Present", es: "Noviembre de 2024 – Actualidad" },
           summary:
-            "Research work on AI for aerospace vehicles: onboard computer vision, pose estimation, weakly-labelled self-training pipelines, and time-series analysis.",
+            "Research work on AI for aerospace vehicles: onboard computer vision, pose estimation, weakly-labelled self-training pipelines, and a Master's thesis on multi-agent AI.",
           body: {
             en: [
               "ATRG (Aerospace Technology Research Group) is a research group at the University of Vigo with <strong>more than 17 years of experience</strong> behind high-impact space missions, including XatCobeo, Spain's first nanosatellite, HUMESAT-D, and Lume-1.",
-              "My contribution focuses on <strong>artificial intelligence</strong>, particularly across projects spanning both the aeronautical and space domains:",
+              "My contribution focuses on <strong>artificial intelligence</strong>, particularly across projects spanning both the aeronautical and space domains. Some of the projects I have worked on so far include AI models for aerospace vehicles, such as <strong>onboard computer vision</strong>, <strong>pose estimation</strong> and self-training pipelines based on weak labelling.",
+              "I also completed my <strong>Master's thesis</strong> here on multi-agent AI, using drone systems as a case study to analyse interaction during learning and deployment — the starting point of what is now my PhD research.",
             ],
             es: [
               "ATRG (Aerospace Technology Research Group) es un grupo de investigación de la Universidade de Vigo con <strong>más de 17 años de experiencia</strong> detrás de misiones espaciales de gran impacto, como XatCobeo, el primer nanosatélite español, HUMESAT-D y Lume-1.",
-              "Mi aportación se centra en la <strong>inteligencia artificial</strong>, sobre todo en proyectos que abarcan tanto el ámbito aeronáutico como el espacial:",
-            ],
-          },
-          bullets: {
-            en: [
-              "Researched and implemented AI models for aerospace vehicles, including onboard computer vision systems, pose-estimation methods, and self-training pipelines based on weak labelling.",
-              "Developed a time-series analysis solution from planning and modelling through to deployment.",
-              "Completed my Master's thesis within ATRG on multi-agent AI, using drone systems as a case study to analyse interaction during learning and deployment.",
-              "Owned the end-to-end development of private static and interactive web projects, covering frontend interfaces, backend APIs, and deployment with tools such as Node.js and FastAPI.",
-              "Contributed to additional internal AI research and development projects.",
-            ],
-            es: [
-              "Investigación e implementación de modelos de IA para vehículos aeroespaciales, incluidos sistemas de visión por computador a bordo, métodos de estimación de pose y pipelines de autoentrenamiento basados en etiquetado débil.",
-              "Desarrollo de una solución de análisis de series temporales, desde la planificación y el modelado hasta el despliegue.",
-              "Realización de mi Trabajo Fin de Máster en ATRG sobre IA multiagente, con sistemas de drones como caso de estudio para analizar la interacción durante el aprendizaje y el despliegue.",
-              "Desarrollo integral de proyectos web privados, estáticos e interactivos: interfaces de frontend, APIs de backend y despliegue con herramientas como Node.js y FastAPI.",
-              "Participación en otros proyectos internos de investigación y desarrollo en IA.",
+              "Mi aportación se centra en la <strong>inteligencia artificial</strong>, sobre todo en proyectos que abarcan tanto el ámbito aeronáutico como el espacial. Algunos de los proyectos en los que he trabajado hasta ahora incluyen modelos de IA para vehículos aeroespaciales, como <strong>visión por computador a bordo</strong>, <strong>estimación de pose</strong> y pipelines de autoentrenamiento basados en etiquetado débil.",
+              "También realicé aquí mi <strong>Trabajo Fin de Máster</strong> sobre IA multiagente, con sistemas de drones como caso de estudio para analizar la interacción durante el aprendizaje y el despliegue, que fue el inicio de lo que hoy es mi doctorado.",
             ],
           },
           links: [{ label: "LinkedIn", url: "https://www.linkedin.com/company/atrg" }],
@@ -70,11 +78,11 @@ module.exports = {
             "Substitute professor at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
           body: {
             en: [
-              "I teach as a <strong>substitute professor</strong> at the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo — the same school where I trained as an engineer and where I was previously the students’ main representative.",
+              "I teach as a <strong>substitute professor</strong> at the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo.",
               "This academic year I teach <strong>Real-Time Systems</strong>, <strong>Aerospace Technology</strong>, and <strong>Propulsion Systems</strong>.",
             ],
             es: [
-              "Doy clase como <strong>profesor sustituto</strong> en la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo, la misma escuela en la que me formé como ingeniero y de la que antes fui delegado de estudiantes.",
+              "Doy clase como <strong>profesor sustituto</strong> en la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo.",
               "Este curso imparto <strong>Sistemas en Tiempo Real</strong>, <strong>Tecnología Aeroespacial</strong> y <strong>Sistemas de Propulsión</strong>.",
             ],
           },
@@ -87,14 +95,12 @@ module.exports = {
             "Deep-tech AI startup founded by Pablo, focused on autonomous learning for robotic systems, especially drones. Still in development.",
           body: {
             en: [
-              "XISTRA is a <strong>deep-tech AI startup</strong> built around a single thesis: true intelligence emerges from the capacity to learn autonomously, not from data alone. Current AI systems are trained rigidly on existing patterns; they cannot explore their environment, adapt to new situations, or improve their own performance through experience.",
-              "Our mission is to change that by building AI that enables robotic systems to <strong>learn from their surroundings</strong> and maximise performance in dynamic, previously unseen environments. We see ourselves first and foremost as a research company, with the goal of translating laboratory advances into real-world robots, starting with drones because of their versatility and broad applicability.",
-              "We are still at an early stage. My focus is on <strong>world models and training methods</strong>, building the technical foundation for our first commercial offering.",
+              "XISTRA is a <strong>deep-tech AI startup</strong> built around a single thesis: true intelligence emerges from the capacity to learn autonomously, not from data alone.",
+              "The project is still at a very early stage, and I am nurturing it with the care it deserves through my PhD and research. It will become public in the future.",
             ],
             es: [
-              "XISTRA es una <strong>startup deep-tech de IA</strong> construida en torno a una única tesis: la verdadera inteligencia surge de la capacidad de aprender de forma autónoma, no solo de los datos. Los sistemas de IA actuales se entrenan de forma rígida sobre patrones existentes; no pueden explorar su entorno, adaptarse a situaciones nuevas ni mejorar su propio rendimiento a través de la experiencia.",
-              "Nuestra misión es cambiar eso construyendo una IA que permita a los sistemas robóticos <strong>aprender de su entorno</strong> y maximizar su rendimiento en entornos dinámicos y nunca vistos. Nos vemos, ante todo, como una empresa de investigación, con el objetivo de trasladar los avances del laboratorio a robots reales, empezando por los drones por su versatilidad y su amplia aplicabilidad.",
-              "Todavía estamos en una fase temprana. Mi trabajo se centra en los <strong>modelos del mundo y los métodos de entrenamiento</strong>, construyendo la base técnica de nuestra primera oferta comercial.",
+              "XISTRA es una <strong>startup deep-tech de IA</strong> construida en torno a una única tesis: la verdadera inteligencia surge de la capacidad de aprender de forma autónoma, no solo de los datos.",
+              "El proyecto está todavía en una fase muy temprana y le estoy dedicando el mimo que requiere a través de mi doctorado y mi investigación. En el futuro será algo público.",
             ],
           },
           links: [{ label: "LinkedIn", url: "https://www.linkedin.com/company/xistra" }],
