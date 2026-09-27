@@ -45,6 +45,7 @@
   --color-text: #1a1a1a;
   --color-link: #806000;
   --color-strong: #a26e00;
+  --color-em: #5c5c5c;
   --color-header-accent: #8a6500;
   --color-notes-link: #806000;
   --color-subheading: #765800;
@@ -78,6 +79,7 @@
   --color-text: #f8f2dc;
   --color-link: #b09e7a;
   --color-strong: #eec33e;
+  --color-em: #c8bc9c;
   --color-header-accent: #e0b53a;
   --color-notes-link: #f2cf66;
   --color-subheading: #d4b15a;
@@ -101,6 +103,7 @@
     --color-text: #f8f2dc;
     --color-link: #b09e7a;
     --color-strong: #eec33e;
+    --color-em: #c8bc9c;
     --color-header-accent: #e0b53a;
     --color-notes-link: #f2cf66;
     --color-subheading: #d4b15a;
@@ -1048,8 +1051,20 @@ hr {
   line-height: 1.68;
 }
 
+/* Modern italics: Space Grotesk ships no true italics, so the browser would
+   fake a harsh slant — use a gentler oblique angle instead. */
+em,
 .publication__venue {
   font-style: italic;
+  font-style: oblique 12deg;
+}
+
+em {
+  color: var(--color-em);
+}
+
+.publication__venue {
+  color: var(--color-muted);
 }
 
 /* Links — also the page shared on its own, so it is laid out as a narrow,
