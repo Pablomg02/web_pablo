@@ -146,16 +146,27 @@ body {
   font-family: var(--font-body);
   color: var(--color-text);
   background-color: var(--color-bg);
+  font-weight: 500;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The texture sits on a fixed layer behind everything so it stays still
+   while the page scrolls. `background-attachment: fixed` on `body` is
+   unreliable on iOS Safari; a fixed pseudo-element is not. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image:
     radial-gradient(circle at 15% 4%, var(--color-accent-soft), transparent 24rem),
     linear-gradient(var(--color-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
   background-size: auto, 24px 24px, 24px 24px;
   background-position: top left;
-  font-weight: 500;
-  line-height: 1.72;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* --- Header / Navigation --- */
@@ -1752,6 +1763,10 @@ em {
 }
 
 @media print {
+  body::before {
+    display: none;
+  }
+
   .scroll-rail {
     display: none;
   }
