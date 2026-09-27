@@ -944,13 +944,14 @@ hr {
 
 /* Experience */
 .experience-group {
-  margin-top: 3.75rem;
+  margin-top: 4.25rem;
   border-top: 1px solid var(--color-border);
 }
 
 .experience-group__title {
   max-width: 28ch;
   margin-top: 1.75rem;
+  margin-bottom: 0;
   color: var(--color-text);
 }
 
@@ -960,7 +961,7 @@ hr {
    kept just under the group h2 so the two levels stay distinguishable. */
 .role__title {
   max-width: 32ch;
-  margin-top: 3.25rem;
+  margin-top: 4rem;
   font-size: clamp(1.55rem, 2.9vw, 1.9rem);
   line-height: 1.25;
   letter-spacing: -0.022em;
@@ -968,14 +969,14 @@ hr {
 }
 
 /* `<article class="role">` breaks the `h2 + h3` reset, so the first role of a
-   group gets its own. Same idea for the first link group under the h1. */
+   group gets its own — kept generous so it doesn't stick to the group bar. */
 .role:first-of-type .role__title {
-  margin-top: 0;
+  margin-top: 2.5rem;
 }
 
 .role__role {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.4rem;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -984,7 +985,7 @@ hr {
 }
 
 .role__period {
-  margin: 0.2rem 0 1.4rem;
+  margin: 0.35rem 0 1.75rem;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -2219,6 +2220,14 @@ img {
   .experience-group,
   .publication {
     margin-top: 3rem;
+  }
+
+  .role__title {
+    margin-top: 3rem;
+  }
+
+  .role:first-of-type .role__title {
+    margin-top: 2rem;
   }
 
   .site-footer {
