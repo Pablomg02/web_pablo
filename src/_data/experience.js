@@ -76,17 +76,17 @@ module.exports = {
             en: "School of Aerospace Engineering",
             es: "Escuela de Ingeniería Aeroespacial",
           },
-          role: { en: "Substitute Professor", es: "Profesor sustituto" },
+          role: { en: "Lecturer", es: "Profesor" },
           period: { en: "September 2026 – Present", es: "Septiembre de 2026 – Actualidad" },
           summary:
-            "Substitute professor at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
+            "Lecturer at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
           body: {
             en: [
-              "I teach as a <strong>substitute professor</strong> at the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo.",
+              "I teach as a <strong>lecturer</strong> at the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo.",
               "This academic year I teach <strong>Real-Time Systems</strong>, <strong>Aerospace Technology</strong>, and <strong>Propulsion Systems</strong>.",
             ],
             es: [
-              "Doy clase como <strong>profesor sustituto</strong> en la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo.",
+              "Soy <strong>profesor</strong> en la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo.",
               "Este curso imparto <strong>Sistemas en Tiempo Real</strong>, <strong>Tecnología Aeroespacial</strong> y <strong>Sistemas de Propulsión</strong>.",
             ],
           },
