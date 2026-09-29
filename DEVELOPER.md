@@ -30,6 +30,9 @@ Este archivo explica cómo está organizada la web, qué piezas afectan al SEO, 
 ### Contenido principal
 
 El contenido se divide en dos modelos segun la forma de la pagina (ver README).
+La web es bilingue: el ingles vive en la raiz y el espanol bajo `src/es/`, en
+rutas espejo (`/research/` y `/es/research/`). Toda pagina existe en los dos
+idiomas y el build falla si falta una de las dos (ver `CLAUDE.md`).
 
 Prosa, en Markdown:
 
@@ -39,11 +42,13 @@ Prosa, en Markdown:
 
 Estructura, en datos + plantilla:
 
-- `src/_data/experience.js` + `src/experience.njk` → `/experience/`.
-- `src/_data/research.js` + `src/research.njk` → `/research/`.
-- `src/_data/links.js` + `src/links.njk` → `/links/`.
+- `src/_data/experience.js` → `/experience/` y `/es/experience/`.
+- `src/_data/research.js` → `/research/` y `/es/research/`.
+- `src/_data/links.js` → `/links/` y `/es/links/`.
+- El marcado esta en `src/_includes/pages/<nombre>.njk`; `src/<nombre>.njk` y
+  `src/es/<nombre>.njk` solo llevan el front matter.
 
-- `src/index.njk`
+- `src/index.njk` y `src/es/index.njk`
   - Home. HTML directo: es una composicion de secciones, no prosa.
   - Se muestra como “About” en navegación, pero su SEO está centrado en `Pablo Magariños`.
 
@@ -123,8 +128,8 @@ Campos disponibles:
 - `socialImage`
 - `robots`
 - `permalink`
-- `navTitle`
-- `navOrder`
+- `pageKey`
+- `untranslated`
 
 Reglas actuales:
 
@@ -167,7 +172,7 @@ Ese archivo genera:
 Si la pagina es prosa, edita su `.md`. Si es una pagina estructurada
 (`/experience/`, `/research/`, `/links/`), edita su archivo de datos:
 
-- `src/index.njk` — home
+- `src/index.njk` y `src/es/index.njk` — home
 - `src/_data/experience.js`
 - `src/_data/research.js`
 - `src/_data/links.js`
@@ -237,17 +242,22 @@ Ejemplo:
 
 ```js
 module.exports = [
-  { title: "About", url: "/" },
-  { title: "Experience", url: "/experience/" },
-  { title: "Contact", url: "/contact/" },
+  { title: { en: "About", es: "Sobre mí" }, url: "/" },
+  { title: { en: "Experience", es: "Experiencia" }, url: "/experience/" },
+  { title: { en: "Research", es: "Investigación" }, url: "/research/" },
 ];
 ```
 
+El titulo va en los dos idiomas y la URL en ingles; la cabecera la traduce sola.
+
 ### Si quieres añadir una página nueva
 
-1. Crea un markdown nuevo dentro de `src/`.
-2. Añade front matter.
+1. Crea el markdown en `src/` y su traduccion en `src/es/`, mismo nombre.
+2. Añade front matter en los dos (con `pageKey`).
 3. Si quieres que aparezca en el menú, añádela en `src/_data/navigation.js`.
+
+El procedimiento completo, con las plantillas y las comprobaciones, esta en
+`.claude/skills/add-page/SKILL.md`.
 
 Ejemplo:
 
@@ -258,6 +268,7 @@ title: Blog
 metaTitle: Blog | Pablo Magariños
 description: Notes on AI research, mathematics, and engineering.
 permalink: /blog/
+pageKey: blog
 ---
 
 # Blog
@@ -267,7 +278,7 @@ Page content here.
 
 Notas:
 
-- Si la página usa `layout`, entrará en el sitemap automáticamente.
+- Si la página usa `layout`, entrará en el sitemap automáticamente, con sus alternates `hreflang`.
 - Si no quieres indexarla, añade `robots: noindex, nofollow`.
 
 ### Si añades un artículo de Notebook
@@ -297,11 +308,9 @@ Consejos:
 
 `src/sitemap.xml.njk` recorre `collections.all` y mete en el sitemap las páginas que tengan `layout`.
 
-En la práctica, ahora mismo entran:
-
-- `/`
-- `/experience/`
-- `/contact/`
+En la práctica entran todas las páginas con `layout`, en los dos idiomas: la
+home, `/experience/`, `/research/`, `/gallery/`, cada artículo y cada foto, y
+sus equivalentes bajo `/es/`. La 404 queda fuera.
 
 Si creas una nueva página con `layout`, aparecerá automáticamente.
 
@@ -335,7 +344,7 @@ Si en el futuro quieres bloquear alguna página concreta, no se hace aquí; se h
 3. Si cambió dominio, revisa `src/robots.txt` y `src/CNAME`.
 4. Si cambió la imagen social o favicon, actualiza los assets.
 5. Ejecuta el build.
-6. Valida `_site/index.html`, `_site/experience/index.html`, `_site/contact/index.html`, `_site/sitemap.xml`, `_site/robots.txt` y `_site/CNAME`.
+6. Valida `_site/index.html`, `_site/experience/index.html`, `_site/es/index.html`, `_site/sitemap.xml`, `_site/robots.txt` y `_site/CNAME`.
 
 ### Cambios de estructura
 
@@ -392,7 +401,7 @@ Después de hacer build, revisa:
 
 - `_site/index.html`
 - `_site/experience/index.html`
-- `_site/contact/index.html`
+- `_site/es/index.html`
 - `_site/sitemap.xml`
 - `_site/robots.txt`
 - `_site/CNAME`
@@ -430,9 +439,9 @@ how-i-made-the-web) se edita en Markdown.
 
 ## Resumen de archivos que más tocarás
 
-- Contenido (prosa): `src/thoughts/*.md`, `src/notebook/*.md`, `src/privacy.md`
+- Contenido (prosa): `src/notebook/*.md`, `src/privacy.md` (y su traduccion en `src/es/`)
 - Contenido (estructurado): `src/_data/experience.js`, `src/_data/research.js`, `src/_data/links.js`
-- Home: `src/index.njk`
+- Home: `src/index.njk` y `src/es/index.njk`
 - Menú: `src/_data/navigation.js`
 - SEO global: `src/_data/site.js`
 - Head y metadatos: `src/_includes/base.njk`

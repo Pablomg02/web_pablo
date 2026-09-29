@@ -4,6 +4,11 @@ Personal website. Ultra-minimal, retro developer aesthetic.
 
 ## Editar el contenido
 
+Las tareas repetitivas (articulo, foto, rol o publicacion, pagina nueva) tienen
+un procedimiento paso a paso en `.claude/skills/`, escrito para que lo siga un
+asistente de IA pero valido tambien para una persona. Las reglas generales estan
+en `CLAUDE.md`.
+
 El contenido se divide en dos modelos, segun la forma de la pagina.
 
 ### Prosa -> Markdown
@@ -98,11 +103,9 @@ module.exports = [
   { title: { en: "About", es: "Sobre mí" }, url: "/" },
   { title: { en: "Experience", es: "Experiencia" }, url: "/experience/" },
   {
-    title: { en: "Notes", es: "Escritos" },
-    children: [
-      { title: { en: "Thoughts", es: "Reflexiones" }, url: "/thoughts/" },
-      { title: { en: "Tech Notes", es: "Notas técnicas" }, url: "/notebook/" },
-    ],
+    title: { en: "Tech Notes", es: "Notas técnicas" },
+    url: "/notebook/",
+    group: "personal",
   },
 ];
 ```
@@ -162,13 +165,21 @@ description: Optional short summary.
 ---
 ```
 
+Cada articulo tecnico de `src/notebook/` tiene ademas un PDF por idioma
+(`<nombre>.pdf` junto al `.md`). Se generan en local con `npm run notebook:pdf`
+y se suben al repositorio, porque el build de GitHub Pages no tiene
+Pandoc/LaTeX. Si cambias un articulo, regenera y sube sus PDFs en el mismo
+commit. El paso a paso esta en `.claude/skills/notebook-article/SKILL.md`.
+
 ## Anadir una foto a la galeria
 
 Cada foto es un par imagen + historia:
 
-1. Deja la imagen en `src/gallery/<slug>.jpeg` (a la mayor resolucion que
-   tengas; la web genera los tamanos y el WebP al compilar, y no publica el
-   original).
+1. Deja la imagen en `src/gallery/<slug>.jpeg`: unos 2400 px como maximo por el
+   lado largo y sin metadatos (GPS, camara). La web genera los tamanos y el WebP
+   al compilar y no publica el original, pero el original si se sube al
+   repositorio. `python3 .claude/skills/gallery-photo/prepare-photo.py ENTRADA
+   SALIDA` ajusta el tamano, la rotacion y quita los metadatos.
 2. Escribe la historia en `src/gallery/<slug>.md` y su traduccion en
    `src/es/gallery/<slug>.md`, con el mismo nombre:
 
