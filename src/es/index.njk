@@ -10,13 +10,17 @@ pageKey: index
 <header class="home-hero">
   <div class="home-hero__top">
     <div class="home-hero__heading">
-      <p class="home-kicker">Investigador e ingeniero en IA</p>
+      <p class="home-kicker">RL | Metaaprendizaje | IA multiagente</p>
       <h1 class="home-title">Pablo Magariños</h1>
-      <p class="home-subtitle"><span class="home-subtitle__line">Ingeniero aeroespacial <span class="home-subtitle__sep">/</span> Matemático aplicado</span><span class="home-subtitle__line">Investigación y desarrollo en inteligencia artificial corporeizada</span></p>
+      <p class="home-subtitle">Ingeniero aeroespacial investigando cómo la IA corporeizada puede aprender de su entorno</p>
     </div>
     <div class="home-hero__portrait">{% picture "src/images/portrait.jpeg", "Retrato de Pablo Magariños", { widths: ["auto"], sizes: "(max-width: 600px) 20rem, 11rem", loading: "eager", fetchpriority: "high" } %}</div>
   </div>
-  <p class="home-intro">La ingeniería aeroespacial me dio una base técnica amplia. Hace más de cinco años, un interés de siempre por la inteligencia me llevó a la inteligencia artificial, y las ganas de entenderla desde sus fundamentos me animaron a cursar un Máster en Matemática Industrial. Hoy me dedico a la investigación e intento aportar algo al campo: mi trabajo se sitúa en el <strong>aprendizaje por refuerzo</strong>, centrado en el problema de la <strong>observabilidad parcial</strong>, junto con el <strong>metaaprendizaje</strong> y los <strong>modelos del mundo</strong>. Lo hago movido por una firme creencia en el conocimiento abierto.</p>
+  <div class="home-intro">
+    <p>La ingeniería aeroespacial fue mi primer acercamiento a mi pasión desde pequeño: el progreso tecnológico. El avance humano.</p>
+    <p>Mi fascinación por la inteligencia artificial se remonta a mi adolescencia, y mi ambición por contribuir me llevó a aprender más y cursar el Máster en Matemática Industrial.</p>
+    <p>Hoy me dedico a la investigación y, sobre todo, a esforzarme por contribuir en este campo. Mi trabajo se sitúa en el <strong>aprendizaje por refuerzo</strong> y el <strong>metaaprendizaje</strong> bajo <strong>observabilidad parcial</strong>, aplicados a sistemas multiagente y a la IA corporeizada. Concretamente, investigo qué papel juegan los <strong>modelos del mundo</strong> y el <strong>estado de creencia</strong> en la capacidad del agente para adaptarse a situaciones novedosas y, con el tiempo, aprender de ellas. Nuevos entornos. Nuevos compañeros. <strong>Nuevo conocimiento</strong>.</p>
+  </div>
 </header>
 
 <section class="home-section home-section--split" data-scroll-step aria-labelledby="current-work-title">
@@ -39,17 +43,17 @@ pageKey: index
   <div class="education-grid home-section__body" data-reveal-each>
     <article class="education-card">
       <p class="education-card__degree">Doctorado en Ingeniería Aeroespacial</p>
-      <p class="education-card__school">Universidade de Vigo</p>
+      <p class="education-card__school">Universidade de Vigo <span aria-hidden="true">·</span> <span class="education-card__period">2026 &#8211; Actualidad</span></p>
       <p>Acabo de empezar el doctorado, centrado en la <strong>inteligencia artificial corporeizada</strong>: cómo puede un agente aprender a actuar con soltura en el mundo físico a partir de su propia experiencia en él.</p>
     </article>
     <article class="education-card">
       <p class="education-card__degree">Máster en Matemática Industrial</p>
-      <p class="education-card__school">Universidad Carlos III de Madrid</p>
+      <p class="education-card__school">Universidad Carlos III de Madrid <span aria-hidden="true">·</span> <span class="education-card__period">2024 &#8211; 2026</span></p>
       <p>Hice el máster para profundizar en el campo, movido por la ambición de entender mejor el lenguaje que permite manipular la realidad a través de la lógica y el rigor.</p>
     </article>
     <article class="education-card">
       <p class="education-card__degree">Grado en Ingeniería Aeroespacial</p>
-      <p class="education-card__school">Universidade de Vigo</p>
+      <p class="education-card__school">Universidade de Vigo <span aria-hidden="true">·</span> <span class="education-card__period">2020 &#8211; 2024</span></p>
       <p>El grado me dio una base sólida de ingeniería, pero también una buena formación en matemáticas y física, y una comprensión más profunda de la realidad. De él salió además mi primer artículo publicado, que puedes encontrar en <a href="{{ '/es/research/' | relativeUrl(page.url) }}">Investigación</a>.</p>
     </article>
   </div>
@@ -62,10 +66,27 @@ pageKey: index
   </div>
   <div class="home-section__body" data-reveal-each>
     <p class="section-lead">Mi investigación se centra en desarrollar una inteligencia que entienda de verdad su entorno, en lugar de limitarse a identificar correlaciones estadísticas en los datos.</p>
-    <p>Mi área principal es el <strong>aprendizaje por refuerzo</strong>: agentes que tienen que actuar sin ver nunca el cuadro completo, que aprenden a aprender y que construyen su propio modelo interno del mundo. El objetivo a largo plazo es construir sistemas de IA capaces de generar conocimiento nuevo y de desarrollar sus propios métodos.</p>
-    <p>Lo que mejor se me da es investigar y explorar ideas nuevas. Tengo una base sólida en los fundamentos matemáticos de la inteligencia artificial, desde los algoritmos de entrenamiento y la estabilidad numérica hasta las propiedades matemáticas de las redes neuronales. Eso me permite tomar decisiones informadas y originales al diseñar arquitecturas.</p>
-    <p>Siempre me ha movido entender cómo funcionan las cosas a nivel fundamental, tanto en el hardware como en el software. La programación bare-metal, la optimización de software y los sistemas de bajo nivel me interesan desde hace mucho.</p>
   </div>
+
+  <figure class="topic-tree">
+    <ul class="topic-tree__list" aria-label="Mapa de investigación: la IA corporeizada, a través del metaaprendizaje, se ramifica en modelos del mundo, estado de creencia, aprendizaje por refuerzo e IA multiagente">
+      <li class="topic-tree__item">
+        <span class="topic-tree__node topic-tree__node--root">IA corporeizada</span>
+        <ul class="topic-tree__children">
+          <li class="topic-tree__item">
+            <span class="topic-tree__node topic-tree__node--hub">Metaaprendizaje</span>
+            {% include "partials/topic-tree-branches.njk" %}
+            <ul class="topic-tree__children topic-tree__children--fan">
+              <li class="topic-tree__item"><span class="topic-tree__node">Modelos del mundo</span></li>
+              <li class="topic-tree__item"><span class="topic-tree__node">Estado de creencia</span></li>
+              <li class="topic-tree__item"><span class="topic-tree__node">Aprendizaje por refuerzo</span></li>
+              <li class="topic-tree__item"><span class="topic-tree__node">IA multiagente</span></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </figure>
 </section>
 
 <section class="home-section home-section--split" data-scroll-step aria-labelledby="about-title">
