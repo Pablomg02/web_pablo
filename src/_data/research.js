@@ -73,6 +73,29 @@ module.exports = {
     },
     {
       title:
+        "From Token Lists to Graph Motifs: Weisfeiler-Lehman Analysis of Sparse Autoencoder Features",
+      venue: {
+        en: "May 2026 — arXiv preprint (cs.AI)",
+        es: "Mayo de 2026, preprint en arXiv (cs.AI)",
+      },
+      summary:
+        "Mechanistic interpretability preprint that models each sparse autoencoder feature as a token co-occurrence graph and clusters features from a GPT-2 Small SAE with a Weisfeiler-Lehman-style graph kernel.",
+      body: {
+        en: [
+          "I collaborated on this preprint, a study in <strong>mechanistic interpretability</strong>. Instead of reading a sparse autoencoder (SAE) feature as a list of top tokens, we model it as a <strong>token co-occurrence graph</strong> and compare features with a <strong>Weisfeiler-Lehman-style graph kernel</strong>.",
+          "On a GPT-2 Small SAE, the clustering reveals structural families such as punctuation-heavy sequences, language clusters and code-like templates. A token-histogram baseline scores higher overall, so the graph view works as a <strong>complementary lens</strong>, not a replacement.",
+        ],
+        es: [
+          "Colaboré en este preprint, un estudio de <strong>interpretabilidad mecanicista</strong>. En lugar de leer una característica de un autoencoder disperso (SAE) como una lista de tokens, la modelamos como un <strong>grafo de co-ocurrencia de tokens</strong> y comparamos características con un <strong>núcleo de grafos de tipo Weisfeiler-Lehman</strong>.",
+          "Sobre un SAE de GPT-2 Small, el agrupamiento revela familias estructurales como secuencias con mucha puntuación, grupos por idioma y plantillas de código. Una línea base de histogramas de tokens puntúa más alto en global, así que la vista en grafos es una <strong>lente complementaria</strong>, no un sustituto.",
+        ],
+      },
+      links: [
+        { label: paper, url: "https://arxiv.org/abs/2605.06494" },
+      ],
+    },
+    {
+      title:
         "Real-Time Aerodynamic Airfoil Optimisation Using Deep Reinforcement Learning with Proximal Policy Optimisation",
       venue: {
         en: "November 2025 — Aerospace (MDPI), Vol. 12, Issue 11",
