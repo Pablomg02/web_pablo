@@ -197,13 +197,40 @@ module.exports = function (eleventyConfig) {
   });
   // The same page in another language: swap the /es/ prefix. Only for
   // site-root paths; everything else is returned untouched.
-  eleventyConfig.addFilter("localeUrl", (url = "/", lang = DEFAULT_LANGUAGE) => {
+  const localeUrl = (url = "/", lang = DEFAULT_LANGUAGE) => {
     if (!url.startsWith("/")) {
       return url;
     }
 
     const bare = url.replace(/^\/es(?=\/|$)/, "") || "/";
     return lang === DEFAULT_LANGUAGE ? bare : `/${lang}${bare}`;
+  };
+  eleventyConfig.addFilter("localeUrl", localeUrl);
+  // The language switch, hreflang and the sitemap all assume every page has a
+  // twin at the mirrored path. Nothing else notices a missing one (the switch
+  // would just link to a 404), so fail the build. Pages that opt out with
+  // `untranslated: true` (the error page) are exempt. Only pages with a layout
+  // count, as in the sitemap.
+  eleventyConfig.addCollection("mirrorCheck", (collectionApi) => {
+    const pages = collectionApi
+      .getAll()
+      .filter((item) => typeof item.url === "string" && item.data.layout && !item.data.untranslated);
+    const urls = new Set(pages.map((item) => item.url));
+    const orphans = pages
+      .filter((item) => {
+        const otherLang = item.url.startsWith("/es/") ? DEFAULT_LANGUAGE : "es";
+        return !urls.has(localeUrl(item.url, otherLang));
+      })
+      .map((item) => item.url);
+
+    if (orphans.length) {
+      throw new Error(
+        `Pages without a translation at the mirrored path: ${orphans.join(", ")}. ` +
+          "Add the other language, or set `untranslated: true` on the page.",
+      );
+    }
+
+    return [];
   });
   eleventyConfig.addFilter("inLanguage", (items = [], lang = DEFAULT_LANGUAGE) =>
     items.filter((item) => (item.data.lang || DEFAULT_LANGUAGE) === lang),
