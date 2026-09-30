@@ -1532,7 +1532,22 @@ hr {
 }
 
 .home-hero__portrait {
-  translate: calc(var(--hero-px, 0) * 9px) calc(var(--hero-py, 0) * 9px);
+  translate: calc(var(--hero-px, 0) * 3px) calc(var(--hero-py, 0) * 3px);
+}
+
+/* The photo turns further than the card, under a perspective of its own
+   close enough to foreshorten it visibly, so it reads as a print that swings
+   towards the pointer inside the viewfinder, which stays flat. */
+.home-hero.is-3d .home-hero__portrait::before,
+.home-hero.is-3d .home-hero__portrait::after {
+  z-index: 1;
+}
+
+.home-hero.is-3d .home-hero__portrait img {
+  transform:
+    perspective(24rem)
+    rotateX(calc(var(--hero-rx, 0deg) * 2.5))
+    rotateY(calc(var(--hero-ry, 0deg) * 2.5));
 }
 
 /* The keywords, under a highlighter stroke. */
@@ -1572,7 +1587,8 @@ hr {
 }
 
 @media print {
-  .home-hero.is-3d {
+  .home-hero.is-3d,
+  .home-hero.is-3d .home-hero__portrait img {
     transform: none;
   }
 
@@ -2219,8 +2235,15 @@ em {
   overflow-x: clip;
 }
 
+/* The band is wider than the text column, but never reaches the scroll rail
+   in the margin (centred at a quarter of the margin, see `.scroll-rail`):
+   it stops 2.25rem short of the rail's centre on both sides. */
 .photo-band {
-  --band-width: min(calc(100vw - 2 * clamp(1rem, 7vw, 7rem)), 1320px);
+  --band-width: min(
+    calc(100vw - 2 * clamp(1rem, 7vw, 7rem)),
+    calc(100vw - 2 * ((100vw - var(--rail-page, var(--max-width))) / 4 + 2.25rem)),
+    1320px
+  );
   position: relative;
   display: flex;
   gap: 4px;
