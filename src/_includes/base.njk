@@ -128,7 +128,7 @@
   <link rel="preload" href="{{ '/assets/fonts/space-grotesk-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ '/assets/fonts/press-start-2p-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
   {% if math %}<link rel="stylesheet" href="{{ '/assets/katex/katex.min.css' | relativeUrl(page.url) }}">{% endif %}
-  <link rel="stylesheet" href="{{ '/css/style.css' | relativeUrl(page.url) }}">
+  <link rel="stylesheet" href="{{ '/css/style.css' | versioned | relativeUrl(page.url) }}">
   {#- Same-site pages are prerendered when the pointer rests on a link (or
      a finger goes down on it), so following it is instant. Browsers without
      speculation rules ignore the block. PDFs and downloads are left alone. #}
@@ -260,6 +260,6 @@
       <a href="{{ '/how-i-made-the-web/' | localeUrl(lang) | relativeUrl(page.url) }}">{{ t.howIMadeTheWeb }}</a>
     </div>
   </footer>
-  <script defer src="{{ '/js/site.js' | relativeUrl(page.url) }}"></script>
+  <script defer src="{{ '/js/site.js' | versioned | relativeUrl(page.url) }}"></script>
 </body>
 </html>
