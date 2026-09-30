@@ -454,7 +454,8 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
 
 // Welcome card (see "Welcome card" in style.css): the home hero follows the
 // pointer in 3D. A mouse or pen lifts the side of the card it is over
-// towards the reader and lights a glow under it. A finger dips the card
+// towards the reader and lights a glow under it, which glides after the
+// pointer a little behind the tilt. A finger dips the card
 // where it rests, but only once it has stayed still for a moment, so a
 // swipe to scroll or a quick tap leaves the card alone; it springs back
 // when the finger lifts or the page starts scrolling. The values ease
@@ -468,8 +469,10 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     return;
   }
 
-  var current = { rx: 0, ry: 0, px: 0, py: 0 };
-  var target = { rx: 0, ry: 0, px: 0, py: 0 };
+  var current = { rx: 0, ry: 0, px: 0, py: 0, mx: 50, my: 0 };
+  var target = { rx: 0, ry: 0, px: 0, py: 0, mx: 50, my: 0 };
+  // The light trails the tilt: a slower ease reads as weight, not lag.
+  var ease = { rx: 0.12, ry: 0.12, px: 0.12, py: 0.12, mx: 0.07, my: 0.07 };
   var frame = 0;
   var maxAngle = 4;
   var press = null;
@@ -485,7 +488,7 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     Object.keys(current).forEach(function (key) {
       var delta = target[key] - current[key];
       if (Math.abs(delta) > 0.001) {
-        current[key] += delta * 0.12;
+        current[key] += delta * ease[key];
         moving = true;
       } else {
         current[key] = target[key];
@@ -495,6 +498,8 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     hero.style.setProperty('--hero-ry', current.ry.toFixed(3) + 'deg');
     hero.style.setProperty('--hero-px', current.px.toFixed(3));
     hero.style.setProperty('--hero-py', current.py.toFixed(3));
+    hero.style.setProperty('--hero-mx', current.mx.toFixed(2) + '%');
+    hero.style.setProperty('--hero-my', current.my.toFixed(2) + '%');
     frame = moving ? window.requestAnimationFrame(step) : 0;
   }
 
@@ -519,8 +524,14 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     target.ry = (1 - at.x * 2) * maxAngle;
     target.px = at.x * 2 - 1;
     target.py = at.y * 2 - 1;
-    hero.style.setProperty('--hero-mx', (at.x * 100).toFixed(1) + '%');
-    hero.style.setProperty('--hero-my', (at.y * 100).toFixed(1) + '%');
+    target.mx = at.x * 100;
+    target.my = at.y * 100;
+    // Entering, the light appears where the pointer is instead of sliding
+    // in from where it last faded out.
+    if (!hero.classList.contains('is-lit')) {
+      current.mx = target.mx;
+      current.my = target.my;
+    }
     hero.classList.add('is-lit');
     animate();
   }

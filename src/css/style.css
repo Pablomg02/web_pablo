@@ -116,13 +116,15 @@
   --color-surface: rgba(255, 255, 255, 0.72);
   --color-surface-solid: #ffffff;
   --color-accent-soft: rgba(138, 101, 0, 0.09);
-  --color-glow: rgba(184, 137, 0, 0.11);
+  --color-glow: rgba(250, 196, 40, 0.08);
+  --color-glow-soft: rgba(255, 214, 90, 0.065);
   --color-grid: rgba(91, 33, 182, 0.07);
   --color-shadow: rgba(184, 137, 0, 0.25);
   --color-notes-shadow: rgba(234, 183, 47, 0.26);
   --color-nav-personal: #1a1a1a;
   --color-nav-personal-shadow: rgba(26, 26, 26, 0.16);
-  --color-hero-glow: rgba(184, 137, 0, 0.13);
+  --color-hero-glow: rgba(250, 200, 50, 0.1);
+  --color-hero-rim: rgba(226, 170, 20, 0.45);
   --color-hero-mark: rgba(234, 183, 47, 0.3);
   --footer-link-opacity: 1;
   --font-heading: 'Space Grotesk', system-ui, sans-serif;
@@ -155,12 +157,14 @@
   --color-surface-solid: #13110c;
   --color-accent-soft: rgba(224, 181, 58, 0.09);
   --color-glow: rgba(224, 181, 58, 0.1);
+  --color-glow-soft: rgba(224, 181, 58, 0.09);
   --color-grid: rgba(244, 236, 209, 0.05);
   --color-shadow: rgba(224, 181, 58, 0.25);
   --color-notes-shadow: rgba(242, 207, 102, 0.28);
   --color-nav-personal: #f8f2dc;
   --color-nav-personal-shadow: rgba(248, 242, 220, 0.2);
-  --color-hero-glow: rgba(224, 181, 58, 0.12);
+  --color-hero-glow: rgba(224, 181, 58, 0.08);
+  --color-hero-rim: rgba(242, 207, 102, 0.5);
   --color-hero-mark: rgba(224, 181, 58, 0.2);
   --footer-link-opacity: 1;
 }
@@ -182,13 +186,15 @@
     --color-surface-solid: #13110c;
     --color-accent-soft: rgba(224, 181, 58, 0.09);
     --color-glow: rgba(224, 181, 58, 0.1);
+    --color-glow-soft: rgba(224, 181, 58, 0.09);
     --color-grid: rgba(244, 236, 209, 0.05);
     --color-shadow: rgba(224, 181, 58, 0.25);
     --color-notes-shadow: rgba(242, 207, 102, 0.28);
     --color-nav-personal: #f8f2dc;
     --color-nav-personal-shadow: rgba(248, 242, 220, 0.2);
-    --color-hero-glow: rgba(224, 181, 58, 0.12);
-      --color-hero-mark: rgba(224, 181, 58, 0.2);
+    --color-hero-glow: rgba(224, 181, 58, 0.08);
+    --color-hero-rim: rgba(242, 207, 102, 0.5);
+    --color-hero-mark: rgba(224, 181, 58, 0.2);
     --footer-link-opacity: 1;
   }
 }
@@ -233,8 +239,8 @@ body {
    the root font-size step at 1100px does not move it. */
 body::before {
   --glow-x: calc(max(0px, 50% - 550px) + 170px);
-  --glow-y: 90px;
-  --glow-w: 820px;
+  --glow-y: 20px;
+  --glow-w: 1000px;
   --glow-h: 380px;
   content: '';
   position: fixed;
@@ -255,9 +261,9 @@ body::before {
     ),
     radial-gradient(
       calc(var(--glow-w) * 0.5) calc(var(--glow-h) * 1.35) at calc(var(--glow-x) - 60px) calc(var(--glow-y) + 70px),
-      var(--color-accent-soft) 0%,
-      color-mix(in srgb, var(--color-accent-soft) 45%, transparent) 40%,
-      color-mix(in srgb, var(--color-accent-soft) 15%, transparent) 70%,
+      var(--color-glow-soft) 0%,
+      color-mix(in srgb, var(--color-glow-soft) 45%, transparent) 40%,
+      color-mix(in srgb, var(--color-glow-soft) 15%, transparent) 70%,
       transparent 100%
     ),
     linear-gradient(var(--color-grid) 1px, transparent 1px),
@@ -1600,16 +1606,44 @@ hr {
     rotateY(var(--hero-ry, 0deg));
 }
 
+/* The light is a broad, flat wash that eases out over many stops, so it
+   reads as the card catching light rather than a spot on it. Its ::after is
+   a 1px rim, masked to the card's inner edge, lit only near the pointer. */
 .home-hero__glow {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(9rem circle at var(--hero-mx, 50%) var(--hero-my, 0%), var(--color-hero-glow), transparent 100%),
-    radial-gradient(34rem circle at var(--hero-mx, 50%) var(--hero-my, 0%), var(--color-hero-glow), transparent 70%);
+  background: radial-gradient(
+    38rem 26rem at var(--hero-mx, 50%) var(--hero-my, 0%),
+    var(--color-hero-glow) 0%,
+    color-mix(in srgb, var(--color-hero-glow) 60%, transparent) 20%,
+    color-mix(in srgb, var(--color-hero-glow) 28%, transparent) 42%,
+    color-mix(in srgb, var(--color-hero-glow) 9%, transparent) 66%,
+    transparent 100%
+  );
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.home-hero__glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: radial-gradient(
+    18rem 14rem at var(--hero-mx, 50%) var(--hero-my, 0%),
+    var(--color-hero-rim) 0%,
+    color-mix(in srgb, var(--color-hero-rim) 35%, transparent) 45%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
 }
 
 .home-hero.is-lit .home-hero__glow {
