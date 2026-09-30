@@ -44,8 +44,14 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
       updateToggleLabel();
     });
 
-    // The layout re-reads the theme when a prerendered page is shown.
+    // The layout re-reads the theme when a prerendered page is shown or one
+    // comes back from the back/forward cache.
     document.addEventListener('prerenderingchange', updateToggleLabel);
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) {
+        updateToggleLabel();
+      }
+    });
 
     updateToggleLabel();
   }

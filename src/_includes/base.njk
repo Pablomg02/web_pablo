@@ -105,15 +105,23 @@
         applyTheme(preference);
       };
 
-      // A page prerendered on hover (see the speculation rules below) read
-      // the theme then; if it was toggled since, catch up when it is shown.
-      document.addEventListener('prerenderingchange', function () {
+      // A page prerendered on hover (see the speculation rules below), or
+      // restored from the back/forward cache, read the theme earlier; if it
+      // was toggled since, catch up when it is shown.
+      function syncTheme() {
         try {
           storedPreference = window.localStorage.getItem(storageKey);
         } catch (error) {
           storedPreference = null;
         }
         applyTheme(storedPreference);
+      }
+
+      document.addEventListener('prerenderingchange', syncTheme);
+      window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+          syncTheme();
+        }
       });
     }());
   </script>
