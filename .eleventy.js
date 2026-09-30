@@ -1,3 +1,4 @@
+const crypto = require("node:crypto");
 const fs = require("node:fs");
 const path = require("node:path");
 const { katex } = require("@mdit/plugin-katex");
@@ -282,6 +283,17 @@ module.exports = function (eleventyConfig) {
     }
 
     return fs.existsSync(inputPath.replace(/\.md$/, ".pdf"));
+  });
+  // The stylesheet and the script keep their URL from one deploy to the next,
+  // so a browser still holding the old copy pairs it with the new markup (a
+  // phone once showed the new research tree under the previous stylesheet,
+  // unstyled). Their URL carries a hash of the file instead, which changes
+  // exactly when the file does. Apply it before `relativeUrl`, which keeps the
+  // query. Read on every call, not cached, so `npm run dev` follows edits.
+  eleventyConfig.addFilter("versioned", (url = "") => {
+    const source = path.join("src", url.split(/[?#]/)[0]);
+    const hash = crypto.createHash("sha256").update(fs.readFileSync(source)).digest("hex").slice(0, 10);
+    return `${url}${url.includes("?") ? "&" : "?"}v=${hash}`;
   });
   eleventyConfig.addFilter("dateToFormat", (date, format = "yyyy-MM-dd") => {
     const normalizedDate = normalizeDate(date);
