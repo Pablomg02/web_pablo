@@ -1162,6 +1162,26 @@ hr {
   bottom: 50%;
 }
 
+/* An odd hub out (the third) stands alone under the other two, on the axis:
+   the spine runs into its top over the gap above it and on from its bottom
+   into the leaves, and it has no arm. */
+.topic-tree__children--hubs > .topic-tree__item:nth-child(odd):last-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - var(--tt-indent));
+}
+
+.topic-tree__children--hubs > .topic-tree__item:nth-child(odd):last-child::before {
+  top: calc(var(--tt-gap) * -1);
+  bottom: auto;
+  left: calc(50% - 3px);
+  height: var(--tt-gap);
+}
+
+.topic-tree__children--hubs > .topic-tree__item:nth-child(odd):last-child::after {
+  display: none;
+}
+
 .topic-tree__children--hubs > .topic-tree__item::after,
 .topic-tree__children--fan > .topic-tree__item::after {
   top: calc(50% - 3px);
@@ -1271,7 +1291,8 @@ hr {
     padding: 0;
   }
 
-  .topic-tree__children--hubs > .topic-tree__item {
+  .topic-tree__children--hubs > .topic-tree__item,
+  .topic-tree__children--hubs > .topic-tree__item:nth-child(odd):last-child {
     grid-row: 3;
     grid-column: span 4;
     width: min(var(--tt-hub), 100% - var(--tt-col));
