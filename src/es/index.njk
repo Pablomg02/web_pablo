@@ -72,7 +72,7 @@ pageKey: index
   </div>
 
   <figure class="topic-tree" data-topic-tree>
-    <ul class="topic-tree__list" aria-label="Mapa de investigación: la IA corporeizada plantea tres problemas, las tareas de largo horizonte, el metaaprendizaje y el aprendizaje continuo, que comparten cuatro herramientas: modelos del mundo, estado de creencia, aprendizaje por refuerzo e IA multiagente">
+    <ul class="topic-tree__list" aria-label="Mapa de investigación: la IA corporeizada plantea tres problemas, las tareas de largo horizonte, el metaaprendizaje y el aprendizaje continuo, que comparten un terreno común de cuatro enfoques: modelos del mundo, estado de creencia, aprendizaje por refuerzo e IA multiagente">
       <li class="topic-tree__item">
         <button type="button" class="topic-tree__node topic-tree__node--root" aria-controls="topic-note-embodied">IA corporeizada</button>
         {% include "partials/topic-tree-branches.njk" %}
@@ -82,12 +82,15 @@ pageKey: index
           <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-continual">Aprendizaje continuo</button></li>
         </ul>
         {% include "partials/topic-tree-leaves.njk" %}
-        <ul class="topic-tree__children topic-tree__children--fan">
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">Modelos del mundo</button></li>
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Estado de creencia</button></li>
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Aprendizaje por refuerzo</button></li>
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">IA multiagente</button></li>
-        </ul>
+        <div class="topic-tree__group">
+          <p class="topic-tree__group-label" id="topic-tree-group-label">Terreno común</p>
+          <ul class="topic-tree__children topic-tree__children--fan" aria-labelledby="topic-tree-group-label">
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">Modelos del mundo</button></li>
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Estado de creencia</button></li>
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Aprendizaje por refuerzo</button></li>
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">IA multiagente</button></li>
+          </ul>
+        </div>
       </li>
     </ul>
     <div class="topic-tree__notes">

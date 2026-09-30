@@ -71,7 +71,7 @@ pageKey: index
   </div>
 
   <figure class="topic-tree" data-topic-tree>
-    <ul class="topic-tree__list" aria-label="Research map: embodied AI raises three problems, long-horizon tasks, meta-learning and continual learning, which share four tools: world models, belief state, reinforcement learning and multi-agent AI">
+    <ul class="topic-tree__list" aria-label="Research map: embodied AI raises three problems, long-horizon tasks, meta-learning and continual learning, which share a common ground of four approaches: world models, belief state, reinforcement learning and multi-agent AI">
       <li class="topic-tree__item">
         <button type="button" class="topic-tree__node topic-tree__node--root" aria-controls="topic-note-embodied">Embodied AI</button>
         {% include "partials/topic-tree-branches.njk" %}
@@ -81,12 +81,15 @@ pageKey: index
           <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-continual">Continual Learning</button></li>
         </ul>
         {% include "partials/topic-tree-leaves.njk" %}
-        <ul class="topic-tree__children topic-tree__children--fan">
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">World Models</button></li>
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Belief State</button></li>
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Reinforcement Learning</button></li>
-          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">Multi-Agent AI</button></li>
-        </ul>
+        <div class="topic-tree__group">
+          <p class="topic-tree__group-label" id="topic-tree-group-label">Common ground</p>
+          <ul class="topic-tree__children topic-tree__children--fan" aria-labelledby="topic-tree-group-label">
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">World Models</button></li>
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Belief State</button></li>
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Reinforcement Learning</button></li>
+            <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">Multi-Agent AI</button></li>
+          </ul>
+        </div>
       </li>
     </ul>
     <div class="topic-tree__notes">

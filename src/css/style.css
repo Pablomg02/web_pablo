@@ -976,7 +976,8 @@ hr {
    comes from the theme variables and follows light / dark with no extra rule.
    Layout follows the width of the column, not the viewport: rows of two
    either side of a spine when narrow, a symmetric fan when there is room.
-   The root has three hubs, and the three share the same four leaves. */
+   The root has three hubs, and the three share the same four leaves, which
+   stand together in a dashed frame with a handwritten label. */
 .topic-tree {
   --tt-line: var(--color-muted);
   --tt-stem: 1.75rem;
@@ -985,7 +986,8 @@ hr {
   --tt-node: 3.5rem;
   --tt-hub: 11rem;
   --tt-rise: 4rem;
-  --tt-fall: 7.5rem;
+  --tt-fall: 4rem;
+  --tt-frame: 0.6rem;
   --tt-col: 1rem;
   --tt-leaf: 11rem;
   --tt-w: min(100cqw, 54rem);
@@ -1018,6 +1020,7 @@ hr {
 
 /* Every connector is a thin box masked into a wavering line. */
 .topic-tree__children::before,
+.topic-tree__group::before,
 .topic-tree__children--hubs > .topic-tree__item::before,
 .topic-tree__children--hubs > .topic-tree__item::after,
 .topic-tree__children--fan > .topic-tree__item::before,
@@ -1101,10 +1104,11 @@ hr {
 }
 
 /* Narrow: the hubs, then the leaves, stand in rows of two, one column either
-   side of the axis. A spine runs down the middle from the root, drawn by the
-   left box of each row (over the gap above it and its own height), and each
-   box hangs off it by a short arm. The spine runs on past the hubs, since all
-   of them feed the leaves, and stops halfway down the last row of leaves. */
+   side of the axis (the third hub alone under the other two). A spine runs
+   down the middle from the root, drawn by the left box of each row (over the
+   gap above it and its own height), and each box hangs off it by a short arm.
+   The spine runs on past the hubs into the frame round the leaves, since all
+   of them share it, and stops halfway down the last row of leaves. */
 .topic-tree__children--hubs,
 .topic-tree__children--fan {
   display: grid;
@@ -1152,10 +1156,14 @@ hr {
   width: 6px;
 }
 
-/* The first row reaches up over the stem gap to the box above it. */
-.topic-tree__children--hubs > .topic-tree__item:first-child::before,
-.topic-tree__children--fan > .topic-tree__item:first-child::before {
+/* The first row of hubs reaches up over the stem gap to the root; the first
+   row of leaves only up to the frame, whose own stem crosses the gap. */
+.topic-tree__children--hubs > .topic-tree__item:first-child::before {
   top: calc(var(--tt-stem) * -1);
+}
+
+.topic-tree__children--fan > .topic-tree__item:first-child::before {
+  top: calc(var(--tt-frame) * -1);
 }
 
 .topic-tree__children--fan > .topic-tree__item:nth-child(odd):nth-last-child(-n + 2)::before {
@@ -1198,6 +1206,45 @@ hr {
   right: 100%;
 }
 
+/* The leaves are shared by every hub, so they stand together in a frame
+   drawn with a dashed pen, its label written across the bottom edge. The
+   label's background is the page's, so it cuts the dashes behind it. */
+.topic-tree__group {
+  position: relative;
+  width: 100%;
+  margin: var(--tt-stem) 0 0.9rem;
+  padding: var(--tt-frame) var(--tt-frame) calc(var(--tt-frame) + 0.5rem);
+  border: 2px dashed var(--color-muted);
+  border-radius: 18px 8px 16px 10px / 10px 16px 8px 18px;
+}
+
+.topic-tree__group::before {
+  top: calc(var(--tt-stem) * -1 - 2px);
+  left: calc(50% - 3px);
+  width: 6px;
+  height: var(--tt-stem);
+}
+
+.topic-tree__children--fan {
+  padding-top: 0;
+}
+
+.topic-tree__group-label {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+  margin: 0;
+  padding: 0 0.4rem;
+  background: var(--color-bg);
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-muted);
+  translate: 0 55%;
+  rotate: -1.5deg;
+}
+
 /* The tree is a sibling of the section's text column, not inside it: on a
    desktop it spans the whole section, under the heading and the lead. */
 @media (min-width: 820px) {
@@ -1209,18 +1256,17 @@ hr {
 
 /* Wide enough: a fan. The root's item is a grid of twelve columns and five
    rows: the root, a gap, the three hubs (a third of the width each), a gap,
-   the four leaves (a quarter each). The branches in each gap are one inline
-   SVG (`partials/topic-tree-branches.njk`, root to hubs, and
-   `partials/topic-tree-leaves.njk`, hubs to leaves) stretched over it: its
-   viewBox is 600 wide, so a hub's centre is always at 100, 300 or 500 and a
-   leaf's at 75, 225, 375 or 525 whatever the width, and every curve leaves a
-   box straight down and lands on the next one straight down. The hubs'
-   branches meet in one knot, from which the fan to the leaves starts. Each
-   branch is drawn twice, the second pass thinner and a little off the first,
-   like a pen going back over a line.
+   and the frame, the full width, with the four leaves in a row inside it.
+   The branches in each gap are one inline SVG
+   (`partials/topic-tree-branches.njk`, root to hubs, and
+   `partials/topic-tree-leaves.njk`, hubs to frame) stretched over it: its
+   viewBox is 600 wide, so a hub's centre is always at 100, 300 or 500
+   whatever the width, and every curve leaves a box straight down and lands
+   on the next one straight down. Each branch is drawn twice, the second pass
+   thinner and a little off the first, like a pen going back over a line.
    When the section rises into view (site.js adds `.reveal` / `.is-visible`)
    each set of branches is uncovered from the top down, the hubs appear as
-   the first reaches them and the leaves as the second does; without
+   the first reaches them and the frame as the second does; without
    JavaScript or with reduced motion it is still. */
 .topic-tree__branches {
   display: none;
@@ -1235,7 +1281,8 @@ hr {
   .topic-tree__list > .topic-tree__item {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: auto var(--tt-rise) var(--tt-node) var(--tt-fall) var(--tt-node);
+    grid-template-rows: auto var(--tt-rise) var(--tt-node) var(--tt-fall) auto;
+    align-items: start;
     justify-items: center;
   }
 
@@ -1276,9 +1323,30 @@ hr {
     opacity: 0.5;
   }
 
-  .topic-tree__children--hubs,
-  .topic-tree__children--fan {
+  .topic-tree__children--hubs {
     display: contents;
+  }
+
+  .topic-tree__group {
+    --tt-frame: 0.9rem;
+    grid-column: 1 / -1;
+    grid-row: 5;
+    justify-self: stretch;
+    width: auto;
+    margin: 0 0 0.9rem;
+  }
+
+  .topic-tree__group::before {
+    display: none;
+  }
+
+  .topic-tree__group-label {
+    right: 1.4rem;
+  }
+
+  .topic-tree__children--fan {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
   }
 
   .topic-tree__children--hubs > .topic-tree__item,
@@ -1299,8 +1367,6 @@ hr {
   }
 
   .topic-tree__children--fan > .topic-tree__item {
-    grid-row: 5;
-    grid-column: span 3;
     width: min(var(--tt-leaf), 100% - var(--tt-col));
   }
 
@@ -1330,10 +1396,10 @@ hr {
   }
 
   /* When each set of branches starts to uncover (`--tt-at`) and how long it
-     takes (`--tt-draw`), and when each row of boxes starts to fade in,
+     takes (`--tt-draw`), and when the hubs and the frame start to fade in,
      counted from the start of the reveal. A fade starting when its branches
      land reads as late (the first tenths of opacity are invisible), so each
-     row starts about 0.2s early and is half there when they do. Change the
+     starts about 0.2s early and is half there when they do. Change the
      easing or a duration and these have to follow. */
   .topic-tree__branches--hubs {
     --tt-at: 0.45s;
@@ -1342,15 +1408,15 @@ hr {
 
   .topic-tree__branches--leaves {
     --tt-at: 1s;
-    --tt-draw: 0.75s;
+    --tt-draw: 0.5s;
   }
 
   .topic-tree__children--hubs > .topic-tree__item {
     --tt-at: 0.8s;
   }
 
-  .topic-tree__children--fan > .topic-tree__item {
-    --tt-at: 1.5s;
+  .topic-tree__group {
+    --tt-at: 1.3s;
   }
 
   /* A dash-offset "pen" would be simplest, but the stretched viewBox and the
@@ -1367,12 +1433,12 @@ hr {
   }
 
   .topic-tree.reveal .topic-tree__children--hubs .topic-tree__node,
-  .topic-tree.reveal .topic-tree__children--fan .topic-tree__node {
+  .topic-tree.reveal .topic-tree__group {
     opacity: 0;
   }
 
   .topic-tree.reveal.is-visible .topic-tree__children--hubs .topic-tree__node,
-  .topic-tree.reveal.is-visible .topic-tree__children--fan .topic-tree__node {
+  .topic-tree.reveal.is-visible .topic-tree__group {
     opacity: 1;
     transition: opacity 0.3s ease-out calc(var(--reveal-delay, 0s) + var(--tt-at));
   }
