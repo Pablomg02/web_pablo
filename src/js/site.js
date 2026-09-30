@@ -442,3 +442,128 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   }
   measure();
 }());
+
+// Welcome card (see "Welcome card" in style.css): the home hero follows the
+// pointer in 3D. A mouse or pen lifts the side of the card it is over
+// towards the reader and lights a glow under it. A finger dips the card
+// where it rests, but only once it has stayed still for a moment, so a
+// swipe to scroll or a quick tap leaves the card alone; it springs back
+// when the finger lifts or the page starts scrolling. The values ease
+// towards their targets frame by frame. Tall cards get a deeper perspective
+// and a gentler angle, so their far edges never swing out. Reduced motion
+// leaves the card still.
+(function () {
+  var hero = document.querySelector('[data-hero]');
+
+  if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  var current = { rx: 0, ry: 0, px: 0, py: 0 };
+  var target = { rx: 0, ry: 0, px: 0, py: 0 };
+  var frame = 0;
+  var maxAngle = 4;
+  var press = null;
+
+  function measure() {
+    var size = Math.max(hero.offsetWidth, hero.offsetHeight);
+    hero.style.setProperty('--hero-persp', Math.round(Math.max(1400, size * 2.6)) + 'px');
+    maxAngle = Math.min(6, 4200 / Math.max(1, size));
+  }
+
+  function step() {
+    var moving = false;
+    Object.keys(current).forEach(function (key) {
+      var delta = target[key] - current[key];
+      if (Math.abs(delta) > 0.001) {
+        current[key] += delta * 0.12;
+        moving = true;
+      } else {
+        current[key] = target[key];
+      }
+    });
+    hero.style.setProperty('--hero-rx', current.rx.toFixed(3) + 'deg');
+    hero.style.setProperty('--hero-ry', current.ry.toFixed(3) + 'deg');
+    hero.style.setProperty('--hero-px', current.px.toFixed(3));
+    hero.style.setProperty('--hero-py', current.py.toFixed(3));
+    frame = moving ? window.requestAnimationFrame(step) : 0;
+  }
+
+  function animate() {
+    if (!frame) {
+      frame = window.requestAnimationFrame(step);
+    }
+  }
+
+  // Where (x, y), from 0 to 1 across the card, the pointer is.
+  function locate(clientX, clientY) {
+    var rect = hero.getBoundingClientRect();
+    return {
+      x: Math.min(1, Math.max(0, (clientX - rect.left) / rect.width)),
+      y: Math.min(1, Math.max(0, (clientY - rect.top) / rect.height)),
+    };
+  }
+
+  function hover(event) {
+    var at = locate(event.clientX, event.clientY);
+    target.rx = (at.y * 2 - 1) * maxAngle;
+    target.ry = (1 - at.x * 2) * maxAngle;
+    target.px = at.x * 2 - 1;
+    target.py = at.y * 2 - 1;
+    hero.style.setProperty('--hero-mx', (at.x * 100).toFixed(1) + '%');
+    hero.style.setProperty('--hero-my', (at.y * 100).toFixed(1) + '%');
+    hero.classList.add('is-lit');
+    animate();
+  }
+
+  function dip(clientX, clientY) {
+    var at = locate(clientX, clientY);
+    target.rx = (1 - at.y * 2) * maxAngle * 0.6;
+    target.ry = (at.x * 2 - 1) * maxAngle * 0.6;
+    animate();
+  }
+
+  function release() {
+    if (press) {
+      window.clearTimeout(press.timer);
+      press = null;
+    }
+    target.rx = target.ry = target.px = target.py = 0;
+    hero.classList.remove('is-lit');
+    animate();
+  }
+
+  hero.addEventListener('pointermove', function (event) {
+    if (event.pointerType !== 'touch') {
+      hover(event);
+    } else if (press && Math.abs(event.clientX - press.x) + Math.abs(event.clientY - press.y) > 10) {
+      release();
+    }
+  });
+  hero.addEventListener('pointerdown', function (event) {
+    if (event.pointerType !== 'touch' || !event.isPrimary) {
+      return;
+    }
+    release();
+    press = { x: event.clientX, y: event.clientY };
+    press.timer = window.setTimeout(function () {
+      dip(press.x, press.y);
+    }, 150);
+  });
+  hero.addEventListener('pointerup', function (event) {
+    if (event.pointerType === 'touch') {
+      release();
+    }
+  });
+  hero.addEventListener('pointercancel', release);
+  hero.addEventListener('pointerleave', release);
+  window.addEventListener('scroll', function () {
+    if (press) {
+      release();
+    }
+  }, { passive: true });
+
+  measure();
+  window.addEventListener('resize', measure);
+  hero.classList.add('is-3d');
+}());
