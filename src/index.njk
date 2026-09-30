@@ -71,20 +71,21 @@ pageKey: index
   </div>
 
   <figure class="topic-tree" data-topic-tree>
-    <ul class="topic-tree__list" aria-label="Research map: embodied AI, through meta-learning, branches into world models, belief state, reinforcement learning and multi-agent AI">
+    <ul class="topic-tree__list" aria-label="Research map: embodied AI raises three problems, long-horizon tasks, meta-learning and continual learning, which share four tools: world models, belief state, reinforcement learning and multi-agent AI">
       <li class="topic-tree__item">
         <button type="button" class="topic-tree__node topic-tree__node--root" aria-controls="topic-note-embodied">Embodied AI</button>
-        <ul class="topic-tree__children">
-          <li class="topic-tree__item">
-            <button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-meta">Meta-Learning</button>
-            {% include "partials/topic-tree-branches.njk" %}
-            <ul class="topic-tree__children topic-tree__children--fan">
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">World Models</button></li>
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Belief State</button></li>
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Reinforcement Learning</button></li>
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">Multi-Agent AI</button></li>
-            </ul>
-          </li>
+        {% include "partials/topic-tree-branches.njk" %}
+        <ul class="topic-tree__children topic-tree__children--hubs">
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-long">Long-Horizon Tasks</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-meta">Meta-Learning</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-continual">Continual Learning</button></li>
+        </ul>
+        {% include "partials/topic-tree-leaves.njk" %}
+        <ul class="topic-tree__children topic-tree__children--fan">
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">World Models</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Belief State</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Reinforcement Learning</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">Multi-Agent AI</button></li>
         </ul>
       </li>
     </ul>
@@ -94,9 +95,19 @@ pageKey: index
         <p class="topic-note__text">Right now I work on AI for drones and aerial robotics, but embodied AI is a cross-cutting technology: progress in this field spreads to every other. The drones are simply an anchor.</p>
         <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
       </div>
+      <div class="topic-note" id="topic-note-long" role="region" aria-labelledby="topic-note-long-title">
+        <p class="topic-note__title" id="topic-note-long-title">Long-Horizon Tasks</p>
+        <p class="topic-note__text">Long-horizon tasks are diffuse: often we do not even know how they could be solved. Above all, it is hard to tell whether we are getting any closer to the final goal, because the signal that says so arrives late, if at all. Reasoning, world modelling, and turning events into discrete symbols we can reason with may be what makes distant goals reachable.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
       <div class="topic-note" id="topic-note-meta" role="region" aria-labelledby="topic-note-meta-title">
         <p class="topic-note__title" id="topic-note-meta-title">Meta-Learning</p>
-        <p class="topic-note__text">The goal is to push our models not to simply memorise what they see, but to <em>abstract</em> from it, so that what they know helps them learn even more. That lets them adapt to new tasks and unseen situations and, eventually, fold what they learn into their own knowledge.</p>
+        <p class="topic-note__text">The goal is to push our models not to simply memorise what they see, but to <em>abstract</em> from it, so that what they know helps them learn even more. That lets them adapt quickly to new tasks and unseen situations.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-continual" role="region" aria-labelledby="topic-note-continual-title">
+        <p class="topic-note__title" id="topic-note-continual-title">Continual Learning</p>
+        <p class="topic-note__text">A model that is trained once and then frozen stops learning the moment it leaves the lab. An embodied agent faces a world that keeps changing, so it has to keep learning on the go without forgetting what it already knew, and fold each new experience into its own knowledge.</p>
         <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
       </div>
       <div class="topic-note" id="topic-note-world" role="region" aria-labelledby="topic-note-world-title">

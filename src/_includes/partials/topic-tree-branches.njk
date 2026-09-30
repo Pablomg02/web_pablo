@@ -1,14 +1,12 @@
-{#- The branches of the research map on the home, from the hub down to its
-    four leaves. See `.topic-tree__branches` in style.css: the viewBox is
-    stretched over the gap, the hub's underside is (200, 0) and the leaves'
-    top edges are at y = 100, centred on x = 50, 150, 250 and 350. -#}
-<svg class="topic-tree__branches" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-  <path class="topic-tree__branch" d="M200 0C199 54 53 38 50 100"/>
-  <path class="topic-tree__branch" d="M200 0C200 56 152 40 150 100"/>
-  <path class="topic-tree__branch" d="M200 0C201 52 247 44 250 100"/>
-  <path class="topic-tree__branch" d="M200 0C202 50 345 42 350 100"/>
-  <path class="topic-tree__branch topic-tree__branch--pass" d="M201 4C205 50 58 47 49 97"/>
-  <path class="topic-tree__branch topic-tree__branch--pass" d="M199 3C196 50 146 50 151 97"/>
-  <path class="topic-tree__branch topic-tree__branch--pass" d="M201 3C204 54 254 49 249 96"/>
-  <path class="topic-tree__branch topic-tree__branch--pass" d="M199 4C195 55 353 45 351 97"/>
+{#- The branches of the research map on the home from the root down to the
+    three hubs. See `.topic-tree__branches` in style.css: the viewBox is
+    stretched over the gap, the root's underside is (300, 0) and the hubs' top
+    edges are at y = 100, centred on x = 100, 300 and 500. -#}
+<svg class="topic-tree__branches topic-tree__branches--hubs" viewBox="0 0 600 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <path class="topic-tree__branch" d="M300 0C299 56 103 40 100 100"/>
+  <path class="topic-tree__branch" d="M300 0C301 40 298 62 300 100"/>
+  <path class="topic-tree__branch" d="M300 0C302 52 496 44 500 100"/>
+  <path class="topic-tree__branch topic-tree__branch--pass" d="M301 4C305 54 110 48 99 97"/>
+  <path class="topic-tree__branch topic-tree__branch--pass" d="M299 3C296 44 304 64 301 97"/>
+  <path class="topic-tree__branch topic-tree__branch--pass" d="M299 4C296 56 506 46 501 97"/>
 </svg>

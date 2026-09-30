@@ -72,20 +72,21 @@ pageKey: index
   </div>
 
   <figure class="topic-tree" data-topic-tree>
-    <ul class="topic-tree__list" aria-label="Mapa de investigación: la IA corporeizada, a través del metaaprendizaje, se ramifica en modelos del mundo, estado de creencia, aprendizaje por refuerzo e IA multiagente">
+    <ul class="topic-tree__list" aria-label="Mapa de investigación: la IA corporeizada plantea tres problemas, las tareas de largo horizonte, el metaaprendizaje y el aprendizaje continuo, que comparten cuatro herramientas: modelos del mundo, estado de creencia, aprendizaje por refuerzo e IA multiagente">
       <li class="topic-tree__item">
         <button type="button" class="topic-tree__node topic-tree__node--root" aria-controls="topic-note-embodied">IA corporeizada</button>
-        <ul class="topic-tree__children">
-          <li class="topic-tree__item">
-            <button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-meta">Metaaprendizaje</button>
-            {% include "partials/topic-tree-branches.njk" %}
-            <ul class="topic-tree__children topic-tree__children--fan">
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">Modelos del mundo</button></li>
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Estado de creencia</button></li>
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Aprendizaje por refuerzo</button></li>
-              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">IA multiagente</button></li>
-            </ul>
-          </li>
+        {% include "partials/topic-tree-branches.njk" %}
+        <ul class="topic-tree__children topic-tree__children--hubs">
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-long">Tareas de largo horizonte</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-meta">Meta&shy;aprendizaje</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-continual">Aprendizaje continuo</button></li>
+        </ul>
+        {% include "partials/topic-tree-leaves.njk" %}
+        <ul class="topic-tree__children topic-tree__children--fan">
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">Modelos del mundo</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Estado de creencia</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Aprendizaje por refuerzo</button></li>
+          <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">IA multiagente</button></li>
         </ul>
       </li>
     </ul>
@@ -95,9 +96,19 @@ pageKey: index
         <p class="topic-note__text">Ahora mismo investigo IA aplicada a drones y robótica aérea, pero en realidad es una tecnología transversal: los avances en este campo se propagan a todos los demás. Los drones son simplemente un anclaje.</p>
         <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
       </div>
+      <div class="topic-note" id="topic-note-long" role="region" aria-labelledby="topic-note-long-title">
+        <p class="topic-note__title" id="topic-note-long-title">Tareas de largo horizonte</p>
+        <p class="topic-note__text">Las tareas de largo horizonte son difusas: muchas veces ni siquiera sabemos cómo podrían resolverse. Sobre todo, cuesta saber si nos estamos acercando al objetivo final, porque la señal que lo confirma llega tarde, si es que llega. Razonar, modelar el mundo y discretizar los eventos en símbolos con los que poder razonar podría ser lo que haga alcanzables los objetivos lejanos.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
       <div class="topic-note" id="topic-note-meta" role="region" aria-labelledby="topic-note-meta-title">
         <p class="topic-note__title" id="topic-note-meta-title">Metaaprendizaje</p>
-        <p class="topic-note__text">El objetivo es «forzar» a nuestros modelos a que no se limiten a memorizar lo que ven, sino a que <em>abstraigan</em> a partir de ello. Que su conocimiento les sirva para aprender todavía más. Eso les permitirá adaptarse a tareas nuevas y a situaciones nunca vistas y, con el tiempo, integrar lo aprendido en su propio conocimiento.</p>
+        <p class="topic-note__text">El objetivo es «forzar» a nuestros modelos a que no se limiten a memorizar lo que ven, sino a que <em>abstraigan</em> a partir de ello. Que su conocimiento les sirva para aprender todavía más. Eso les permitirá adaptarse rápido a tareas nuevas y a situaciones nunca vistas.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-continual" role="region" aria-labelledby="topic-note-continual-title">
+        <p class="topic-note__title" id="topic-note-continual-title">Aprendizaje continuo</p>
+        <p class="topic-note__text">Un modelo que se entrena una vez y luego se congela deja de aprender en cuanto sale del laboratorio. Un agente corporeizado se enfrenta a un mundo que no deja de cambiar: tiene que seguir aprendiendo sobre la marcha sin olvidar lo que ya sabía, e integrar cada experiencia nueva en su propio conocimiento.</p>
         <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
       </div>
       <div class="topic-note" id="topic-note-world" role="region" aria-labelledby="topic-note-world-title">

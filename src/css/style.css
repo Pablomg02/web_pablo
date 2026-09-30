@@ -974,8 +974,9 @@ hr {
    the root circled twice, and connectors whose stroke wanders a little. The
    wobble is a mask (`--tt-v` / `--tt-h`) over a flat colour, so every colour
    comes from the theme variables and follows light / dark with no extra rule.
-   Layout follows the width of the column, not the viewport: a centred column
-   with the leaves in two rows when narrow, a symmetric fan when there is room. */
+   Layout follows the width of the column, not the viewport: rows of two
+   either side of a spine when narrow, a symmetric fan when there is room.
+   The root has three hubs, and the three share the same four leaves. */
 .topic-tree {
   --tt-line: var(--color-muted);
   --tt-stem: 1.75rem;
@@ -983,7 +984,8 @@ hr {
   --tt-indent: 1rem;
   --tt-node: 3.5rem;
   --tt-hub: 11rem;
-  --tt-fall: 5.5rem;
+  --tt-rise: 4rem;
+  --tt-fall: 7.5rem;
   --tt-col: 1rem;
   --tt-leaf: 11rem;
   --tt-w: min(100cqw, 54rem);
@@ -1016,6 +1018,8 @@ hr {
 
 /* Every connector is a thin box masked into a wavering line. */
 .topic-tree__children::before,
+.topic-tree__children--hubs > .topic-tree__item::before,
+.topic-tree__children--hubs > .topic-tree__item::after,
 .topic-tree__children--fan > .topic-tree__item::before,
 .topic-tree__children--fan > .topic-tree__item::after {
   content: "";
@@ -1096,37 +1100,50 @@ hr {
   pointer-events: none;
 }
 
-/* Narrow: the leaves stand in two rows of two, one column either side of
-   the axis. A spine runs down the middle from the hub, drawn by the left leaf
-   of each row (over the gap above it and its own height, stopping halfway on
-   the last row), and each leaf hangs off it by a short arm. */
+/* Narrow: the hubs, then the leaves, stand in rows of two, one column either
+   side of the axis. A spine runs down the middle from the root, drawn by the
+   left box of each row (over the gap above it and its own height), and each
+   box hangs off it by a short arm. The spine runs on past the hubs, since all
+   of them feed the leaves, and stops halfway down the last row of leaves. */
+.topic-tree__children--hubs,
 .topic-tree__children--fan {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--tt-gap) calc(var(--tt-indent) * 2);
-  padding-top: var(--tt-gap);
 }
 
+.topic-tree__children--hubs::before,
 .topic-tree__children--fan::before {
   display: none;
 }
 
+.topic-tree__children--hubs > .topic-tree__item,
 .topic-tree__children--fan > .topic-tree__item {
   align-items: stretch;
   margin: 0;
 }
 
+.topic-tree__children--hubs .topic-tree__node,
 .topic-tree__children--fan .topic-tree__node {
   flex: 1;
   margin-inline: 2px;
   padding-inline: 0.45rem;
+}
+
+.topic-tree__children--hubs .topic-tree__node {
+  font-size: 0.95rem;
+}
+
+.topic-tree__children--fan .topic-tree__node {
   font-size: 0.88rem;
 }
 
+.topic-tree__children--hubs > .topic-tree__item::before,
 .topic-tree__children--fan > .topic-tree__item::before {
   display: none;
 }
 
+.topic-tree__children--hubs > .topic-tree__item:nth-child(odd)::before,
 .topic-tree__children--fan > .topic-tree__item:nth-child(odd)::before {
   display: block;
   top: calc(var(--tt-gap) * -1);
@@ -1135,10 +1152,17 @@ hr {
   width: 6px;
 }
 
+/* The first row reaches up over the stem gap to the box above it. */
+.topic-tree__children--hubs > .topic-tree__item:first-child::before,
+.topic-tree__children--fan > .topic-tree__item:first-child::before {
+  top: calc(var(--tt-stem) * -1);
+}
+
 .topic-tree__children--fan > .topic-tree__item:nth-child(odd):nth-last-child(-n + 2)::before {
   bottom: 50%;
 }
 
+.topic-tree__children--hubs > .topic-tree__item::after,
 .topic-tree__children--fan > .topic-tree__item::after {
   top: calc(50% - 3px);
   left: 100%;
@@ -1148,6 +1172,7 @@ hr {
   mask-image: var(--tt-h);
 }
 
+.topic-tree__children--hubs > .topic-tree__item:nth-child(even)::after,
 .topic-tree__children--fan > .topic-tree__item:nth-child(even)::after {
   left: auto;
   right: 100%;
@@ -1162,16 +1187,21 @@ hr {
   }
 }
 
-/* Wide enough: a fan. The hub sits on the axis and the four leaves stand in
-   a row below it, one per quarter of the width. The branches are one inline
-   SVG (`partials/topic-tree-branches.njk`) stretched over the gap between
-   them: its viewBox is 400 wide, so a leaf's centre is always at 50, 150, 250
-   or 350 whatever the width, and every curve leaves the hub straight down and
-   lands on its leaf straight down. Each branch is drawn twice, the second
-   pass thinner and a little off the first, like a pen going back over a line.
+/* Wide enough: a fan. The root's item is a grid of twelve columns and five
+   rows: the root, a gap, the three hubs (a third of the width each), a gap,
+   the four leaves (a quarter each). The branches in each gap are one inline
+   SVG (`partials/topic-tree-branches.njk`, root to hubs, and
+   `partials/topic-tree-leaves.njk`, hubs to leaves) stretched over it: its
+   viewBox is 600 wide, so a hub's centre is always at 100, 300 or 500 and a
+   leaf's at 75, 225, 375 or 525 whatever the width, and every curve leaves a
+   box straight down and lands on the next one straight down. The hubs'
+   branches meet in one knot, from which the fan to the leaves starts. Each
+   branch is drawn twice, the second pass thinner and a little off the first,
+   like a pen going back over a line.
    When the section rises into view (site.js adds `.reveal` / `.is-visible`)
-   the branches grow out of the hub and each leaf appears as its branch
-   reaches it; without JavaScript or with reduced motion it is still. */
+   each set of branches is uncovered from the top down, the hubs appear as
+   the first reaches them and the leaves as the second does; without
+   JavaScript or with reduced motion it is still. */
 .topic-tree__branches {
   display: none;
 }
@@ -1182,47 +1212,35 @@ hr {
     margin-inline: auto;
   }
 
-  .topic-tree__item,
-  .topic-tree__children {
-    width: 100%;
-  }
-
-  .topic-tree__item {
-    align-items: center;
-  }
-
-  .topic-tree__children::before {
-    left: calc(50% - 3px);
-  }
-
-  .topic-tree__list > .topic-tree__item > .topic-tree__children > .topic-tree__item {
+  .topic-tree__list > .topic-tree__item {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: var(--tt-node) var(--tt-node);
-    row-gap: var(--tt-fall);
-    align-items: start;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto var(--tt-rise) var(--tt-node) var(--tt-fall) var(--tt-node);
+    justify-items: center;
   }
 
-  .topic-tree__node--hub {
+  .topic-tree__node--root {
     grid-column: 1 / -1;
     grid-row: 1;
-    justify-self: center;
-    width: var(--tt-hub);
-    height: var(--tt-node);
-    margin: 0;
-    padding-inline: 0.8rem;
   }
 
   .topic-tree__branches {
     display: block;
-    position: absolute;
-    top: var(--tt-node);
-    left: 0;
+    grid-column: 1 / -1;
+    justify-self: stretch;
     width: 100%;
-    height: var(--tt-fall);
+    height: 100%;
     overflow: visible;
     color: var(--tt-line);
     pointer-events: none;
+  }
+
+  .topic-tree__branches--hubs {
+    grid-row: 2;
+  }
+
+  .topic-tree__branches--leaves {
+    grid-row: 4;
   }
 
   .topic-tree__branch {
@@ -1238,65 +1256,101 @@ hr {
     opacity: 0.5;
   }
 
+  .topic-tree__children--hubs,
   .topic-tree__children--fan {
     display: contents;
   }
 
+  .topic-tree__children--hubs > .topic-tree__item,
+  .topic-tree__children--hubs > .topic-tree__item + .topic-tree__item,
   .topic-tree__children--fan > .topic-tree__item,
   .topic-tree__children--fan > .topic-tree__item + .topic-tree__item {
     display: block;
-    grid-row: 2;
     justify-self: center;
-    width: min(var(--tt-leaf), 100% - var(--tt-col));
     margin: 0;
     padding: 0;
   }
 
+  .topic-tree__children--hubs > .topic-tree__item {
+    grid-row: 3;
+    grid-column: span 4;
+    width: min(var(--tt-hub), 100% - var(--tt-col));
+  }
+
+  .topic-tree__children--fan > .topic-tree__item {
+    grid-row: 5;
+    grid-column: span 3;
+    width: min(var(--tt-leaf), 100% - var(--tt-col));
+  }
+
+  .topic-tree__children--hubs > .topic-tree__item::before,
+  .topic-tree__children--hubs > .topic-tree__item:nth-child(odd)::before,
+  .topic-tree__children--hubs > .topic-tree__item::after,
   .topic-tree__children--fan > .topic-tree__item::before,
   .topic-tree__children--fan > .topic-tree__item:nth-child(odd)::before,
   .topic-tree__children--fan > .topic-tree__item::after {
     display: none;
   }
 
+  .topic-tree__children--hubs .topic-tree__node,
   .topic-tree__children--fan .topic-tree__node {
     width: 100%;
     height: var(--tt-node);
     margin: 0;
     padding-inline: 0.6rem;
+  }
+
+  .topic-tree__children--hubs .topic-tree__node {
+    font-size: 1rem;
+  }
+
+  .topic-tree__children--fan .topic-tree__node {
     font-size: 0.9rem;
   }
 
-  /* When the growing ellipse below touches each leaf, counted from the start
-     of the reveal: it reaches the inner two at 69% of its size and the outer
-     two at 83%, which through its easing is about 1.05s and 1.15s. A fade
-     starting then reads as late (the first tenths of opacity are invisible),
-     so each leaf starts 0.2s early and is half there when its branch lands.
-     Change the easing or the duration and these have to follow. */
-  .topic-tree__children--fan > .topic-tree__item {
-    --tt-at: 0.85s;
+  /* When each set of branches starts to uncover (`--tt-at`) and how long it
+     takes (`--tt-draw`), and when each row of boxes starts to fade in,
+     counted from the start of the reveal. A fade starting when its branches
+     land reads as late (the first tenths of opacity are invisible), so each
+     row starts about 0.2s early and is half there when they do. Change the
+     easing or a duration and these have to follow. */
+  .topic-tree__branches--hubs {
+    --tt-at: 0.45s;
+    --tt-draw: 0.55s;
   }
 
-  .topic-tree__children--fan > .topic-tree__item:first-child,
-  .topic-tree__children--fan > .topic-tree__item:last-child {
-    --tt-at: 0.95s;
+  .topic-tree__branches--leaves {
+    --tt-at: 1s;
+    --tt-draw: 0.75s;
+  }
+
+  .topic-tree__children--hubs > .topic-tree__item {
+    --tt-at: 0.8s;
+  }
+
+  .topic-tree__children--fan > .topic-tree__item {
+    --tt-at: 1.5s;
   }
 
   /* A dash-offset "pen" would be simplest, but the stretched viewBox and the
      non-scaling stroke disagree on a path's length, so the branches are
-     uncovered instead: an ellipse grows from the hub until it holds them all. */
+     uncovered instead, by a clip that slides down from the top. It overhangs
+     the box so the round caps and the wobble are never cut. */
   .topic-tree.reveal .topic-tree__branches {
-    clip-path: ellipse(0 0 at 50% 0);
+    clip-path: inset(-1rem -1rem 100% -1rem);
   }
 
   .topic-tree.reveal.is-visible .topic-tree__branches {
-    clip-path: ellipse(75% 150% at 50% 0);
-    transition: clip-path 1.1s cubic-bezier(0.45, 0, 0.3, 1) calc(var(--reveal-delay, 0s) + 0.5s);
+    clip-path: inset(-1rem);
+    transition: clip-path var(--tt-draw) cubic-bezier(0.45, 0, 0.3, 1) calc(var(--reveal-delay, 0s) + var(--tt-at));
   }
 
+  .topic-tree.reveal .topic-tree__children--hubs .topic-tree__node,
   .topic-tree.reveal .topic-tree__children--fan .topic-tree__node {
     opacity: 0;
   }
 
+  .topic-tree.reveal.is-visible .topic-tree__children--hubs .topic-tree__node,
   .topic-tree.reveal.is-visible .topic-tree__children--fan .topic-tree__node {
     opacity: 1;
     transition: opacity 0.3s ease-out calc(var(--reveal-delay, 0s) + var(--tt-at));
