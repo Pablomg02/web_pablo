@@ -477,7 +477,7 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   function measure() {
     var size = Math.max(hero.offsetWidth, hero.offsetHeight);
     hero.style.setProperty('--hero-persp', Math.round(Math.max(1400, size * 2.6)) + 'px');
-    maxAngle = Math.min(6, 4200 / Math.max(1, size));
+    maxAngle = Math.min(6, 5600 / Math.max(1, size));
   }
 
   function step() {
