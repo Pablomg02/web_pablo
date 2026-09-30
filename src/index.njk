@@ -67,26 +67,59 @@ pageKey: index
   </div>
   <div class="home-section__body" data-reveal-each>
     <p class="section-lead">My research is centred on the development of intelligence that genuinely understands its environment, rather than merely identifying statistical correlations in data.</p>
+    <p class="topic-hint" data-topic-hint hidden>This is my research tree. <span class="topic-hint__verb">Click</span><span class="topic-hint__verb topic-hint__verb--touch">Tap</span> on each element to find out <span class="topic-hint__end">more.<svg class="topic-hint__arrow" viewBox="0 0 40 48" aria-hidden="true" focusable="false"><path d="M5 5C23 6 33 19 25 42"/><path d="M17 35C20 37 23 40 25 43C27 40 29 37 32 34"/></svg></span></p>
   </div>
 
-  <figure class="topic-tree">
+  <figure class="topic-tree" data-topic-tree>
     <ul class="topic-tree__list" aria-label="Research map: embodied AI, through meta-learning, branches into world models, belief state, reinforcement learning and multi-agent AI">
       <li class="topic-tree__item">
-        <span class="topic-tree__node topic-tree__node--root">Embodied AI</span>
+        <button type="button" class="topic-tree__node topic-tree__node--root" aria-controls="topic-note-embodied">Embodied AI</button>
         <ul class="topic-tree__children">
           <li class="topic-tree__item">
-            <span class="topic-tree__node topic-tree__node--hub">Meta-Learning</span>
+            <button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-meta">Meta-Learning</button>
             {% include "partials/topic-tree-branches.njk" %}
             <ul class="topic-tree__children topic-tree__children--fan">
-              <li class="topic-tree__item"><span class="topic-tree__node">World Models</span></li>
-              <li class="topic-tree__item"><span class="topic-tree__node">Belief State</span></li>
-              <li class="topic-tree__item"><span class="topic-tree__node">Reinforcement Learning</span></li>
-              <li class="topic-tree__item"><span class="topic-tree__node">Multi-Agent AI</span></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">World Models</button></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Belief State</button></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Reinforcement Learning</button></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">Multi-Agent AI</button></li>
             </ul>
           </li>
         </ul>
       </li>
     </ul>
+    <div class="topic-tree__notes">
+      <div class="topic-note" id="topic-note-embodied" role="region" aria-labelledby="topic-note-embodied-title">
+        <p class="topic-note__title" id="topic-note-embodied-title">Embodied AI</p>
+        <p class="topic-note__text">Right now I work on AI for drones and aerial robotics, but embodied AI is a cross-cutting technology: progress in this field spreads to every other. The drones are simply an anchor.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-meta" role="region" aria-labelledby="topic-note-meta-title">
+        <p class="topic-note__title" id="topic-note-meta-title">Meta-Learning</p>
+        <p class="topic-note__text">The goal is to push our models not to simply memorise what they see, but to <em>abstract</em> from it, so that what they know helps them learn even more. That lets them adapt to new tasks and unseen situations and, eventually, fold what they learn into their own knowledge.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-world" role="region" aria-labelledby="topic-note-world-title">
+        <p class="topic-note__title" id="topic-note-world-title">World Models</p>
+        <p class="topic-note__text">Being able to predict what will happen in the world is closely tied to understanding it. It is not only useful for knowing what comes next: it is useful for building rules about how reality works.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-belief" role="region" aria-labelledby="topic-note-belief-title">
+        <p class="topic-note__title" id="topic-note-belief-title">Belief State</p>
+        <p class="topic-note__text">We never get access to reality as it is. We cannot know for certain what a rival will do, nor the physics behind everything we see. That is why building a belief state, one that “fills in” the reality we do not know, is essential.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-rl" role="region" aria-labelledby="topic-note-rl-title">
+        <p class="topic-note__title" id="topic-note-rl-title">Reinforcement Learning</p>
+        <p class="topic-note__text">Learning from existing data is efficient, but it makes it hard to diverge and create new knowledge. The progress of the last few years shows that letting an agent explore and discover new policies leads to fascinating results.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-marl" role="region" aria-labelledby="topic-note-marl-title">
+        <p class="topic-note__title" id="topic-note-marl-title">Multi-Agent AI</p>
+        <p class="topic-note__text">Theory of mind and the ability to cooperate are still, to this day, some of the great challenges in artificial intelligence. Learning in a social setting, rather than a purely selfish one, opens the door to swarm AI. Adapting to others in real time is a key step.</p>
+        <button type="button" class="topic-note__close" aria-label="Close" hidden>&times;</button>
+      </div>
+    </div>
   </figure>
 </section>
 

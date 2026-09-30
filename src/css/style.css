@@ -31,6 +31,16 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* Handwriting, for the notes around the research map on the home. */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../assets/fonts/caveat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* --- Reset --- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -66,6 +76,7 @@
   --font-heading: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Space Grotesk', system-ui, sans-serif;
   --font-brand: 'Press Start 2P', monospace;
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
   --max-width: 1080px;
   --reading-width: 760px;
   --spacing: clamp(2rem, 5vw, 3.5rem);
@@ -884,7 +895,7 @@ hr {
   --tt-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 60' preserveAspectRatio='none'%3E%3Cpath d='M3 0C4.3 14 1.7 27 3.2 40S4 54 3 60' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   --tt-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3C14 1.7 27 4.3 40 2.8S54 3.6 60 3' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   container-type: inline-size;
-  margin-top: clamp(2rem, 5vw, 2.75rem);
+  margin-top: 0.5rem;
 }
 
 /* Undo the site's list defaults (indent, bottom margin). */
@@ -942,7 +953,12 @@ hr {
   line-height: 1.25;
   text-align: center;
   color: var(--color-text);
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transform: rotate(-0.5deg);
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .topic-tree__item:nth-child(even) > .topic-tree__node {
@@ -1192,11 +1208,178 @@ hr {
   }
 }
 
+/* Every box of the map is a button that opens a short note about it
+   (site.js, "Research map notes"). The hint above the map and the close
+   button only appear once the script has taken over; without it the notes
+   are simply listed under the map. The open box is filled like a highlighted
+   word; the note is a card drawn with the same uneven pen as the boxes, set
+   under the map and slid towards the box it belongs to, with a tab pointing
+   up at it. */
+@media (hover: hover) {
+  .topic-tree__node:hover {
+    border-color: var(--color-strong);
+  }
+}
+
+.topic-tree__node:focus-visible {
+  outline: 2px dashed var(--color-strong);
+  outline-offset: 5px;
+}
+
+.topic-tree__node[aria-expanded='true'] {
+  border-color: var(--color-strong);
+  background: var(--color-hero-mark);
+}
+
+.topic-hint {
+  margin: 1.1rem 0 0;
+  font-family: var(--font-hand);
+  font-size: clamp(1.4rem, 2.6vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-strong);
+  rotate: -1.2deg;
+  transform-origin: left center;
+}
+
+.topic-hint__end {
+  white-space: nowrap;
+}
+
+.topic-hint__verb--touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .topic-hint__verb {
+    display: none;
+  }
+
+  .topic-hint__verb--touch {
+    display: inline;
+  }
+}
+
+.topic-hint__arrow {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.8em;
+  margin-left: 0.3em;
+  vertical-align: top;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+}
+
+.topic-tree__notes {
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.topic-note {
+  position: relative;
+  padding: 0.9rem 1.2rem 1.05rem;
+  border: 2px solid var(--color-muted);
+  border-radius: 6px 14px 5px 12px / 12px 5px 14px 6px;
+  background: var(--color-surface-solid);
+  rotate: -0.4deg;
+}
+
+.topic-note + .topic-note {
+  margin-top: 1rem;
+}
+
+.topic-note__title {
+  display: inline-block;
+  margin: 0 0 0.35rem;
+  padding-right: 0.15em;
+  background: linear-gradient(var(--color-hero-mark), var(--color-hero-mark)) 0 88% / 100% 0.36em no-repeat;
+  font-family: var(--font-hand);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-strong);
+}
+
+.topic-note__text {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.62;
+  color: var(--color-text);
+}
+
+.topic-note__close {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.45rem;
+  padding: 0.1rem 0.45rem;
+  border: 0;
+  background: none;
+  font-family: var(--font-hand);
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.topic-note__close:hover,
+.topic-note__close:focus-visible {
+  color: var(--color-strong);
+}
+
+.topic-note__close:focus-visible {
+  outline: 2px dashed var(--color-strong);
+  outline-offset: 2px;
+}
+
+.topic-tree.is-interactive .topic-note {
+  width: min(100%, 36rem);
+  margin: 0 0 0 var(--note-left, 0);
+  box-shadow: 5px 5px 0 var(--color-accent-soft);
+  animation: topic-note-in 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.topic-tree.is-interactive .topic-note__title {
+  margin-right: 2rem;
+}
+
+.topic-tree.is-interactive .topic-note::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: calc(var(--note-x, 50%) - 8px);
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid var(--color-muted);
+  border-left: 2px solid var(--color-muted);
+  border-top-left-radius: 4px;
+  background: var(--color-surface-solid);
+  transform: rotate(45deg);
+}
+
+@keyframes topic-note-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem) rotate(-1deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topic-tree.is-interactive .topic-note {
+    animation: none;
+  }
+}
+
 @media (min-width: 820px) {
   .home-section--split {
     display: grid;
     grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1.45fr);
     gap: clamp(2rem, 6vw, 5rem);
+    /* Only the research section has a second row (its map), which should sit
+       close under the hint that points at it. */
+    row-gap: 0.5rem;
   }
 
   .home-section--split .home-section__heading {

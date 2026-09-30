@@ -68,26 +68,59 @@ pageKey: index
   </div>
   <div class="home-section__body" data-reveal-each>
     <p class="section-lead">Mi investigación se centra en desarrollar una inteligencia que entienda de verdad su entorno, en lugar de limitarse a identificar correlaciones estadísticas en los datos.</p>
+    <p class="topic-hint" data-topic-hint hidden>Este es mi árbol de investigación. <span class="topic-hint__verb">Haz clic en</span><span class="topic-hint__verb topic-hint__verb--touch">Toca</span> cada elemento para saber <span class="topic-hint__end">más.<svg class="topic-hint__arrow" viewBox="0 0 40 48" aria-hidden="true" focusable="false"><path d="M5 5C23 6 33 19 25 42"/><path d="M17 35C20 37 23 40 25 43C27 40 29 37 32 34"/></svg></span></p>
   </div>
 
-  <figure class="topic-tree">
+  <figure class="topic-tree" data-topic-tree>
     <ul class="topic-tree__list" aria-label="Mapa de investigación: la IA corporeizada, a través del metaaprendizaje, se ramifica en modelos del mundo, estado de creencia, aprendizaje por refuerzo e IA multiagente">
       <li class="topic-tree__item">
-        <span class="topic-tree__node topic-tree__node--root">IA corporeizada</span>
+        <button type="button" class="topic-tree__node topic-tree__node--root" aria-controls="topic-note-embodied">IA corporeizada</button>
         <ul class="topic-tree__children">
           <li class="topic-tree__item">
-            <span class="topic-tree__node topic-tree__node--hub">Metaaprendizaje</span>
+            <button type="button" class="topic-tree__node topic-tree__node--hub" aria-controls="topic-note-meta">Metaaprendizaje</button>
             {% include "partials/topic-tree-branches.njk" %}
             <ul class="topic-tree__children topic-tree__children--fan">
-              <li class="topic-tree__item"><span class="topic-tree__node">Modelos del mundo</span></li>
-              <li class="topic-tree__item"><span class="topic-tree__node">Estado de creencia</span></li>
-              <li class="topic-tree__item"><span class="topic-tree__node">Aprendizaje por refuerzo</span></li>
-              <li class="topic-tree__item"><span class="topic-tree__node">IA multiagente</span></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-world">Modelos del mundo</button></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-belief">Estado de creencia</button></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-rl">Aprendizaje por refuerzo</button></li>
+              <li class="topic-tree__item"><button type="button" class="topic-tree__node" aria-controls="topic-note-marl">IA multiagente</button></li>
             </ul>
           </li>
         </ul>
       </li>
     </ul>
+    <div class="topic-tree__notes">
+      <div class="topic-note" id="topic-note-embodied" role="region" aria-labelledby="topic-note-embodied-title">
+        <p class="topic-note__title" id="topic-note-embodied-title">IA corporeizada</p>
+        <p class="topic-note__text">Ahora mismo investigo IA aplicada a drones y robótica aérea, pero en realidad es una tecnología transversal: los avances en este campo se propagan a todos los demás. Los drones son simplemente un anclaje.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-meta" role="region" aria-labelledby="topic-note-meta-title">
+        <p class="topic-note__title" id="topic-note-meta-title">Metaaprendizaje</p>
+        <p class="topic-note__text">El objetivo es «forzar» a nuestros modelos a que no se limiten a memorizar lo que ven, sino a que <em>abstraigan</em> a partir de ello. Que su conocimiento les sirva para aprender todavía más. Eso les permitirá adaptarse a tareas nuevas y a situaciones nunca vistas y, con el tiempo, integrar lo aprendido en su propio conocimiento.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-world" role="region" aria-labelledby="topic-note-world-title">
+        <p class="topic-note__title" id="topic-note-world-title">Modelos del mundo</p>
+        <p class="topic-note__text">La capacidad de predecir lo que va a ocurrir en el mundo está muy ligada a la capacidad de entenderlo. No solo sirve para saber qué pasará a continuación: sirve para construir reglas sobre cómo funciona la realidad.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-belief" role="region" aria-labelledby="topic-note-belief-title">
+        <p class="topic-note__title" id="topic-note-belief-title">Estado de creencia</p>
+        <p class="topic-note__text">Nunca tenemos acceso a la realidad tal como es. No podemos saber con certeza qué hará un rival, ni conocemos la física que hay detrás de todo lo que vemos. Por eso resulta fundamental construir un estado de creencia que «rellene» la realidad que no conocemos.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-rl" role="region" aria-labelledby="topic-note-rl-title">
+        <p class="topic-note__title" id="topic-note-rl-title">Aprendizaje por refuerzo</p>
+        <p class="topic-note__text">Aprender a partir de datos ya existentes es eficiente, pero dificulta divergir y crear conocimiento nuevo. Los avances de los últimos años muestran que, cuando se deja al agente explorar y descubrir nuevas políticas, los resultados son fascinantes.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+      <div class="topic-note" id="topic-note-marl" role="region" aria-labelledby="topic-note-marl-title">
+        <p class="topic-note__title" id="topic-note-marl-title">IA multiagente</p>
+        <p class="topic-note__text">La teoría de la mente y la capacidad de cooperar siguen siendo, a día de hoy, algunos de los grandes retos de la inteligencia artificial. Aprender en un entorno social, y no desde una posición puramente egoísta, abre la puerta a la IA de enjambre. Adaptarse a los demás en tiempo real es un paso fundamental.</p>
+        <button type="button" class="topic-note__close" aria-label="Cerrar" hidden>&times;</button>
+      </div>
+    </div>
   </figure>
 </section>
 

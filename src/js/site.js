@@ -567,3 +567,103 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   window.addEventListener('resize', measure);
   hero.classList.add('is-3d');
 }());
+
+// Research map notes (see the map in style.css): each box of the map on the
+// home opens the note whose id its `aria-controls` names, and closes it on a
+// second press, on the note's close button or on Escape. Only one note is
+// open at a time. It is slid under the box it belongs to and its tab points
+// at the box's centre. Without this script every note is listed under the
+// map and the hint that invites a click stays hidden.
+(function () {
+  var tree = document.querySelector('[data-topic-tree]');
+  if (!tree) {
+    return;
+  }
+
+  var box = tree.querySelector('.topic-tree__notes');
+  var buttons = Array.prototype.slice.call(tree.querySelectorAll('.topic-tree__node[aria-controls]'));
+  var hint = document.querySelector('[data-topic-hint]');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = null;
+
+  function noteOf(button) {
+    return document.getElementById(button.getAttribute('aria-controls'));
+  }
+
+  function place() {
+    if (!current) {
+      return;
+    }
+    var note = noteOf(current);
+    var area = box.getBoundingClientRect();
+    var node = current.getBoundingClientRect();
+    var centre = node.left + node.width / 2 - area.left;
+    var width = note.offsetWidth;
+    var left = Math.max(0, Math.min(centre - width / 2, area.width - width));
+    note.style.setProperty('--note-left', left + 'px');
+    note.style.setProperty('--note-x', Math.max(22, Math.min(centre - left, width - 22)) + 'px');
+  }
+
+  function close() {
+    if (!current) {
+      return;
+    }
+    current.setAttribute('aria-expanded', 'false');
+    noteOf(current).hidden = true;
+    current = null;
+  }
+
+  function open(button) {
+    close();
+    current = button;
+    button.setAttribute('aria-expanded', 'true');
+    var note = noteOf(button);
+    note.hidden = false;
+    place();
+    if (note.getBoundingClientRect().bottom > window.innerHeight) {
+      note.scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+  }
+
+  buttons.forEach(function (button) {
+    button.setAttribute('aria-expanded', 'false');
+    noteOf(button).hidden = true;
+    button.addEventListener('click', function () {
+      if (current === button) {
+        close();
+      } else {
+        open(button);
+      }
+    });
+  });
+
+  Array.prototype.forEach.call(tree.querySelectorAll('.topic-note__close'), function (closer) {
+    closer.hidden = false;
+    closer.addEventListener('click', function () {
+      var button = current;
+      close();
+      if (button) {
+        button.focus();
+      }
+    });
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape' || !current) {
+      return;
+    }
+    var button = current;
+    var inside = tree.contains(document.activeElement);
+    close();
+    if (inside) {
+      button.focus();
+    }
+  });
+
+  window.addEventListener('resize', place);
+
+  tree.classList.add('is-interactive');
+  if (hint) {
+    hint.hidden = false;
+  }
+}());
