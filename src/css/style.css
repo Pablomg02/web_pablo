@@ -56,11 +56,11 @@
   }
 
   ::view-transition-old(root) {
-    animation: page-out 0.18s ease-in both;
+    animation: page-out 0.08s ease-in both;
   }
 
   ::view-transition-new(root) {
-    animation: page-in 0.34s cubic-bezier(0.2, 0.7, 0.3, 1) 0.06s both;
+    animation: page-in 0.16s cubic-bezier(0.2, 0.7, 0.3, 1) 0.02s both;
   }
 }
 
