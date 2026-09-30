@@ -41,6 +41,45 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* --- Page transitions --- */
+/* Moving between pages of the site, the old page blurs away and the new one
+   comes into focus, while the header stays put. Browsers without
+   cross-document view transitions, and readers who ask for reduced motion,
+   get a plain page load. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  .site-header {
+    view-transition-name: site-header;
+  }
+
+  ::view-transition-old(root) {
+    animation: page-out 0.18s ease-in both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-in 0.34s cubic-bezier(0.2, 0.7, 0.3, 1) 0.06s both;
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(6px);
+  }
+}
+
 /* --- Reset --- */
 *, *::before, *::after {
   box-sizing: border-box;

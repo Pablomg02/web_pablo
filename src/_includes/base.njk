@@ -104,12 +104,38 @@
 
         applyTheme(preference);
       };
+
+      // A page prerendered on hover (see the speculation rules below) read
+      // the theme then; if it was toggled since, catch up when it is shown.
+      document.addEventListener('prerenderingchange', function () {
+        try {
+          storedPreference = window.localStorage.getItem(storageKey);
+        } catch (error) {
+          storedPreference = null;
+        }
+        applyTheme(storedPreference);
+      });
     }());
   </script>
   <link rel="preload" href="{{ '/assets/fonts/space-grotesk-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ '/assets/fonts/press-start-2p-latin.woff2' | relativeUrl(page.url) }}" as="font" type="font/woff2" crossorigin>
   {% if math %}<link rel="stylesheet" href="{{ '/assets/katex/katex.min.css' | relativeUrl(page.url) }}">{% endif %}
   <link rel="stylesheet" href="{{ '/css/style.css' | relativeUrl(page.url) }}">
+  {#- Same-site pages are prerendered when the pointer rests on a link (or
+     a finger goes down on it), so following it is instant. Browsers without
+     speculation rules ignore the block. PDFs and downloads are left alone. #}
+  <script type="speculationrules">
+    {
+      "prerender": [{
+        "where": { "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/*.pdf" } },
+          { "not": { "selector_matches": "[download], [target=_blank]" } }
+        ] },
+        "eagerness": "moderate"
+      }]
+    }
+  </script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
