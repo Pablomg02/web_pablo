@@ -969,6 +969,199 @@ hr {
   color: var(--color-text);
 }
 
+/* Contact (home): one quiet line at the foot of the welcome card — a label,
+   LinkedIn, and a small arrow that slides the line open onto email and the
+   other profiles. Without JavaScript the arrow stays hidden and the profiles show;
+   site.js closes the line on load (`.is-collapsible`) and toggles
+   `.is-open`. The panel slides by animating its grid row from 0fr to 1fr,
+   so it opens to its own height. */
+.hero-contact {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding-top: clamp(1rem, 2vw, 1.25rem);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+.hero-contact__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.85rem;
+}
+
+/* The main link and its arrow stay together; on a narrow phone it is the
+   label that goes up a line. */
+.hero-contact__address {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.hero-contact__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-header-accent);
+}
+
+.hero-contact__primary {
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 0.2s;
+}
+
+.hero-contact__primary::after {
+  content: '\2197';
+  display: inline-block;
+  margin-left: 0.3em;
+  font-size: 0.85em;
+  color: var(--color-notes-link);
+  text-decoration: none;
+}
+
+.hero-contact__primary:hover,
+.hero-contact__primary:focus-visible {
+  color: var(--color-text);
+  text-decoration-color: var(--color-header-accent);
+}
+
+/* The arrow: a small square with a chevron that turns up once open. Its
+   padding grows the tap target past the drawn square. */
+.hero-contact__toggle {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-left: -0.3rem;
+  padding: 0;
+  color: var(--color-notes-link);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-notes-link) 45%, transparent);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.hero-contact__toggle[hidden] {
+  display: none;
+}
+
+.hero-contact__toggle::before {
+  content: '';
+  width: 0.75rem;
+  height: 0.75rem;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.hero-contact__toggle::after {
+  content: '';
+  position: absolute;
+  inset: -0.6rem;
+}
+
+.hero-contact__toggle:hover,
+.hero-contact__toggle:focus-visible,
+.hero-contact.is-open .hero-contact__toggle {
+  color: var(--color-bg);
+  background: var(--color-notes-link);
+  border-color: var(--color-notes-link);
+}
+
+.hero-contact.is-open .hero-contact__toggle::before {
+  transform: rotate(180deg);
+}
+
+.hero-contact__more {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.hero-contact.is-collapsible .hero-contact__more {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.hero-contact.is-collapsible.is-open .hero-contact__more {
+  grid-template-rows: 1fr;
+}
+
+.hero-contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  min-height: 0;
+  margin: 0;
+  padding: 0.75rem 0 0;
+  overflow: hidden;
+  list-style: none;
+  font-weight: 600;
+}
+
+.hero-contact__links li {
+  margin: 0;
+}
+
+/* The links slide in a beat after the panel starts opening. */
+.hero-contact__links a {
+  display: inline-block;
+  padding: 0.2rem 0;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.15s, opacity 0.3s, transform 0.3s;
+}
+
+.hero-contact__links a::after {
+  content: ' \2197';
+  font-size: 0.85em;
+  color: var(--color-notes-link);
+}
+
+.hero-contact__links .hero-contact__all {
+  color: var(--color-notes-link);
+}
+
+.hero-contact__links .hero-contact__all::after {
+  content: ' \2192';
+}
+
+.hero-contact__links a:hover,
+.hero-contact__links a:focus-visible {
+  color: var(--color-notes-link);
+}
+
+.hero-contact.is-collapsible .hero-contact__links a {
+  opacity: 0;
+  transform: translateY(-0.35rem);
+}
+
+.hero-contact.is-collapsible.is-open .hero-contact__links a {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s, 0.08s, 0.08s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-contact__toggle::before,
+  .hero-contact.is-collapsible .hero-contact__more,
+  .hero-contact__links a {
+    transition: none;
+  }
+
+  .hero-contact.is-collapsible .hero-contact__links a {
+    transform: none;
+  }
+}
+
 /* --- Research map (home) ---------------------------------------------------
    A tree drawn as if by hand: boxes with uneven corners and a slight tilt,
    the root circled twice, and connectors whose stroke wanders a little. The
@@ -2021,69 +2214,225 @@ em {
   color: var(--color-muted);
 }
 
-/* Links — also the page shared on its own, so it is laid out as a narrow,
-   centred column that reads the same on a phone: a profile header, then
-   every link as a card that is one tap target. */
+/* Links — also the page shared on its own, so on a phone it reads as one
+   column: a profile card, then every link as a card that is one tap target.
+   From 960px the profile card is pinned on the left and the links run down
+   the right, so a desktop visit fills the width instead of a narrow strip. */
 .page-links main {
   max-width: calc(34rem + 3rem);
 }
 
-.links-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2.5rem;
-  text-align: center;
+.links-layout {
+  display: grid;
+  gap: clamp(2.25rem, 6vw, 3rem);
 }
 
+@media (min-width: 960px) {
+  .page-links main {
+    max-width: calc(var(--max-width) - 2rem);
+  }
+
+  .links-layout {
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: start;
+  }
+}
+
+/* The profile card: the home's welcome card at a smaller size — the same
+   surface, gold bar on the top edge, offset shadow and pointer glow. */
+.links-profile {
+  --hero-shadow: 6px;
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.25rem, 5vw, 1.75rem);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow:
+    calc(var(--hero-shadow) - var(--hero-px, 0) * 4px)
+    calc(var(--hero-shadow) - var(--hero-py, 0) * 4px)
+    0 var(--color-accent-soft);
+}
+
+.links-profile::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4.5rem;
+  height: 3px;
+  background: var(--color-header-accent);
+}
+
+.links-profile > :not(.links-profile__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Pinned beside the links on a wide screen. After the base rule, which sets
+   `position: relative`. */
+@media (min-width: 960px) {
+  .links-profile {
+    position: sticky;
+    top: 7rem;
+  }
+}
+
+.links-profile.is-3d {
+  transform:
+    perspective(var(--hero-persp, 2400px))
+    rotateX(var(--hero-rx, 0deg))
+    rotateY(var(--hero-ry, 0deg));
+}
+
+.links-profile__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    24rem 18rem at var(--hero-mx, 50%) var(--hero-my, 0%),
+    var(--color-hero-glow) 0%,
+    color-mix(in srgb, var(--color-hero-glow) 55%, transparent) 25%,
+    color-mix(in srgb, var(--color-hero-glow) 18%, transparent) 55%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.links-profile.is-lit .links-profile__glow {
+  opacity: 1;
+}
+
+/* Portrait beside the name on a phone, above it on the pinned desktop card. */
+.links-profile__top {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+@media (min-width: 960px) {
+  .links-profile__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+/* The portrait wears the home's viewfinder corners, tighter to the photo. */
 .links-profile__portrait {
-  width: 5rem;
-  aspect-ratio: 1;
-  margin-bottom: 1.1rem;
-  border: 2px solid var(--color-header-accent);
-  box-shadow: 4px 4px 0 var(--color-notes-shadow);
+  --finder-gap: 6px;
+  --finder-arm: 12px;
+  position: relative;
+  flex: none;
+  width: clamp(4.5rem, 20vw, 5.25rem);
+  margin: var(--finder-gap);
+  translate: calc(var(--hero-px, 0) * 3px) calc(var(--hero-py, 0) * 3px);
+}
+
+@media (min-width: 960px) {
+  .links-profile__portrait {
+    width: 7.5rem;
+  }
+}
+
+.links-profile__portrait::before {
+  --c: var(--color-header-accent);
+  --t: 2px;
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--finder-gap));
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) top left / var(--t) var(--finder-arm),
+    linear-gradient(var(--c), var(--c)) top right / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) top right / var(--t) var(--finder-arm),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--t) var(--finder-arm),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--finder-arm) var(--t),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--t) var(--finder-arm);
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transition: inset 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.links-profile__portrait:hover::before {
+  inset: -3px;
 }
 
 .links-profile__portrait img {
   display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
+  border: 1px solid var(--color-border);
+}
+
+.links-profile__heading {
+  min-width: 0;
+  translate: calc(var(--hero-px, 0) * -3px) calc(var(--hero-py, 0) * -3px);
 }
 
 .links-profile__kicker {
-  margin: 0 0 0.4rem;
-  font-family: var(--font-brand);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-header-accent);
 }
 
+/* Set in the brand face like the home's title, with its blinking cursor. */
 .links-profile__name {
   margin: 0;
-  font-size: clamp(1.6rem, 6vw, 2.1rem);
-  line-height: 1.2;
+  font-family: var(--font-brand);
+  font-size: clamp(1.02rem, 4.4vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: normal;
+  overflow-wrap: break-word;
 }
 
 .links-profile__intro {
-  max-width: 30ch;
-  margin: 0.6rem 0 1.3rem;
+  margin: 1.15rem 0 1.35rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--color-border);
   color: var(--color-muted);
-  line-height: 1.55;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
+/* Full width, so it is an easy thumb target. The icon is a mask on ::before
+   so site.js can swap the label for "Copied" without losing it. */
 .links-profile__share {
-  min-height: 44px;
-  padding: 0.5rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  min-height: 46px;
+  padding: 0.6rem 1.1rem;
   font-family: var(--font-heading);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-notes-link);
-  background: transparent;
-  border: 2px solid var(--color-notes-link);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-bg);
+  background: var(--color-notes-link);
+  border: 1px solid var(--color-notes-link);
   cursor: pointer;
   transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.links-profile__share::before {
+  content: '';
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 .links-profile__share:hover,
@@ -2092,94 +2441,134 @@ em {
   transform: translate(-2px, -2px);
 }
 
+/* Each group is headed like a home section: a pixel index, the title, and a
+   hairline running to the right edge. */
 .link-group + .link-group {
-  margin-top: 2rem;
+  margin-top: clamp(2.25rem, 6vw, 2.75rem);
+}
+
+.link-group__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.link-group__heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.link-group__index {
+  font-family: var(--font-brand);
+  font-size: 0.55rem;
+  color: var(--color-header-accent);
 }
 
 .link-group__title {
-  margin: 0 0 0.75rem;
+  margin: 0;
   padding: 0;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-text);
 }
 
 .link-group__note {
-  margin: -0.35rem 0 0.75rem;
+  margin: -0.25rem 0 0.85rem;
   font-size: 0.9rem;
   color: var(--color-muted);
 }
 
 .link-cards {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.65rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .link-cards + .link-cards {
-  margin-top: 0.6rem;
+  margin-top: 0.65rem;
 }
 
 .link-cards li {
   margin: 0;
 }
 
-.link-cards--compact {
-  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
-}
-
-/* Profiles that need no note: a tile with the badge over the name, three to
-   a row even on a phone. */
-.link-cards--compact .link-card {
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.85rem 0.5rem;
-  text-align: center;
-}
-
-.link-cards--compact .link-card__label {
-  font-size: 0.9rem;
-  overflow-wrap: normal;
-}
-
 .link-card {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.95rem;
   min-height: 3.6rem;
   height: 100%;
-  padding: 0.7rem 0.9rem;
+  padding: 0.85rem 0.95rem;
   color: var(--color-text);
   text-decoration: none;
   background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  border: 1px solid var(--color-border);
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s, background-color 0.18s;
+}
+
+/* The short gold bar the essay cards carry on their top-left corner, which
+   stretches across the card when it is pointed at. */
+.link-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-header-accent);
+  transition: width 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .link-card:hover,
 .link-card:focus-visible {
   color: var(--color-text);
   border-color: var(--color-notes-link);
-  box-shadow: 4px 4px 0 var(--color-notes-shadow);
+  box-shadow: 5px 5px 0 var(--color-notes-shadow);
   transform: translate(-2px, -2px);
   outline: none;
+}
+
+.link-card:hover::before,
+.link-card:focus-visible::before {
+  width: calc(100% + 2px);
+}
+
+/* A press on a touch screen pushes the card in, as feedback before the
+   browser leaves the page. */
+.link-card:active {
+  background: var(--color-accent-soft);
+  box-shadow: none;
+  transform: translate(0, 0) scale(0.99);
 }
 
 .link-card__badge {
   display: grid;
   place-items: center;
   flex: none;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.6rem;
+  height: 2.6rem;
   font-family: var(--font-brand);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: var(--color-notes-link);
-  border: 2px solid currentColor;
+  background: var(--color-accent-soft);
+  border: 1px solid color-mix(in srgb, var(--color-notes-link) 55%, transparent);
+  transition: background-color 0.18s, color 0.18s;
+}
+
+.link-card:hover .link-card__badge,
+.link-card:focus-visible .link-card__badge {
+  color: var(--color-bg);
+  background: var(--color-notes-link);
 }
 
 .link-card__body {
@@ -2191,38 +2580,79 @@ em {
 
 .link-card__label {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
   overflow-wrap: anywhere;
 }
 
 .link-card__note {
-  margin-top: 0.15rem;
-  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  font-size: 0.84rem;
   line-height: 1.45;
   color: var(--color-muted);
 }
 
+/* An arrow pointing out of the page: every link here leaves the site. */
 .link-card__arrow {
   flex: none;
-  color: var(--color-notes-link);
-  transition: transform 0.15s;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-left: auto;
+  background: var(--color-notes-link);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='square'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='square'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.7;
+  transition: transform 0.18s, opacity 0.18s;
 }
 
 .link-card:hover .link-card__arrow,
 .link-card:focus-visible .link-card__arrow {
-  transform: translateX(3px);
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* Profiles that need no note: rows on a phone, three tiles side by side
+   (badge over the name) once there is room for the longest name. */
+@media (min-width: 560px) {
+  .link-cards--compact {
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  }
+
+  .link-cards--compact .link-card {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 0.75rem 1rem;
+    text-align: center;
+  }
+
+  .link-cards--compact .link-card__arrow {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .link-cards--compact .link-card__label {
+    font-size: 0.92rem;
+    overflow-wrap: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .link-card,
+  .link-card::before,
+  .link-card__badge,
   .link-card__arrow,
-  .links-profile__share {
+  .links-profile__share,
+  .links-profile__portrait::before {
     transition: none;
   }
 
   .link-card:hover,
   .link-card:focus-visible,
+  .link-card:active,
   .links-profile__share:hover,
   .links-profile__share:focus-visible,
   .link-card:hover .link-card__arrow,

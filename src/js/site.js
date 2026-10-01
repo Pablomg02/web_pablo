@@ -583,8 +583,15 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     }
   }, { passive: true });
 
+  // The card can change height on its own (the contact line opening), not
+  // only with the window. offsetWidth/Height ignore the tilt, so measuring
+  // here never feeds back into itself.
   measure();
-  window.addEventListener('resize', measure);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(measure).observe(hero);
+  } else {
+    window.addEventListener('resize', measure);
+  }
   hero.classList.add('is-3d');
 }());
 
@@ -686,4 +693,33 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   if (hint) {
     hint.hidden = false;
   }
+}());
+
+// Contact line (see "Contact (home)" in style.css): the arrow beside
+// LinkedIn slides the line open onto email and the other profiles. Without
+// this script the arrow stays hidden and the profiles show; here the line
+// starts closed, with the closed panel `inert` so its links are out of the
+// tab order.
+(function () {
+  var box = document.querySelector('[data-contact-box]');
+  if (!box) {
+    return;
+  }
+
+  var toggle = box.querySelector('.hero-contact__toggle');
+  var panel = document.getElementById(toggle.getAttribute('aria-controls'));
+
+  function setOpen(open) {
+    box.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.inert = !open;
+  }
+
+  box.classList.add('is-collapsible');
+  toggle.hidden = false;
+  setOpen(false);
+
+  toggle.addEventListener('click', function () {
+    setOpen(!box.classList.contains('is-open'));
+  });
 }());

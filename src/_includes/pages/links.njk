@@ -1,55 +1,70 @@
 {#- Body of /links/ and /es/links/, from src/_data/links.js. Built to be the
-   page shared on its own (a profile, a bio): a short header with the portrait
-   and a share button, then every link as a card that is one tap target. #}
-<header class="links-profile">
-  <div class="links-profile__portrait">{% picture "src/images/portrait.jpeg", "", { widths: ["auto"], sizes: "5rem", loading: "eager" } %}</div>
-  <p class="links-profile__kicker">{{ i18n[lang].links }}</p>
-  <h1 class="links-profile__name">{{ site.author }}</h1>
-  <p class="links-profile__intro">{{ i18n[lang].linksIntro }}</p>
-  <button
-    type="button"
-    class="links-profile__share"
-    data-share-link
-    data-share-title="{{ (metaTitle or title) | escape }}"
-    data-share-url="{{ page.url | absoluteUrl(site.url) | escape }}"
-  >{{ i18n[lang].sharePage }}</button>
-</header>
+   page shared on its own (a profile, a bio): a profile card with the portrait
+   and a share button, then every link as a card that is one tap target. On a
+   wide screen the profile card stays pinned on the left beside the links.
+   The card is the same welcome card as the home's (`data-hero`, site.js). #}
+<div class="links-layout">
+  <header class="links-profile" data-hero>
+    <div class="links-profile__glow" aria-hidden="true"></div>
+    <div class="links-profile__top">
+      <div class="links-profile__portrait">{% picture "src/images/portrait.jpeg", "", { widths: ["auto"], sizes: "(min-width: 960px) 8rem, 5rem", loading: "eager" } %}</div>
+      <div class="links-profile__heading">
+        <p class="links-profile__kicker">{{ i18n[lang].links }}</p>
+        <h1 class="links-profile__name">{{ site.author }}</h1>
+      </div>
+    </div>
+    <p class="links-profile__intro">{{ i18n[lang].linksIntro }}</p>
+    <button
+      type="button"
+      class="links-profile__share"
+      data-share-link
+      data-share-title="{{ (metaTitle or title) | escape }}"
+      data-share-url="{{ page.url | absoluteUrl(site.url) | escape }}"
+    >{{ i18n[lang].sharePage }}</button>
+  </header>
 
-{% for group in links %}
-  {% set groupId = 'link-group-' + loop.index %}
-  <section class="link-group" aria-labelledby="{{ groupId }}">
-    <h2 class="link-group__title" id="{{ groupId }}">{{ group.title | localize(lang) }}</h2>
-    {% for entry in group.entries %}
-      {% if entry.prefix %}
-        <p class="link-group__note">{{ entry.prefix | localize(lang) }}</p>
-        <ul class="link-cards link-cards--compact">
-          {% for link in entry.links %}
-            <li>
-              <a class="link-card" href="{{ link.url }}">
-                <span class="link-card__badge" aria-hidden="true">{{ link.badge }}</span>
-                <span class="link-card__label">{{ link.label }}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endfor %}
-    {% set singles = group.entries | rejectattr("prefix") %}
-    {% if singles.length %}
-      <ul class="link-cards">
-        {% for entry in singles %}
-          <li>
-            <a class="link-card" href="{{ entry.url }}">
-              <span class="link-card__badge" aria-hidden="true">{{ entry.badge }}</span>
-              <span class="link-card__body">
-                <span class="link-card__label">{{ entry.label }}</span>
-                {% if entry.note %}<span class="link-card__note">{{ entry.note | localize(lang) }}</span>{% endif %}
-              </span>
-              <span class="link-card__arrow" aria-hidden="true">&rarr;</span>
-            </a>
-          </li>
+  <div class="links-list">
+    {% for group in links %}
+      {% set groupId = 'link-group-' + loop.index %}
+      <section class="link-group" aria-labelledby="{{ groupId }}">
+        <div class="link-group__heading">
+          <span class="link-group__index" aria-hidden="true">{{ "0" + loop.index if loop.index < 10 else loop.index }}</span>
+          <h2 class="link-group__title" id="{{ groupId }}">{{ group.title | localize(lang) }}</h2>
+        </div>
+        {% for entry in group.entries %}
+          {% if entry.prefix %}
+            <p class="link-group__note">{{ entry.prefix | localize(lang) }}</p>
+            <ul class="link-cards link-cards--compact">
+              {% for link in entry.links %}
+                <li>
+                  <a class="link-card" href="{{ link.url }}">
+                    <span class="link-card__badge" aria-hidden="true">{{ link.badge }}</span>
+                    <span class="link-card__label">{{ link.label }}</span>
+                    <span class="link-card__arrow" aria-hidden="true"></span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         {% endfor %}
-      </ul>
-    {% endif %}
-  </section>
-{% endfor %}
+        {% set singles = group.entries | rejectattr("prefix") %}
+        {% if singles.length %}
+          <ul class="link-cards">
+            {% for entry in singles %}
+              <li>
+                <a class="link-card" href="{{ entry.url }}">
+                  <span class="link-card__badge" aria-hidden="true">{{ entry.badge }}</span>
+                  <span class="link-card__body">
+                    <span class="link-card__label">{{ entry.label }}</span>
+                    {% if entry.note %}<span class="link-card__note">{{ entry.note | localize(lang) }}</span>{% endif %}
+                  </span>
+                  <span class="link-card__arrow" aria-hidden="true"></span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </section>
+    {% endfor %}
+  </div>
+</div>
