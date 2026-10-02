@@ -2,7 +2,7 @@
 layout: page.njk
 title: Pablo Magariños
 metaTitle: Pablo Magariños | AI Researcher
-description: AI researcher with a background in aerospace engineering and industrial mathematics, focused on reinforcement learning, partial observability, meta-learning, and world modelling.
+description: AI researcher in aerospace engineering and industrial mathematics, working on reinforcement learning, partial observability and world models.
 pageKey: index
 ---
 
@@ -11,7 +11,7 @@ pageKey: index
   <div class="home-hero__top">
     <div class="home-hero__heading">
       <p class="home-kicker">RL | Meta-Learning | Multi-Agent AI</p>
-      <h1 class="home-title">Pablo Magariños</h1>
+      <h1 class="home-title">Pablo Magariños<span class="visually-hidden">, AI researcher</span></h1>
       <p class="home-subtitle">Aerospace engineer researching how embodied AI can learn from its environment</p>
     </div>
     <div class="home-hero__portrait">{% picture "src/images/portrait.jpeg", "Portrait of Pablo Magariños", { widths: ["auto"], sizes: "(max-width: 600px) 20rem, 11rem", loading: "eager", fetchpriority: "high" } %}</div>
@@ -70,7 +70,7 @@ pageKey: index
     <article class="education-card">
       <p class="education-card__degree">PhD in Aerospace Engineering</p>
       <p class="education-card__school">Universidade de Vigo <span aria-hidden="true">·</span> <span class="education-card__period">2026 &#8211; Present</span></p>
-      <p>I am just starting the doctorate, centred on <strong>embodied artificial intelligence</strong>: how an agent can learn to act competently in the physical world from its own experience of it.</p>
+      <p>I am just starting the doctorate, centred on embodied artificial intelligence: how an agent can learn to act competently in the physical world from its own experience of it.</p>
     </article>
     <article class="education-card">
       <p class="education-card__degree">MSc in Industrial Mathematics</p>
@@ -184,7 +184,7 @@ pageKey: index
 {% if featuredPhotos.length %}
   <a class="photo-band" data-reveal href="{{ '/gallery/' | relativeUrl(page.url) }}">
     {% asyncEach item in featuredPhotos %}
-      <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, "", { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
+      <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, item.data.alt, { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
     {% endeach %}
     <span class="photo-band__label">{{ i18n[lang].viewFullGallery }} <span aria-hidden="true">&rarr;</span></span>
   </a>

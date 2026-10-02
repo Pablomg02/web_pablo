@@ -2,7 +2,7 @@
 layout: page.njk
 title: Pablo Magariños
 metaTitle: Pablo Magariños | Investigador en IA
-description: Investigador en inteligencia artificial con formación en ingeniería aeroespacial y matemática industrial, centrado en aprendizaje por refuerzo, observabilidad parcial, metaaprendizaje y modelos del mundo.
+description: Investigador en IA formado en ingeniería aeroespacial y matemática industrial. Aprendizaje por refuerzo, metaaprendizaje y modelos del mundo.
 permalink: /es/
 pageKey: index
 ---
@@ -12,7 +12,7 @@ pageKey: index
   <div class="home-hero__top">
     <div class="home-hero__heading">
       <p class="home-kicker">RL | Metaaprendizaje | IA multiagente</p>
-      <h1 class="home-title">Pablo Magariños</h1>
+      <h1 class="home-title">Pablo Magariños<span class="visually-hidden">, investigador en IA</span></h1>
       <p class="home-subtitle">Ingeniero aeroespacial investigando cómo la IA corporeizada puede aprender de su entorno</p>
     </div>
     <div class="home-hero__portrait">{% picture "src/images/portrait.jpeg", "Retrato de Pablo Magariños", { widths: ["auto"], sizes: "(max-width: 600px) 20rem, 11rem", loading: "eager", fetchpriority: "high" } %}</div>
@@ -71,7 +71,7 @@ pageKey: index
     <article class="education-card">
       <p class="education-card__degree">Doctorado en Ingeniería Aeroespacial</p>
       <p class="education-card__school">Universidade de Vigo <span aria-hidden="true">·</span> <span class="education-card__period">2026 &#8211; Actualidad</span></p>
-      <p>Acabo de empezar el doctorado, centrado en la <strong>inteligencia artificial corporeizada</strong>: cómo puede un agente aprender a actuar con soltura en el mundo físico a partir de su propia experiencia en él.</p>
+      <p>Acabo de empezar el doctorado, centrado en la inteligencia artificial corporeizada: cómo puede un agente aprender a actuar con soltura en el mundo físico a partir de su propia experiencia en él.</p>
     </article>
     <article class="education-card">
       <p class="education-card__degree">Máster en Matemática Industrial</p>
@@ -185,7 +185,7 @@ pageKey: index
 {% if featuredPhotos.length %}
   <a class="photo-band" data-reveal href="{{ '/es/gallery/' | relativeUrl(page.url) }}">
     {% asyncEach item in featuredPhotos %}
-      <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, "", { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
+      <span class="photo-band__item" style="--ratio: {{ item.data.ratio }}">{% picture item.data.image, item.data.alt, { widths: [320, 640, 960], sizes: "(min-width: 1400px) 480px, (min-width: 600px) 36vw, 280px", class: "photo-band__image" } %}</span>
     {% endeach %}
     <span class="photo-band__label">{{ i18n[lang].viewFullGallery }} <span aria-hidden="true">&rarr;</span></span>
   </a>
