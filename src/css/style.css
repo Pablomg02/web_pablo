@@ -1031,6 +1031,68 @@ hr {
   text-decoration-color: var(--color-header-accent);
 }
 
+/* The line rotates through the profiles (site.js). Every profile sits in the
+   same grid cell; the active one rises into place while the previous one
+   leaves upwards, and the box eases to the width of the active one so the
+   arrow follows it instead of waiting at the width of the longest. The box
+   clips the travel, with a margin of padding so the underline and the focus
+   ring are not cut. Without JavaScript, or with reduced motion, the first
+   profile stays. */
+.hero-contact__rotate {
+  display: inline-grid;
+  grid-template-columns: max-content;
+  box-sizing: content-box;
+  padding: 0.35em 0.25em;
+  margin: -0.35em -0.25em;
+  overflow: hidden;
+}
+
+.hero-contact__rotate .hero-contact__primary {
+  grid-area: 1 / 1;
+  justify-self: start;
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+.hero-contact:not(.is-rotating) .hero-contact__rotate .hero-contact__primary:first-child {
+  visibility: visible;
+}
+
+.hero-contact.is-rotating .hero-contact__rotate .hero-contact__primary {
+  opacity: 0;
+  transform: translateY(85%);
+  pointer-events: none;
+}
+
+.hero-contact.is-rotating .hero-contact__rotate .hero-contact__primary.is-leaving {
+  transform: translateY(-85%);
+}
+
+.hero-contact.is-rotating .hero-contact__rotate .hero-contact__primary.is-active {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* Transitions start only once site.js has set the first width, so the page
+   does not open with the line shrinking into place. */
+.hero-contact.is-rotating.is-ready .hero-contact__rotate {
+  transition: width 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.hero-contact.is-rotating.is-ready .hero-contact__rotate .hero-contact__primary {
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    visibility 0s linear 0.45s,
+    text-decoration-color 0.2s;
+}
+
+.hero-contact.is-rotating.is-ready .hero-contact__rotate .hero-contact__primary.is-active {
+  transition-delay: 0.08s, 0.08s, 0s, 0s;
+}
+
 /* The arrow: a small square with a chevron that turns up once open. Its
    padding grows the tap target past the drawn square. */
 .hero-contact__toggle {
@@ -1111,6 +1173,12 @@ hr {
   margin: 0;
 }
 
+/* Without JavaScript the first profile already shows on the line above, so
+   its row here would repeat it. site.js hides the matching row itself. */
+.hero-contact:not(.is-collapsible) .hero-contact__links li:first-child {
+  display: none;
+}
+
 /* The links slide in a beat after the panel starts opening. */
 .hero-contact__links a {
   display: inline-block;
@@ -1153,7 +1221,9 @@ hr {
 @media (prefers-reduced-motion: reduce) {
   .hero-contact__toggle::before,
   .hero-contact.is-collapsible .hero-contact__more,
-  .hero-contact__links a {
+  .hero-contact__links a,
+  .hero-contact.is-rotating.is-ready .hero-contact__rotate,
+  .hero-contact.is-rotating.is-ready .hero-contact__rotate .hero-contact__primary {
     transition: none;
   }
 

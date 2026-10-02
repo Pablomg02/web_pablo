@@ -695,11 +695,14 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   }
 }());
 
-// Contact line (see "Contact (home)" in style.css): the arrow beside
-// LinkedIn slides the line open onto email and the other profiles. Without
-// this script the arrow stays hidden and the profiles show; here the line
-// starts closed, with the closed panel `inert` so its links are out of the
-// tab order.
+// Contact line (see "Contact (home)" in style.css): the line rotates every
+// three seconds through the profiles — LinkedIn, X, email and the rest — and
+// the arrow beside it slides it open onto all five at once. Rotation holds
+// while a pointer or the keyboard is on the line (so the link cannot change
+// under a click), while the tab is in the background and while the line is
+// open; reduced motion leaves it still on the first profile. Without this
+// script the arrow stays hidden, the first profile shows and the list below
+// carries the others.
 (function () {
   var box = document.querySelector('[data-contact-box]');
   if (!box) {
@@ -708,16 +711,127 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
 
   var toggle = box.querySelector('.hero-contact__toggle');
   var panel = document.getElementById(toggle.getAttribute('aria-controls'));
+  var rotate = box.querySelector('.hero-contact__rotate');
+  var profiles = rotate ? Array.prototype.slice.call(rotate.children) : [];
+  var rows = panel ? Array.prototype.slice.call(panel.querySelectorAll('li')) : [];
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var active = 0;
+  var timer = null;
+  var hover = false;
+  var focused = false;
+
+  function activeHref() {
+    return profiles[active] ? profiles[active].getAttribute('href') : null;
+  }
+
+  // Only the active profile shows on the line. The list below repeats it, so
+  // the row with the same address steps aside while that profile is active;
+  // every other row comes back.
+  // The box takes the width of the active profile, so the arrow glides
+  // beside it; it is measured each time, so a late web font corrects itself.
+  function show(index) {
+    var previous = active;
+    active = index;
+    profiles.forEach(function (profile, position) {
+      profile.classList.toggle('is-leaving', position === previous && position !== index);
+      profile.classList.toggle('is-active', position === index);
+    });
+    if (profiles[index] && box.classList.contains('is-rotating')) {
+      rotate.style.width = profiles[index].offsetWidth + 'px';
+    }
+    rows.forEach(function (row) {
+      var link = row.querySelector('a');
+      row.hidden = Boolean(link) && link.getAttribute('href') === activeHref();
+    });
+  }
+
+  function stop() {
+    window.clearInterval(timer);
+    timer = null;
+  }
+
+  function start() {
+    stop();
+    if (reduceMotion.matches || profiles.length < 2 || box.classList.contains('is-open') || hover || focused) {
+      return;
+    }
+    timer = window.setInterval(function () {
+      show((active + 1) % profiles.length);
+    }, 3000);
+  }
+
+  function sync() {
+    if (hover || focused) {
+      stop();
+    } else {
+      start();
+    }
+  }
 
   function setOpen(open) {
     box.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     panel.inert = !open;
+    show(active);
+    sync();
+  }
+
+  // The rotation stops while the reader is on the line — pointer or keyboard,
+  // so the link cannot change under a click — and never runs with the panel
+  // open; both resume when the reason goes away.
+  box.addEventListener('pointerenter', function () {
+    hover = true;
+    sync();
+  });
+  box.addEventListener('pointerleave', function () {
+    hover = false;
+    sync();
+  });
+  // Only keyboard focus holds it: a tap leaves focus on the arrow, and that
+  // would otherwise stop the line on a phone until the next tap elsewhere.
+  box.addEventListener('focusin', function (event) {
+    try {
+      focused = event.target.matches(':focus-visible');
+    } catch (error) {
+      focused = true;
+    }
+    sync();
+  });
+  box.addEventListener('focusout', function () {
+    focused = false;
+    sync();
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      stop();
+    } else {
+      sync();
+    }
+  });
+
+  // A change to the motion preference takes effect without a reload.
+  if (reduceMotion.addEventListener) {
+    reduceMotion.addEventListener('change', sync);
+  } else if (reduceMotion.addListener) {
+    reduceMotion.addListener(sync);
   }
 
   box.classList.add('is-collapsible');
   toggle.hidden = false;
+  if (profiles.length > 1) {
+    box.classList.add('is-rotating');
+  }
   setOpen(false);
+  if (profiles.length > 1) {
+    // Let the first width settle before transitions switch on.
+    void rotate.offsetWidth;
+    box.classList.add('is-ready');
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        show(active);
+      });
+    }
+  }
 
   toggle.addEventListener('click', function () {
     setOpen(!box.classList.contains('is-open'));

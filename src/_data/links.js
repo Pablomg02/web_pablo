@@ -27,6 +27,16 @@ module.exports = [
         llmsNote: "Best external profile for background and contact.",
       },
       {
+        label: "X",
+        badge: "X",
+        url: "https://x.com/pablodotmd",
+        note: {
+          en: "Where I share shorter thoughts and follow the field.",
+          es: "Donde comparto ideas más breves y sigo la actualidad del sector.",
+        },
+        llmsNote: "Short-form posts about research and technology.",
+      },
+      {
         label: "hi@pablomagarinos.es",
         badge: "@",
         url: "mailto:hi@pablomagarinos.es",

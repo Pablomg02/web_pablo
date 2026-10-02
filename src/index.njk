@@ -26,13 +26,21 @@ pageKey: index
     <div class="hero-contact__main">
       <span class="hero-contact__label">Reach me</span>
       <span class="hero-contact__address">
-        <a class="hero-contact__primary" href="https://www.linkedin.com/in/pablomagarinos/">LinkedIn</a>
+        <span class="hero-contact__rotate">
+          <a class="hero-contact__primary" href="https://www.linkedin.com/in/pablomagarinos/">LinkedIn</a>
+          <a class="hero-contact__primary" href="https://x.com/pablodotmd">X</a>
+          <a class="hero-contact__primary" href="mailto:hi@pablomagarinos.es">Email</a>
+          <a class="hero-contact__primary" href="https://github.com/Pablomg02">GitHub</a>
+          <a class="hero-contact__primary" href="https://scholar.google.com/citations?user=fxGQeMkAAAAJ">Google Scholar</a>
+        </span>
         <button type="button" class="hero-contact__toggle" aria-expanded="true" aria-controls="contact-more" aria-label="More ways to reach me" hidden></button>
       </span>
     </div>
     <div class="hero-contact__more" id="contact-more">
       <ul class="hero-contact__links" aria-label="Other ways to reach me">
+        <li><a href="https://www.linkedin.com/in/pablomagarinos/">LinkedIn</a></li>
         <li><a href="mailto:hi@pablomagarinos.es">Email</a></li>
+        <li><a href="https://x.com/pablodotmd">X</a></li>
         <li><a href="https://github.com/Pablomg02">GitHub</a></li>
         <li><a href="https://scholar.google.com/citations?user=fxGQeMkAAAAJ">Google Scholar</a></li>
         <li><a class="hero-contact__all" href="{{ '/links/' | relativeUrl(page.url) }}">All links</a></li>
