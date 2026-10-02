@@ -1,125 +1,125 @@
 # DEVELOPER GUIDE
 
-Guía de mantenimiento de `web_pablo`.
+Maintenance guide for `web_pablo`.
 
-Este archivo explica cómo está organizada la web, qué piezas afectan al SEO, qué hay que tocar cuando cambias contenido o estructura, y cómo validar que todo ha quedado bien antes de publicar.
+This file explains how the site is organised, which pieces affect SEO, what you have to touch when you change content or structure, and how to validate that everything is in order before publishing.
 
-## Stack y funcionamiento general
+## Stack and how it works
 
-- La web está hecha con `Eleventy` (`@11ty/eleventy`).
-- El código fuente vive en `src/`.
-- El HTML generado sale en `_site/`.
-- No edites `_site/` a mano: se regenera en cada build.
-- El despliegue lo hace GitHub Pages mediante `.github/workflows/deploy.yml`.
+- The site is built with `Eleventy` (`@11ty/eleventy`).
+- The source code lives in `src/`.
+- The generated HTML goes out to `_site/`.
+- Do not edit `_site/` by hand: it is regenerated on every build.
+- Deployment is done by GitHub Pages through `.github/workflows/deploy.yml`.
 
-## Estructura del proyecto
+## Project structure
 
-### Archivos de configuración
+### Configuration files
 
 - `.eleventy.js`
-  - Configura Eleventy.
-  - Copia `src/css`, `src/assets`, `src/robots.txt` y `src/CNAME` al output.
-  - Define filtros como `relativeUrl`, `absoluteUrl` y `json`.
+  - Configures Eleventy.
+  - Copies `src/css`, `src/assets`, `src/robots.txt` and `src/CNAME` to the output.
+  - Defines filters such as `relativeUrl`, `absoluteUrl` and `json`.
 - `package.json`
-  - `npm run dev`: arranca el servidor local.
-  - `npm run build`: genera `_site/`.
-  - `prebuild`: borra `_site/` antes de reconstruir.
+  - `npm run dev`: starts the local server.
+  - `npm run build`: generates `_site/`.
+  - `prebuild`: deletes `_site/` before rebuilding.
 - `.github/workflows/deploy.yml`
-  - Hace `npm ci`, `npm run build` y publica `_site` en GitHub Pages.
+  - Runs `npm ci`, `npm run build` and publishes `_site` to GitHub Pages.
 
-### Contenido principal
+### Main content
 
-El contenido se divide en dos modelos segun la forma de la pagina (ver README).
-La web es bilingue: el ingles vive en la raiz y el espanol bajo `src/es/`, en
-rutas espejo (`/research/` y `/es/research/`). Toda pagina existe en los dos
-idiomas y el build falla si falta una de las dos (ver `CLAUDE.md`).
+Content is divided into two models according to the shape of the page (see README).
+The site is bilingual: English lives at the root and Spanish under `src/es/`, at
+mirrored paths (`/research/` and `/es/research/`). Every page exists in both
+languages and the build fails if one of them is missing (see `CLAUDE.md`).
 
-Prosa, en Markdown:
+Prose, in Markdown:
 
-- `src/thoughts/*.md` — ensayos.
-- `src/notebook/*.md` — articulos tecnicos.
+- `src/thoughts/*.md` — essays.
+- `src/notebook/*.md` — technical articles.
 - `src/privacy.md`, `src/how-i-made-the-web.md`.
 
-Estructura, en datos + plantilla:
+Structure, in data + template:
 
-- `src/_data/experience.js` → `/experience/` y `/es/experience/`.
-- `src/_data/research.js` → `/research/` y `/es/research/`.
-- `src/_data/links.js` → `/links/` y `/es/links/`.
-- El marcado esta en `src/_includes/pages/<nombre>.njk`; `src/<nombre>.njk` y
-  `src/es/<nombre>.njk` solo llevan el front matter.
+- `src/_data/experience.js` → `/experience/` and `/es/experience/`.
+- `src/_data/research.js` → `/research/` and `/es/research/`.
+- `src/_data/links.js` → `/links/` and `/es/links/`.
+- The markup is in `src/_includes/pages/<name>.njk`; `src/<name>.njk` and
+  `src/es/<name>.njk` only hold the front matter.
 
-- `src/index.njk` y `src/es/index.njk`
-  - Home. HTML directo: es una composicion de secciones, no prosa.
-  - Se muestra como “About” en navegación, pero su SEO está centrado en `Pablo Magariños`.
+- `src/index.njk` and `src/es/index.njk`
+  - Home. Plain HTML: it is a composition of sections, not prose.
+  - It shows as “About” in navigation, but its SEO centres on `Pablo Magariños`.
 
-### Plantillas
+### Templates
 
 - `src/_includes/base.njk`
-  - Plantilla principal.
-  - Construye el `<head>` completo: `title`, descripción, canonical, Open Graph, Twitter Cards, favicon, `robots` y JSON-LD.
+  - Main template.
+  - Builds the complete `<head>`: `title`, description, canonical, Open Graph, Twitter Cards, favicon, `robots` and JSON-LD.
 - `src/_includes/page.njk`
-  - Envuelve el contenido de las páginas dentro de `<article class="content">`.
+  - Wraps the content of the pages inside `<article class="content">`.
 
-### Datos globales
+### Global data
 
 - `src/_data/navigation.js`
-  - Define el menú superior de forma manual.
-  - Si una página no se añade aquí, existe igualmente, pero no aparece en la navegación.
+  - Defines the top menu manually.
+  - If a page is not added here, it still exists, but it does not appear in the navigation.
 - `src/_data/site.js`
-  - Fuente global de verdad para SEO y branding.
-  - Contiene dominio, nombre del sitio, autor, título por defecto, descripción por defecto, favicon, imagen social y perfiles públicos.
+  - Global source of truth for SEO and branding.
+  - Holds the domain, site name, author, default title, default description, favicon, social image and public profiles.
 
 ### Assets
 
 - `src/css/style.css`
-  - Estilos globales.
+  - Global styles.
 - `src/js/site.js`
-  - Interacciones progresivas: tema, menú desplegable y compartir.
+  - Progressive interactions: theme, dropdown menu and share.
 - `src/assets/fonts/space-grotesk-latin.woff2`
-  - Fuente local de títulos e interfaz. El cuerpo usa la fuente del sistema y
-    Press Start 2P queda reservada para la marca.
+  - Local font for headings and interface. The body uses the system font and
+    Press Start 2P is reserved for the brand.
 - `src/assets/images/favicon.svg`
 - `src/assets/images/favicon.png`
-  - Iconos del sitio.
+  - Site icons.
 - `src/assets/images/og-default.svg`
 - `src/assets/images/og-default.png`
-  - Imagen social por defecto para Open Graph y Twitter.
+  - Default social image for Open Graph and Twitter.
 
-### Archivos SEO directos
+### Direct SEO files
 
 - `src/robots.txt`
-  - Permite indexación y apunta al sitemap.
+  - Allows indexing and points to the sitemap.
 - `src/sitemap.xml.njk`
-  - Genera el sitemap automáticamente.
+  - Generates the sitemap automatically.
 - `src/CNAME`
-  - Fija el dominio personalizado en GitHub Pages.
+  - Sets the custom domain on GitHub Pages.
 
-## Cómo se construye el SEO
+## How SEO is built
 
-El SEO se organiza en tres capas.
+SEO is organised in three layers.
 
-### 1. Datos globales del sitio
+### 1. Global site data
 
-Se definen en `src/_data/site.js`.
+Defined in `src/_data/site.js`.
 
-Campos importantes actuales:
+Current important fields:
 
-- `url`: URL canónica del sitio.
-- `name`: nombre SEO principal.
-- `brand`: nombre visible en la cabecera.
-- `defaultTitle`: título por defecto de la home.
-- `defaultDescription`: descripción global.
-- `socialImage`: imagen por defecto para compartir.
-- `favicon` y `faviconPng`: iconos del sitio.
-- `sameAs`: perfiles públicos para JSON-LD.
+- `url`: canonical site URL.
+- `name`: main SEO name.
+- `brand`: name visible in the header.
+- `defaultTitle`: default home title.
+- `defaultDescription`: global description.
+- `socialImage`: default image for sharing.
+- `favicon` and `faviconPng`: site icons.
+- `sameAs`: public profiles for JSON-LD.
 
-Si cambias de dominio, nombre profesional, redes sociales o branding SEO, este es el primer archivo que debes revisar.
+If you change the domain, professional name, social networks or SEO branding, this is the first file you should review.
 
-### 2. Metadatos por página
+### 2. Per-page metadata
 
-Se definen en el front matter de cada `.md`.
+Defined in the front matter of each `.md`.
 
-Campos disponibles:
+Available fields:
 
 - `layout`
 - `title`
@@ -131,20 +131,20 @@ Campos disponibles:
 - `pageKey`
 - `untranslated`
 
-Reglas actuales:
+Current rules:
 
-- La home usa `metaTitle` explícito: `Pablo Magariños | AI Researcher`.
-- Las páginas internas, si no definen `metaTitle`, usan la convención:
+- The home uses an explicit `metaTitle`: `Pablo Magariños | AI Researcher`.
+- Internal pages, if they do not define `metaTitle`, use the convention:
   - `{{ title }} | Pablo Magariños`
-- Si no defines `description`, cae a `site.defaultDescription`.
-- Si no defines `socialImage`, usa `site.socialImage`.
-- Si no defines `robots`, usa `index, follow`.
+- If you do not define `description`, it falls back to `site.defaultDescription`.
+- If you do not define `socialImage`, it uses `site.socialImage`.
+- If you do not define `robots`, it uses `index, follow`.
 
-### 3. Render del `<head>`
+### 3. Rendering of the `<head>`
 
-Todo sale desde `src/_includes/base.njk`.
+Everything comes out of `src/_includes/base.njk`.
 
-Ese archivo genera:
+That file generates:
 
 - `<title>`
 - `<meta name="description">`
@@ -163,46 +163,46 @@ Ese archivo genera:
   - `twitter:title`
   - `twitter:description`
   - `twitter:image`
-- JSON-LD tipo `Person`
+- JSON-LD of type `Person`
 
-## Qué tocar según el cambio que hagas
+## What to touch depending on the change
 
-### Si cambias solo texto de una página
+### If you only change the text of a page
 
-Si la pagina es prosa, edita su `.md`. Si es una pagina estructurada
-(`/experience/`, `/research/`, `/links/`), edita su archivo de datos:
+If the page is prose, edit its `.md`. If it is a structured page
+(`/experience/`, `/research/`, `/links/`), edit its data file:
 
-- `src/index.njk` y `src/es/index.njk` — home
+- `src/index.njk` and `src/es/index.njk` — home
 - `src/_data/experience.js`
 - `src/_data/research.js`
 - `src/_data/links.js`
 - `src/privacy.md`, `src/how-i-made-the-web.md`
 
-Revisa también:
+Also review:
 
-- El `title`
-- La `description`
-- El primer párrafo, sobre todo en la home
+- The `title`
+- The `description`
+- The first paragraph, especially on the home
 
-El primer bloque de texto de la home es importante para reforzar el posicionamiento del nombre y del perfil profesional.
+The first block of text on the home is important to reinforce the positioning of the name and the professional profile.
 
-### Si quieres cambiar cómo sale una página en Google o en la pestaña
+### If you want to change how a page appears in Google or in the tab
 
-Edita el front matter de esa página:
+Edit the front matter of that page:
 
-- `metaTitle` para controlar el título exacto
-- `description` para la descripción
-- `socialImage` si quieres una imagen específica
-- `robots` si la quieres indexable o no
+- `metaTitle` to control the exact title
+- `description` for the description
+- `socialImage` if you want a specific image
+- `robots` if you want it indexable or not
 
-Recuerda:
+Remember:
 
-- El navegador muestra principalmente `title` y `favicon`.
-- Google y redes usan sobre todo `title`, `description`, `canonical` e imagen social.
+- The browser mainly shows `title` and `favicon`.
+- Google and social networks use above all `title`, `description`, `canonical` and the social image.
 
-### Si quieres cambiar el nombre principal del sitio
+### If you want to change the main name of the site
 
-Edita `src/_data/site.js`:
+Edit `src/_data/site.js`:
 
 - `name`
 - `brand`
@@ -211,34 +211,34 @@ Edita `src/_data/site.js`:
 - `defaultDescription`
 - `jobTitle`
 
-Normalmente:
+Usually:
 
-- `name` es la identidad SEO.
-- `brand` es lo que ves arriba en la cabecera.
+- `name` is the SEO identity.
+- `brand` is what you see at the top of the header.
 
-Ahora mismo:
+Right now:
 
 - SEO: `Pablo Magariños`
-- Branding visible: `Pablo.dev`
+- Visible branding: `Pablo.dev`
 
-### Si cambias el dominio
+### If you change the domain
 
-Debes actualizar estas tres piezas:
+You must update these three pieces:
 
 1. `src/_data/site.js`
    - `url`
 2. `src/robots.txt`
-   - línea del sitemap
+   - sitemap line
 3. `src/CNAME`
-   - dominio exacto
+   - exact domain
 
-Después conviene comprobar que el build genera canonicals y sitemap con el dominio nuevo.
+Afterwards it is worth checking that the build generates canonicals and the sitemap with the new domain.
 
-### Si quieres cambiar el menú
+### If you want to change the menu
 
-Edita `src/_data/navigation.js`.
+Edit `src/_data/navigation.js`.
 
-Ejemplo:
+Example:
 
 ```js
 module.exports = [
@@ -248,18 +248,18 @@ module.exports = [
 ];
 ```
 
-El titulo va en los dos idiomas y la URL en ingles; la cabecera la traduce sola.
+The title goes in both languages and the URL in English; the header translates it on its own.
 
-### Si quieres añadir una página nueva
+### If you want to add a new page
 
-1. Crea el markdown en `src/` y su traduccion en `src/es/`, mismo nombre.
-2. Añade front matter en los dos (con `pageKey`).
-3. Si quieres que aparezca en el menú, añádela en `src/_data/navigation.js`.
+1. Create the markdown in `src/` and its translation in `src/es/`, same name.
+2. Add front matter to both (with `pageKey`).
+3. If you want it to appear in the menu, add it in `src/_data/navigation.js`.
 
-El procedimiento completo, con las plantillas y las comprobaciones, esta en
+The complete procedure, with the templates and the checks, is in
 `.claude/skills/add-page/SKILL.md`.
 
-Ejemplo:
+Example:
 
 ```md
 ---
@@ -276,19 +276,19 @@ pageKey: blog
 Page content here.
 ```
 
-Notas:
+Notes:
 
-- Si la página usa `layout`, entrará en el sitemap automáticamente, con sus alternates `hreflang`.
-- Si no quieres indexarla, añade `robots: noindex, nofollow`.
+- If the page uses `layout`, it will enter the sitemap automatically, with its `hreflang` alternates.
+- If you do not want it indexed, add `robots: noindex, nofollow`.
 
-### Si añades un artículo de Notebook
+### If you add a Notebook article
 
-Los artículos bajo `src/notebook/` cargan automáticamente el CSS de KaTeX. El
-resto de páginas no lo carga, para evitar ese recurso cuando no hay fórmulas.
+Articles under `src/notebook/` automatically load the KaTeX CSS. The
+rest of the pages do not load it, to avoid that resource when there are no formulas.
 
-### Si quieres cambiar favicon o imagen social
+### If you want to change the favicon or the social image
 
-Archivos a revisar:
+Files to review:
 
 - `src/assets/images/favicon.svg`
 - `src/assets/images/favicon.png`
@@ -296,27 +296,27 @@ Archivos a revisar:
 - `src/assets/images/og-default.png`
 - `src/_data/site.js`
 
-Consejos:
+Tips:
 
-- Mantén el favicon en SVG y PNG para compatibilidad.
-- Usa PNG para Open Graph y Twitter.
-- Si cambias el nombre o cargo principal del sitio, actualiza también el texto dentro de la imagen social.
+- Keep the favicon in SVG and PNG for compatibility.
+- Use PNG for Open Graph and Twitter.
+- If you change the name or main role of the site, also update the text inside the social image.
 
-## Sitemap, robots y páginas indexables
+## Sitemap, robots and indexable pages
 
 ### Sitemap
 
-`src/sitemap.xml.njk` recorre `collections.all` y mete en el sitemap las páginas que tengan `layout`.
+`src/sitemap.xml.njk` walks `collections.all` and puts into the sitemap the pages that have `layout`.
 
-En la práctica entran todas las páginas con `layout`, en los dos idiomas: la
-home, `/experience/`, `/research/`, `/gallery/`, cada artículo y cada foto, y
-sus equivalentes bajo `/es/`. La 404 queda fuera.
+In practice all pages with `layout` enter, in both languages: the
+home, `/experience/`, `/research/`, `/gallery/`, every article and every photo, and
+their equivalents under `/es/`. The 404 stays out.
 
-Si creas una nueva página con `layout`, aparecerá automáticamente.
+If you create a new page with `layout`, it will appear automatically.
 
 ### Robots
 
-`src/robots.txt` permite indexación total y expone el sitemap:
+`src/robots.txt` allows full indexing and exposes the sitemap:
 
 ```txt
 User-agent: *
@@ -325,79 +325,79 @@ Allow: /
 Sitemap: https://pablomagarinos.es/sitemap.xml
 ```
 
-Si en el futuro quieres bloquear alguna página concreta, no se hace aquí; se hace mejor con `robots: noindex, nofollow` en el front matter de esa página.
+If in the future you want to block a specific page, it is not done here; it is better done with `robots: noindex, nofollow` in the front matter of that page.
 
-## Flujo recomendado cuando actualizas la web
+## Recommended flow when you update the site
 
-### Cambios de contenido normales
+### Normal content changes
 
-1. Edita el markdown correspondiente.
-2. Si cambió el enfoque de la página, ajusta también `description`.
-3. Ejecuta el build.
-4. Comprueba el HTML generado.
-5. Haz commit y push.
+1. Edit the corresponding markdown.
+2. If the focus of the page changed, also adjust `description`.
+3. Run the build.
+4. Check the generated HTML.
+5. Commit and push.
 
-### Cambios de SEO
+### SEO changes
 
-1. Revisa `src/_data/site.js`.
-2. Revisa `src/_includes/base.njk`.
-3. Si cambió dominio, revisa `src/robots.txt` y `src/CNAME`.
-4. Si cambió la imagen social o favicon, actualiza los assets.
-5. Ejecuta el build.
-6. Valida `_site/index.html`, `_site/experience/index.html`, `_site/es/index.html`, `_site/sitemap.xml`, `_site/robots.txt` y `_site/CNAME`.
+1. Review `src/_data/site.js`.
+2. Review `src/_includes/base.njk`.
+3. If the domain changed, review `src/robots.txt` and `src/CNAME`.
+4. If the social image or favicon changed, update the assets.
+5. Run the build.
+6. Validate `_site/index.html`, `_site/experience/index.html`, `_site/es/index.html`, `_site/sitemap.xml`, `_site/robots.txt` and `_site/CNAME`.
 
-### Cambios de estructura
+### Structure changes
 
-1. Crea o mueve la página.
-2. Revisa `permalink`.
-3. Revisa `navigation.js`.
-4. Ejecuta build.
-5. Verifica links relativos, sitemap y canonical.
+1. Create or move the page.
+2. Review `permalink`.
+3. Review `navigation.js`.
+4. Run the build.
+5. Verify relative links, sitemap and canonical.
 
-## Comandos útiles
+## Useful commands
 
-### Desarrollo local
+### Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-### Build de producción
+### Production build
 
 ```bash
 npm run build
 ```
 
-### En PowerShell si `npm.ps1` está bloqueado
+### On PowerShell if `npm.ps1` is blocked
 
-En algunos equipos Windows PowerShell bloquea `npm.ps1`. Si pasa eso, usa:
+On some Windows machines PowerShell blocks `npm.ps1`. If that happens, use:
 
 ```bash
 cmd /c npm run build
 ```
 
-o:
+or:
 
 ```bash
 cmd /c npm run dev
 ```
 
-## Checklist rápida antes de publicar
+## Quick checklist before publishing
 
-- La página abre y no hay errores de build.
-- La home tiene un `<title>` correcto.
-- Cada página tiene `description` útil.
-- Los canonicals apuntan a `https://pablomagarinos.es/...`.
-- `_site/sitemap.xml` contiene las URLs esperadas.
-- `_site/robots.txt` referencia el sitemap correcto.
-- `_site/CNAME` contiene `pablomagarinos.es`.
-- El favicon se carga.
-- La imagen social existe y es accesible.
+- The page opens and there are no build errors.
+- The home has a correct `<title>`.
+- Every page has a useful `description`.
+- The canonicals point to `https://pablomagarinos.es/...`.
+- `_site/sitemap.xml` contains the expected URLs.
+- `_site/robots.txt` references the correct sitemap.
+- `_site/CNAME` contains `pablomagarinos.es`.
+- The favicon loads.
+- The social image exists and is accessible.
 
-## Validación manual recomendada
+## Recommended manual validation
 
-Después de hacer build, revisa:
+After building, review:
 
 - `_site/index.html`
 - `_site/experience/index.html`
@@ -406,7 +406,7 @@ Después de hacer build, revisa:
 - `_site/robots.txt`
 - `_site/CNAME`
 
-Busca en el HTML:
+Search in the HTML for:
 
 - `<title>`
 - `meta name="description"`
@@ -416,38 +416,38 @@ Busca en el HTML:
 - `twitter:card`
 - `application/ld+json`
 
-## Notas importantes
+## Important notes
 
-### Codificación UTF-8
+### UTF-8 encoding
 
-Usa UTF-8 al editar archivos con acentos como `Magariños`.
+Use UTF-8 when editing files with accents such as `Magariños`.
 
-Puede pasar que PowerShell muestre algunos caracteres raros al hacer `Get-Content`, pero eso no significa necesariamente que el archivo esté mal. Lo importante es que el HTML generado y el navegador rendericen bien el texto.
+It can happen that PowerShell shows some strange characters when running `Get-Content`, but that does not necessarily mean the file is wrong. The important thing is that the generated HTML and the browser render the text well.
 
-### `_site` no es fuente
+### `_site` is not source
 
-No hagas cambios manuales en `_site`.
+Do not make manual changes in `_site`.
 
-Siempre cambia los archivos de `src/` o de configuración y luego reconstruye.
+Always change the files in `src/` or the configuration and then rebuild.
 
-### Donde vive el contenido de cada pagina
+### Where the content of each page lives
 
-No todas las paginas son un `.md`. Las paginas estructuradas (`/experience/`,
-`/research/`, `/links/`) tienen el texto en `src/_data/*.js` y el marcado en su
-`.njk`; la home es `src/index.njk`. Solo la prosa (thoughts, notebook, privacy,
-how-i-made-the-web) se edita en Markdown.
+Not all pages are a `.md`. The structured pages (`/experience/`,
+`/research/`, `/links/`) have their text in `src/_data/*.js` and their markup in their
+`.njk`; the home is `src/index.njk`. Only prose (thoughts, notebook, privacy,
+how-i-made-the-web) is edited in Markdown.
 
-## Resumen de archivos que más tocarás
+## Summary of the files you will touch most
 
-- Contenido (prosa): `src/notebook/*.md`, `src/privacy.md` (y su traduccion en `src/es/`)
-- Contenido (estructurado): `src/_data/experience.js`, `src/_data/research.js`, `src/_data/links.js`
-- Home: `src/index.njk` y `src/es/index.njk`
-- Menú: `src/_data/navigation.js`
-- SEO global: `src/_data/site.js`
-- Head y metadatos: `src/_includes/base.njk`
+- Content (prose): `src/notebook/*.md`, `src/privacy.md` (and its translation in `src/es/`)
+- Content (structured): `src/_data/experience.js`, `src/_data/research.js`, `src/_data/links.js`
+- Home: `src/index.njk` and `src/es/index.njk`
+- Menu: `src/_data/navigation.js`
+- Global SEO: `src/_data/site.js`
+- Head and metadata: `src/_includes/base.njk`
 - Sitemap: `src/sitemap.xml.njk`
 - Robots: `src/robots.txt`
-- Dominio: `src/CNAME`
-- Imagen social y favicon: `src/assets/images/`
-- Build y rutas: `.eleventy.js`
-- Despliegue: `.github/workflows/deploy.yml`
+- Domain: `src/CNAME`
+- Social image and favicon: `src/assets/images/`
+- Build and routes: `.eleventy.js`
+- Deployment: `.github/workflows/deploy.yml`
