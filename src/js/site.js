@@ -265,17 +265,24 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
 // - Each step's children rise into place one after another when it comes
 //   into view; a child with `data-reveal-each` passes that on to its own
 //   children. `data-reveal` outside a step rises as a single block.
+// - An article marks itself with `data-scroll-headings` instead: its header
+//   and each of its `h2` become the steps of the rail, and nothing rises, so
+//   the text the reader is about to read never moves.
 // Reduced motion keeps only the rail, which moves with the reader's own
 // scrolling. What is already on screen when the page opens is left still.
 (function () {
   var steps = Array.prototype.slice.call(document.querySelectorAll('[data-scroll-step]'));
+  var article = document.querySelector('[data-scroll-headings]');
+  if (!steps.length && article) {
+    steps = Array.prototype.slice.call(article.querySelectorAll(':scope > header, :scope > h2'));
+  }
   if (!steps.length) {
     return;
   }
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!reduceMotion && 'IntersectionObserver' in window) {
+  if (!article && !reduceMotion && 'IntersectionObserver' in window) {
     var blocks = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'))
       .filter(function (block) {
         return !block.closest('[data-scroll-step]');
@@ -331,7 +338,7 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
       }
     }
 
-    var heading = step.querySelector('h1, h2, h3');
+    var heading = step.matches('h1, h2, h3') ? step : step.querySelector('h1, h2, h3');
     if (heading) {
       return heading.textContent.trim();
     }
@@ -361,7 +368,9 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
   // The marks are spread evenly down the track, whatever the length of their
   // steps, so none of them crowds or hides another.
   marks.forEach(function (mark, index) {
-    mark.at = marks.length > 1 ? index / (marks.length - 1) : 0.5;
+    // A lone step (a short note's title) sits at the top, so the fill runs
+    // from it down the whole track as the reader goes through the page.
+    mark.at = marks.length > 1 ? index / (marks.length - 1) : 0;
     mark.el.style.setProperty('--at', mark.at);
   });
 

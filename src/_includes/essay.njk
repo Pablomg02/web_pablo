@@ -8,7 +8,7 @@ layout: base.njk
 {% set backLabel = t[backLabelKey or 'thoughts'] %}
 <a class="notes-back-link" href="{{ backUrl | relativeUrl(page.url) }}">&lt;&lt; {{ t.backTo }} {{ backLabel }}</a>
 
-<article class="content essay">
+<article class="content essay" data-scroll-headings>
   <header class="essay__header">
     <h1>{{ title }}</h1>
     {% set hasPdf = tags and 'notebook' in tags and (page.inputPath | inputPdfExists) %}

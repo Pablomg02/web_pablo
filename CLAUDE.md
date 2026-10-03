@@ -49,6 +49,8 @@ on the left and the rise-into-view) through markup hooks read by
 `src/js/site.js`: `data-scroll-step` on each section / role / publication,
 `data-reveal-each` on a container whose children rise one by one, and
 `data-reveal` on a lone block. Another page opts in with the same hooks.
+Articles (`essay.njk`) get the rail alone through `data-scroll-headings` on the
+`<article>`: its header and each `##` heading become a step, and nothing rises.
 
 The `<body>` hook comes from a `pageKey` front-matter field (or a directory data
 file), not from `page.fileSlug` — a slug-derived class would let an article
