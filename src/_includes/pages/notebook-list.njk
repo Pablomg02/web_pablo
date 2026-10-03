@@ -15,28 +15,8 @@
   {% endif %}
   <ul class="essay-list">
     {% for post in articles %}
-      <li class="essay-list__item" data-topics="{{ (post.data.topics | join('|')) if post.data.topics else '' }}">
-        <a href="{{ post.url | relativeUrl(page.url) }}">{{ post.data.title }}</a>
-        {% if post.date or (post.data.topics and post.data.topics.length) %}
-          <div class="essay-list__meta">
-            {% if post.date %}
-              <time datetime="{{ post.date | dateToFormat }}">{{ post.date | dateToFormat('dd-MM-yyyy') }}</time>
-            {% endif %}
-            {% if post.data.updated %}
-              <span aria-hidden="true">|</span>
-              <span>{{ t.lastEdited }} <time datetime="{{ post.data.updated | dateToFormat }}">{{ post.data.updated | dateToFormat('dd-MM-yyyy') }}</time></span>
-            {% endif %}
-            {% if post.data.topics and post.data.topics.length %}
-              <span class="essay-tags essay-tags--list">
-                {% for topic in post.data.topics %}<span class="essay-tag">{{ topic }}</span>{% endfor %}
-              </span>
-            {% endif %}
-          </div>
-        {% endif %}
-        {% if post.data.description %}
-          <p class="essay-list__description">{{ post.data.description }}</p>
-        {% endif %}
-      </li>
+      {% set number = loop.revindex %}
+      {% include "partials/essay-card.njk" %}
     {% endfor %}
   </ul>
 {% else %}

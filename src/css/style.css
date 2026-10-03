@@ -2786,61 +2786,247 @@ em {
 }
 
 /* --- Essay list --- */
+/* Each entry of Tech Notes and Thoughts is a card (`partials/essay-card.njk`)
+   cut from the home's welcome card: the same surface, offset shadow and gold
+   accents, and site.js makes it answer the pointer the same way (`data-hero`:
+   tilt in `--hero-rx`/`--hero-ry`, light at `--hero-mx`/`--hero-my`, depth
+   drift in `--hero-px`/`--hero-py`). Without JavaScript or with reduced
+   motion it stays flat and only lifts a little under a mouse. */
 .essay-list {
   display: grid;
-  gap: 0.85rem;
+  gap: 1.1rem;
   list-style: none;
   padding-left: 0;
 }
 
-.essay-list__item {
+.essay-card {
+  --hero-shadow: 5px;
   position: relative;
+  isolation: isolate;
   margin-bottom: 0;
-  padding: 1.35rem 1.4rem;
+  padding: clamp(1.25rem, 4vw, 1.75rem) clamp(1.15rem, 4vw, 1.9rem);
+  overflow: hidden;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow:
+    calc(var(--hero-shadow) - var(--hero-px, 0) * 4px)
+    calc(var(--hero-shadow) - var(--hero-py, 0) * 4px)
+    0 var(--color-accent-soft);
+  transition: border-color 0.3s;
 }
 
-.essay-list__item::before {
+.essay-card[hidden] {
+  display: none;
+}
+
+/* Gold bar on the top edge, which stretches when the card is lit. */
+.essay-card::before {
   content: '';
   position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 2rem;
-  height: 2px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 2.25rem;
+  height: 3px;
   background: var(--color-header-accent);
+  transition: width 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
+.essay-card > :not(.essay-card__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.essay-card.is-3d {
+  transform:
+    perspective(var(--hero-persp, 2400px))
+    rotateX(var(--hero-rx, 0deg))
+    rotateY(var(--hero-ry, 0deg));
+}
+
+.essay-card__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    26rem 16rem at var(--hero-mx, 50%) var(--hero-my, 0%),
+    var(--color-hero-glow) 0%,
+    color-mix(in srgb, var(--color-hero-glow) 60%, transparent) 22%,
+    color-mix(in srgb, var(--color-hero-glow) 22%, transparent) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* A 1px rim, masked to the card's inner edge, lit only near the pointer. */
+.essay-card__glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: radial-gradient(
+    14rem 10rem at var(--hero-mx, 50%) var(--hero-my, 0%),
+    var(--color-hero-rim) 0%,
+    color-mix(in srgb, var(--color-hero-rim) 35%, transparent) 45%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+.essay-card.is-lit .essay-card__glow {
+  opacity: 1;
+}
+
+.essay-card.is-lit,
+.essay-card:focus-within {
+  border-color: color-mix(in srgb, var(--color-header-accent) 55%, var(--color-border));
+}
+
+.essay-card.is-lit::before,
+.essay-card:focus-within::before {
+  width: 5.5rem;
+}
+
+/* Without the script (or with reduced motion) a mouse still lifts the card. */
 @media (hover: hover) {
-  .essay-list__item:hover {
-    transform: translate(-2px, -2px);
-    border-color: var(--color-header-accent);
-    box-shadow: 5px 5px 0 var(--color-accent-soft);
+  .essay-card:not(.is-3d):hover {
+    border-color: color-mix(in srgb, var(--color-header-accent) 55%, var(--color-border));
+  }
+
+  .essay-card:not(.is-3d):hover::before {
+    width: 5.5rem;
   }
 }
 
-.essay-list__item a {
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .essay-card:not(.is-3d) {
+    transition: border-color 0.3s, transform 0.2s;
+  }
+
+  .essay-card:not(.is-3d):hover {
+    transform: translate(-2px, -2px);
+  }
+}
+
+.essay-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.85rem;
+  margin: 0 0 0.6rem;
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.essay-card__number {
+  color: var(--color-header-accent);
   font-weight: 700;
-  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.essay-card__updated {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+/* Static, so the link's overlay below is laid out against the card. */
+.essay-card > .essay-card__title {
+  position: static;
+  margin: 0;
+  font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.essay-card__title::after {
+  content: none;
+}
+
+.essay-card__link {
   color: var(--color-text);
-  text-decoration-color: var(--color-header-accent);
-  text-underline-offset: 0.18em;
+  text-decoration: none;
 }
 
-.essay-list__meta {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--color-muted);
-  margin-top: 0.45rem;
+/* The title's link covers the whole card, so the card is a single target. */
+.essay-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 
-.essay-list__description {
-  margin-top: 0.75rem;
-  margin-bottom: 0;
+.essay-card__link:focus-visible {
+  outline: none;
+  text-decoration: underline 2px var(--color-header-accent);
+  text-underline-offset: 0.2em;
+}
+
+.essay-card__description {
+  max-width: 68ch;
+  margin: 0.7rem 0 0;
   color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.essay-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: 1.1rem;
+}
+
+.essay-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-notes-link);
+}
+
+.essay-card__arrow {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.essay-card.is-lit .essay-card__arrow,
+.essay-card:focus-within .essay-card__arrow {
+  transform: translateX(4px);
+}
+
+@media (hover: hover) {
+  .essay-card:hover .essay-card__link {
+    text-decoration: underline 2px var(--color-header-accent);
+    text-underline-offset: 0.2em;
+  }
+}
+
+@media print {
+  .essay-card.is-3d {
+    transform: none;
+  }
+
+  .essay-card__glow {
+    display: none;
+  }
 }
 
 /* --- Topic tags --- */
@@ -2848,11 +3034,6 @@ em {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 0.3rem;
-}
-
-.essay-tags--list {
-  display: flex;
-  margin-top: 0.35rem;
 }
 
 .essay-tag {

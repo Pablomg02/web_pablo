@@ -1,0 +1,30 @@
+{#- One card of the Tech Notes and Thoughts lists: `post` is the collection
+   item, `t` the page's interface strings, `number` its place in the list
+   counted from the oldest. The card is the home's welcome card at list size
+   (`data-hero`, site.js): it tilts and lights under the pointer. The title's
+   link is stretched over the whole card, so the card is one target and the
+   keyboard reaches it in a single stop. #}
+<li class="essay-list__item essay-card" data-hero data-hero-tilt="5"{% if post.data.topics %} data-topics="{{ post.data.topics | join('|') }}"{% endif %}>
+  <div class="essay-card__glow" aria-hidden="true"></div>
+  <p class="essay-card__meta">
+    <span class="essay-card__number" aria-hidden="true">{{ "0" if number < 10 }}{{ number }}</span>
+    {% if post.date %}
+      <time datetime="{{ post.date | dateToFormat }}">{{ post.date | dateToFormat('dd-MM-yyyy') }}</time>
+    {% endif %}
+    {% if post.data.updated %}
+      <span class="essay-card__updated">{{ t.lastEdited }} <time datetime="{{ post.data.updated | dateToFormat }}">{{ post.data.updated | dateToFormat('dd-MM-yyyy') }}</time></span>
+    {% endif %}
+  </p>
+  <h2 class="essay-card__title"><a class="essay-card__link" href="{{ post.url | relativeUrl(page.url) }}">{{ post.data.title }}</a></h2>
+  {% if post.data.description %}
+    <p class="essay-card__description">{{ post.data.description }}</p>
+  {% endif %}
+  <div class="essay-card__foot">
+    {% if post.data.topics and post.data.topics.length %}
+      <span class="essay-tags">
+        {% for topic in post.data.topics %}<span class="essay-tag">{{ topic }}</span>{% endfor %}
+      </span>
+    {% endif %}
+    <span class="essay-card__cta" aria-hidden="true">{{ t.read }}<span class="essay-card__arrow">&rarr;</span></span>
+  </div>
+</li>
