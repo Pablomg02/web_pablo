@@ -24,7 +24,7 @@ When I started, almost everything on the site was written in **Markdown**, a pla
 
 That works very well for prose, but less so for the pages that are really lists: my experience, my publications, my links. The styles had to guess what each piece of text was from its position (the paragraph after a heading was a date, the italics inside a heading were a job title), and the design depended on that guess.
 
-So Markdown is now reserved for writing: {% if site.showThoughts %}**Thoughts** and {% endif %}**Tech Notes**, plus a couple of plain pages like this one. The structured pages keep their content in small data files, one entry per role or publication, and have their own templates in which every element has a name. That gives me much more **flexibility with the style** of each page, and adding a publication is just adding an entry. Even the *llms.txt* file, a summary of the site for language models, is generated from the same data, so it cannot fall out of date.
+So Markdown is now reserved for writing: **Thoughts** and **Tech Notes**, plus a couple of plain pages like this one. The structured pages keep their content in small data files, one entry per role or publication, and have their own templates in which every element has a name. That gives me much more **flexibility with the style** of each page, and adding a publication is just adding an entry. Even the *llms.txt* file, a summary of the site for language models, is generated from the same data, so it cannot fall out of date.
 
 Either way, the visitor receives mostly plain HTML, CSS, and JavaScript. The browser does not have to build the page from a complex application, and search engines can read the content without needing to understand a large client-side framework.
 

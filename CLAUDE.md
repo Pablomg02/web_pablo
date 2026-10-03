@@ -91,14 +91,6 @@ the mirrored path fails with the list of orphans, unless it sets
 - Article images are not translated: `src/notebook/<slug>/` is also copied to
   `/es/notebook/<slug>/`, so the Spanish article references them by bare name.
 
-## Thoughts is hidden
-
-`site.showThoughts` (`src/_data/site.js`) is `false`: the essays under
-`src/thoughts/` and `src/es/thoughts/` stay in the repo, but their pages, the
-`/thoughts/` lists, the `/notes/` redirects, the nav entry, the home / 404
-links and the llms.txt section are not built. Setting it to `true` restores
-all of it; a new link to Thoughts must be wrapped in `{% if site.showThoughts %}`.
-
 ## Images
 
 All site images go through `{% picture src, alt, options %}` (`.eleventy.js`,

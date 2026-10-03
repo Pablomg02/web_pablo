@@ -5,7 +5,6 @@ const { katex } = require("@mdit/plugin-katex");
 const markdownItFootnote = require("markdown-it-footnote");
 const Image = require("@11ty/eleventy-img").default;
 const i18n = require("./src/_data/i18n.js");
-const site = require("./src/_data/site.js");
 
 // GitHub Pages serves this page in place of any missing URL. It is declared
 // here as well as in src/404.njk's permalink because `relativeUrl` has to
@@ -241,20 +240,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("lang", DEFAULT_LANGUAGE);
   eleventyConfig.addGlobalData("languages", LANGUAGES);
 
-  // While Thoughts is hidden (see site.showThoughts) its pages are not
-  // processed at all. `permalink: false` is not enough: Eleventy still renders
-  // the template, page.url is false and the URL filters in the layouts throw.
-  if (!site.showThoughts) {
-    for (const glob of [
-      "src/thoughts/*.md",
-      "src/es/thoughts/*.md",
-      "src/thoughts.njk",
-      "src/es/thoughts.njk",
-      "src/redirect-thoughts-index.njk",
-    ]) {
-      eleventyConfig.ignores.add(glob);
-    }
-  }
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
   eleventyConfig.addFilter("uniqueTopics", (items = []) => {
     const topics = new Set();

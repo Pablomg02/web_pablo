@@ -2,6 +2,7 @@
 title: On Learning, Vibe-Coding, and the Lack of AI Understanding
 description: A personal reflection on the danger of building without learning, the limits of current AI training, and why curiosity might be the only thing that matters.
 date: 2026-04-15
+updated: 2026-10-03
 ---
 
 My personal reflection on how everything done day-to-day gets vibe-coded, as fast as possible (no matter how much one wants to do it well), without learning anything about the subject along the way.
@@ -16,7 +17,7 @@ I hold the deep belief that people who are creative and who create special thing
  
 There is a difference. Humans do not tolerate our world hypotheses clashing. It is not that we have them all present at every moment, but when we detect that things conflict, we try to fix it. It is not a perfect system. Many times we patch it horribly by blaming external factors, or by ignoring isolated cases. But the truth is that, quite literally, we suffer when our house of cards starts to collapse. An LLM does not have this incentive. It does not seek to correct all its knowledge by building a causal tree (or something similar to causal), and seeing what conflicts. It simply updates that isolated case and reaches a point of global stability. (Not to mention that during inference it does not even update, which is a much larger and still unsolved problem.)
  
-Current AIs, however, are expected to reach this indirectly. And not only is it indirect, but it is not even incentivised. We give them a massive (even ridiculous and embarrassing) dataset, and we hope that, out of the sheer necessity to compress so much knowledge into less space, they find causal shortcuts and a **genuine understanding of the world**. The truth is that there have been signals that this sometimes happens, but we have also witnessed genuine atrocities, LLM failures that expose a complete and utter ignorance.
+Current AIs, however, are expected to reach this indirectly. And not only is it indirect, but it is not even incentivised. We give them a massive (even ridiculous and embarrassing) dataset, and we hope that, out of the sheer necessity to compress so much knowledge into less space, they find causal shortcuts and a **genuine understanding of the world**. The truth is that there have been signals that this sometimes happens, but we have also witnessed spectacular blunders, LLM failures that expose a complete and utter ignorance.
  
 The trend among LLMs seems to point towards the leading laboratories aiming to map EVERYTHING, until the difference with a human becomes imperceptible. But will that actually lead to understanding what is happening? Or have we simply forced the neural network to create a ridiculous map of what humans do?
  

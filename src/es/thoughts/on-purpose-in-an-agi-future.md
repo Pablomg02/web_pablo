@@ -1,8 +1,8 @@
 ---
-title: Sobre el propósito en un futuro con AGI
+title: "Sobre el propósito en un futuro con AGI: Un borrador de manifiesto"
 description: Qué sigue siendo propiamente humano cuando la ejecución ya no es nuestra carga.
 date: 2026-02-10
-updated: 2026-04-14
+updated: 2026-10-03
 ---
 
 *Esta nota está adaptada de mi [publicación en Medium](https://medium.com/@pablomagarinos/the-winner-takes-it-all-b8a6657779c6). La he editado para esta web, manteniendo intacto el sentido original.*

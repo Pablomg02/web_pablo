@@ -56,10 +56,6 @@ Links, Privacy and How I Made the Web are not in `navigation.js`. Their footer l
 
 `base.njk` marks a menu entry active when `page.url` equals the entry URL, or when `page.url` starts with the entry URL (except for `/`). A page at `/research/extra/` therefore lights "Research". Pick URLs with that in mind.
 
-## Hidden Thoughts
-
-`site.showThoughts` (`src/_data/site.js`) is `false`. Thoughts sources are ignored by Eleventy (`.eleventy.js`), and the nav entry is filtered out in `navigation.js`. Any link you add to `/thoughts/` or a thought must be inside `{% if site.showThoughts %}`. The same applies to text in `llms.txt.njk`.
-
 ## Discrepancies found while writing this skill
 
 - `README.md` "Anadir una pagina nueva" says to add the nav entry with `{ title: { en, es }, url }` — correct — but its menu example shows a `children` dropdown that no current entry uses.

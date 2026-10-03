@@ -5,7 +5,7 @@ description: Add a new page to the website in both languages (English at /x/, Sp
 
 # Add a page (English + Spanish)
 
-Invariants (mirrored paths, `lang`, hidden Thoughts, Markdown-vs-data rule) are in `CLAUDE.md`. Read it first. This file is the procedure.
+Invariants (mirrored paths, `lang`, Markdown-vs-data rule) are in `CLAUDE.md`. Read it first. This file is the procedure.
 
 Every page exists twice: `/x/` and `/es/x/`. Never add only one. URLs and file names are never translated.
 
@@ -107,11 +107,7 @@ Edit `src/_data/navigation.js`. Add an object; the URL is the ENGLISH one (the h
 
 If your include prints a word that is not page copy (a button label, "No items yet"), add the key to BOTH `en` and `es` blocks in `src/_data/i18n.js` and print it as `{{ i18n[lang].key }}`. Both blocks must have the same keys. Text written by the browser script goes at the top of `src/js/site.js`, in both languages.
 
-## Step 5 — Links to Thoughts
-
-If your page links to `/thoughts/`, wrap the link in `{% if site.showThoughts %}...{% endif %}`. Thoughts is hidden; an unguarded link is a dead link.
-
-## Step 6 — llms.txt
+## Step 5 — llms.txt
 
 `src/llms.txt.njk` has a hand-written "Canonical Pages" list. For a page in the header menu, add one line in the same style: `- [Name]({{ '/<name>/' | absoluteUrl(site.url) }}) - one-line description.` English only, third person, plain text.
 
