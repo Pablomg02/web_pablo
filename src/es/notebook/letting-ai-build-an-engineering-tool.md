@@ -15,7 +15,7 @@ Antes de nada, esto no es **vibe coding** en el sentido de pedir algo en dos lí
 
 Quería construir una herramienta de optimización de aeronaves para las competiciones universitarias de drones de ala fija, en las que cada equipo diseña y construye su propio avión para completar una misión de vuelo: llevar la mayor carga posible, recorrer un circuito lo más rápido posible, o ambas cosas, dentro de un reglamento de diseño. La llamé *IDLEDrones*, de *I Don't Like Engineering: Drones*. Estas competiciones tienen sistemas de puntuación objetivos, al menos en la parte de vuelo; los **informes técnicos** y otras secciones son más subjetivos. Así que todo lo que es objetivo se puede optimizar, si lo simplificas lo suficiente :)
 
-Este post no es un tutorial para construir una aplicación desde cero, ni una receta universal: no he hecho ningún máster en programación con IA. Quiero contar qué puedes esperar cuando le das a una IA la capacidad de construir una aplicación casi sin control humano, a través de la historia de cómo salió esta primera versión a partir de dos prompts principales. Evidentemente no puedo incluir aquí todo mi razonamiento, pero creo que he recogido lo esencial, y qué resultados puede darte un enfoque sencillo, sin una colección interminable de herramientas extra.
+Este artículo no es un tutorial para construir una aplicación desde cero, ni una receta universal: no he hecho ningún máster en programación con IA. Quiero contar qué puedes esperar cuando le das a una IA la capacidad de construir una aplicación casi sin control humano, a través de la historia de cómo salió esta primera versión a partir de dos prompts principales. Evidentemente no puedo incluir aquí todo mi razonamiento, pero creo que he recogido lo esencial, y también qué resultados puede darte un enfoque sencillo, sin una colección interminable de herramientas extra.
 
 ## Herramientas
 
@@ -34,7 +34,7 @@ En el momento de escribir esto (septiembre de 2026), considero que GPT-6 Astra e
 Cuando construyo este tipo de herramientas, suelo pedir cosas muy parecidas:
 
 1. Explico el objetivo general. Así, si más adelante me voy por las ramas, el modelo no pierde de vista lo que intento conseguir.
-2. Pido un backend en Python y un frontend web. Me ahorra interfaces turbias, y FastAPI sirve de puerta de entrada al software de verdad. Python tiene una cantidad absurda de herramientas útiles, como NumPy, JAX o PyTorch, y además es un lenguaje muy presente en los datos de entrenamiento de estos modelos.
+2. Pido un backend en Python y un frontend web. Me ahorra interfaces engorrosas, y FastAPI sirve de puerta de entrada al software de verdad. Python tiene una cantidad absurda de herramientas útiles, como NumPy, JAX o PyTorch, y además es un lenguaje muy presente en los datos de entrenamiento de estos modelos.
 3. Explico cómo creo que se podría resolver el problema, a grandes rasgos. Cuanto más concreto seas, y cuanta más libertad le des para rebatirte, más probable es que los dos entendáis el mismo objetivo. Transmitir por escrito una visión concreta es difícil: intenta hacerlo bien, pero deja que el modelo proponga alternativas.
 
 Primero escribí mis ideas en un archivo, `idea_inicial.md`. Estos fueron los dos prompts:
@@ -69,7 +69,7 @@ Como ves, simplemente pienso en voz alta. Suelo escribir lo más rápido posible
 
 La IA creó `docs/` y se puso manos a la obra. En tres o cuatro ocasiones volvió con tandas de preguntas: órdenes de magnitud de las dimensiones, si quería modelar el despegue, cómo debía ser la fórmula a maximizar, etc. La clave aquí es estar atento y pensar a largo plazo: qué problemas aparecerán cuando el software esté terminado, si de verdad será útil, o si el alcance es tan ambicioso que se volverá inmanejable. Las respuestas a estas preguntas influyen mucho en que el resultado sea bueno o malo.
 
-Gracias a esas preguntas se me ocurrieron cosas que no había incluido en el prompt inicial. La que más me gustó fue añadir un análisis de Monte Carlo de las soluciones. Como te puedes imaginar, la suerte pesa mucho en una competición. La v1 varía el viento y su dirección; en el futuro me gustaría añadir también el rendimiento de los equipos rivales. Muchas competiciones tienen puntuaciones que dependen del mejor resultado en una categoría, por ejemplo la velocidad máxima. Eso puede desplazar el óptimo real y abre la puerta a la teoría de juegos: el dron óptimo puede depender de si todos los demás maximizan una puntuación o varias. Eso da para otro post, pero la teoría de juegos y el modelado de los rivales son temas muy interesantes.
+Gracias a esas preguntas se me ocurrieron cosas que no había incluido en el prompt inicial. La que más me gustó fue añadir un análisis de Monte Carlo de las soluciones. Como te puedes imaginar, la suerte pesa mucho en una competición. La v1 varía el viento y su dirección; en el futuro me gustaría añadir también el rendimiento de los equipos rivales. Muchas competiciones tienen puntuaciones que dependen del mejor resultado en una categoría, por ejemplo la velocidad máxima. Eso puede desplazar el óptimo real y abre la puerta a la teoría de juegos: el dron óptimo puede depender de si todos los demás maximizan una puntuación o varias. Eso da para otro artículo, pero la teoría de juegos y el modelado de los rivales son temas muy interesantes.
 
 Hay algo en lo que no insistí lo suficiente en el prompt inicial y que debería haber pedido desde el principio: tests explícitos para validar la física. El plan y la implementación acabaron incluyéndolos, pero en una herramienta de simulación compensa exigir desde el primer momento tests unitarios para cada modelo, comparaciones con datos reales y tests de sistema que comprueben la coherencia entre las subsimulaciones. También puede ayudar comparar formulaciones o solvers independientes y estudiar los márgenes de error esperables según la literatura, aunque que dos solvers coincidan no sustituye a la validación experimental.
 
@@ -93,7 +93,7 @@ El resultado es una aplicación local para Linux, con backend en Python y contro
 
 ![Editor de diseño de IDLEDrones](web1.png)
 
-*El editor define la familia, la geometría, la carga de pago y los componentes principales de la aeronave. Los nombres de componentes como "LiPo 4S 5 Ah (demo)" o "Motor paramétrico 700 W" son etiquetas genéricas que la IA dio a las entradas del catálogo, no productos comerciales.*
+*El editor define la familia, la geometría, la carga de pago y los componentes principales de la aeronave. Los nombres de componentes como «LiPo 4S 5 Ah (demo)» o «Motor paramétrico 700 W» son etiquetas genéricas que la IA dio a las entradas del catálogo, no productos comerciales.*
 
 El optimizador combina variables continuas con componentes de catálogo, compara las familias por separado y refina los mejores candidatos con modelos de mayor fidelidad. Desde la web puedes editar la fórmula de puntuación y las restricciones, lanzar evaluaciones u optimizaciones, simular viento con Monte Carlo, cancelar y reanudar trabajos, comparar resultados y exportarlos en JSON y PDF. Cada ejecución guarda su configuración, semillas, catálogos, versiones de los modelos y hashes para poder reproducirla y auditarla.
 
@@ -109,7 +109,7 @@ El optimizador combina variables continuas con componentes de catálogo, compara
 
 Una de las cosas más fascinantes es que incorporó datos reales y públicos de fabricantes y de repositorios experimentales, además de ecuaciones y correlaciones físicas. No es un simple juguete: es una herramienta de ingeniería en una fase temprana. Aun así, las comparaciones actuales son sobre todo por componente, y todavía no validan la precisión de la aeronave en su conjunto.
 
-Los drones que propone tienen sentido desde el punto de vista de la ingeniería, pero de momento conviene ser escéptico, porque la herramienta muestra el ganador y poco más. Sin pruebas de que realmente sea el mejor, "es el óptimo" sigue siendo una afirmación discutible.
+Los drones que propone tienen sentido desde el punto de vista de la ingeniería, pero de momento conviene ser escéptico, porque la herramienta muestra el ganador y poco más. Sin pruebas de que realmente sea el mejor, «es el óptimo» sigue siendo una afirmación discutible.
 
 Otra limitación de la verificación es que, sin que yo lo supiera durante la ejecución, el entorno no tenía acceso a un navegador gráfico. El flujo web se comprobó con tests de la API y de la aplicación compilada, pero no con una sesión interactiva real en un navegador. La revisión visual se limitó a los PDF renderizados.
 
@@ -134,7 +134,7 @@ La herramienta funciona, pero deja varias direcciones claras de mejora:
 - **Validación.** Necesitaría más datos de banco y de vuelo para comprobar la aeronave completa, no solo sus modelos por separado.
 - **Código y tests.** La arquitectura ya está dividida en módulos, pero habría que robustecer sus interfaces y ampliar los tests de regresión y de integración.
 - **Optimización y cálculo.** Si hubiera que explorar espacios mucho más grandes, se podría estudiar el cálculo distribuido, la vectorización o las GPU; añadir una GPU no basta si los modelos no están adaptados a ella. El optimizador también debería justificar su resultado, con una comparación frente a los candidatos descartados, la sensibilidad a los pesos de la puntuación y si la optimización ha convergido.
-- **Interfaz.** Necesita una separación clara entre "analiza esta aeronave" y "encuentra la aeronave óptima".
+- **Interfaz.** Necesita una separación clara entre «analiza esta aeronave» y «encuentra la aeronave óptima».
 
 No son funcionalidades que añadir por añadir, sino posibles caminos para convertir esta primera versión conceptual en una herramienta más fiable.
 
@@ -160,6 +160,6 @@ Tener una herramienta tan potente crea la tentación de construir cosas cada vez
 
 ### Reflexión
 
-Es fundamental seguir estudiando y aprendiendo cosas nuevas, porque por mucho que avance la IA, nunca podrás pedir algo que no sabes que existe. Parece una tontería, pero importa. Al menos por ahora, somos nosotros quienes decidimos qué hacer: podemos delegar el **cómo** en la IA, pero seguimos decidiendo el **qué**. No puedes querer un dron de ala fija si no sabes que existen los drones de ala fija. Si solo dices "dron", la IA puede inclinarse por un cuadricóptero.
+Es fundamental seguir estudiando y aprendiendo cosas nuevas, porque por mucho que avance la IA, nunca podrás pedir algo que no sabes que existe. Parece una tontería, pero importa. Al menos por ahora, somos nosotros quienes decidimos qué hacer: podemos delegar el **cómo** en la IA, pero seguimos decidiendo el **qué**. No puedes querer un dron de ala fija si no sabes que existen los drones de ala fija. Si solo dices «dron», la IA puede inclinarse por un cuadricóptero.
 
 Por otro lado, el espacio de posibilidades es prácticamente infinito. Un problema puede tener infinidad de soluciones y formas de abordarlo. A medida que añades restricciones, objetivos concretos y contexto, vas cerrando ese espacio. Pedirle a una IA en cinco líneas la solución óptima a tu problema casi nunca funcionará, porque le falta una cantidad enorme de contexto que tú sí tienes. Ser preciso al plantear el problema y aprender sobre el tema seguirá siendo útil. No es solo una cuestión de la capacidad de la IA, sino del espacio de posibilidades y de la información disponible. Los modelos tendrán cada vez más intuición, pero no pueden reconstruir fielmente un contexto que nunca les diste.

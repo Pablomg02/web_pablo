@@ -1,5 +1,5 @@
 ---
-title: "Sobre el propósito en un futuro con AGI: Un borrador de manifiesto"
+title: "Sobre el propósito en un futuro con AGI: un borrador de manifiesto"
 description: Qué sigue siendo propiamente humano cuando la ejecución ya no es nuestra carga.
 date: 2026-02-10
 updated: 2026-10-03
@@ -12,7 +12,7 @@ La llegada de la inteligencia artificial general es inevitable. Que ocurra este 
 
 Esta perspectiva plantea una pregunta que me cuesta dejar de lado: ¿cuál es, entonces, el sentido del trabajo humano?
 
-La AGI no eliminará la necesidad de criterio. La concentrará. Una AGI podría optimizar la economía de un país con una precisión que ningún equipo de economistas podría igualar, pero los valores que definen qué significa "óptimo" siguen siendo responsabilidad humana. La máquina calcula el camino más eficiente; nosotros decidimos si la eficiencia es el objetivo correcto. Esa distinción no es trivial. Es, posiblemente, la única distinción que importa.
+La AGI no eliminará la necesidad de criterio. La concentrará. Una AGI podría optimizar la economía de un país con una precisión que ningún equipo de economistas podría igualar, pero los valores que definen qué significa «óptimo» siguen siendo responsabilidad humana. La máquina calcula el camino más eficiente; nosotros decidimos si la eficiencia es el objetivo correcto. Esa distinción no es trivial. Es, posiblemente, la única distinción que importa.
 
 La misma lógica se aplica a posibilidades más oscuras. Los sistemas superinteligentes podrían usarse como armas para desestabilizar economías, manipular instituciones o socavar procesos democráticos de formas computacionalmente imposibles de detectar sin una capacidad equivalente. Esto crea una carrera armamentística estructural, no muy distinta de la disuasión nuclear, pero aplicada a la facultad misma que define nuestra civilización: la inteligencia.
 
@@ -36,5 +36,5 @@ Las máquinas sustituyen la ejecución, no el propósito. Un traductor cuyo obje
 
 El reto que tenemos por delante no es técnico. Es distributivo, político y, en última instancia, ético. Garantizar un acceso amplio a estas herramientas es la tarea que define a esta generación. Mientras persista esa desigualdad, el propósito no escasea: simplemente está mal repartido.
 
-*"La vida nunca se vuelve insoportable por las circunstancias, sino solo por la falta de sentido y propósito."*  
+*«La vida nunca se vuelve insoportable por las circunstancias, sino solo por la falta de sentido y propósito».*  
 Viktor Frankl

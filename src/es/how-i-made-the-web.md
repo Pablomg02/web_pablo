@@ -46,7 +46,7 @@ Las webs estáticas tienen límites. No pueden hacer fácilmente cosas que requi
 
 La web está alojada en **GitHub Pages**. Para quien no lo conozca, GitHub Pages permite publicar una web directamente desde un repositorio de GitHub, gratis.
 
-La condición principal es que la web tiene que ser estática. Puede responder a peticiones GET normales, porque los visitantes necesitan pedir páginas, estilos y recursos, pero no es un sitio para lógica de backend a medida. Para mi proyecto, ese compromiso está perfectamente bien.
+La condición principal es que la web tiene que ser estática. Puede responder a peticiones GET normales, porque los visitantes necesitan pedir páginas, estilos y recursos, pero no es un sitio para lógica de backend a medida. Para mi proyecto, esa limitación compensa.
 
 El dominio por defecto de GitHub Pages no es especialmente elegante, pero si tienes un dominio puedes conectarlo a la web. Los dominios con nombres personales suelen ser bastante baratos, sobre todo si no necesitas un *.com*, así que el resultado final puede seguir pareciendo una web independiente normal.
 

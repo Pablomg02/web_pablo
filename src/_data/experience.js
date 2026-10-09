@@ -30,7 +30,7 @@ module.exports = {
           role: { en: "PhD Candidate", es: "Doctorando" },
           period: {
             en: "October 2026 – Present",
-            es: "octubre de 2026 – presente",
+            es: "Octubre de 2026 – actualidad",
           },
           summary:
             "PhD in Aerospace Technology at the University of Vigo on belief-state and world-model-based learning for autonomous aerial systems in partially observable environments.",
@@ -51,7 +51,7 @@ module.exports = {
         {
           org: "ATRG",
           role: { en: "Researcher", es: "Investigador" },
-          period: { en: "November 2024 – Present", es: "Noviembre de 2024 – Actualidad" },
+          period: { en: "November 2024 – Present", es: "Noviembre de 2024 – actualidad" },
           summary:
             "Research work on AI for aerospace vehicles: onboard computer vision, pose estimation, weakly-labelled self-training pipelines, and a Master's thesis on multi-agent AI.",
           body: {
@@ -61,7 +61,7 @@ module.exports = {
               "I also completed my <strong>Master's thesis</strong> here on multi-agent AI, using drone systems as a case study to analyse interaction during learning and deployment — the starting point of what is now my PhD research.",
             ],
             es: [
-              "ATRG (Aerospace Technology Research Group) es un grupo de investigación de la Universidade de Vigo con <strong>más de 17 años de experiencia</strong> detrás de misiones espaciales de gran impacto, como XatCobeo, el primer nanosatélite español, HUMESAT-D y Lume-1.",
+              "ATRG (Aerospace Technology Research Group) es un grupo de investigación de la Universidade de Vigo con <strong>más de 17 años de trayectoria</strong> y responsable de misiones espaciales de gran impacto, como XatCobeo, el primer nanosatélite español, HUMESAT-D y Lume-1.",
               "Mi aportación se centra en la <strong>inteligencia artificial</strong>, sobre todo en proyectos que abarcan tanto el ámbito aeronáutico como el espacial. Algunos de los proyectos en los que he trabajado hasta ahora incluyen modelos de IA para vehículos aeroespaciales, como <strong>visión por computador a bordo</strong>, <strong>estimación de pose</strong> y pipelines de autoentrenamiento basados en etiquetado débil.",
               "También realicé aquí mi <strong>Trabajo Fin de Máster</strong> sobre IA multiagente, con sistemas de drones como caso de estudio para analizar la interacción durante el aprendizaje y el despliegue, que fue el inicio de lo que hoy es mi doctorado.",
             ],
@@ -73,20 +73,20 @@ module.exports = {
         },
         {
           org: {
-            en: "School of Aerospace Engineering",
-            es: "Escuela de Ingeniería Aeroespacial",
+            en: "School of Aeronautical and Space Engineering",
+            es: "Escuela de Ingeniería Aeronáutica y del Espacio",
           },
           role: { en: "Substitute Lecturer", es: "Profesor sustituto" },
-          period: { en: "September 2026 – Present", es: "Septiembre de 2026 – Actualidad" },
+          period: { en: "September 2026 – Present", es: "Septiembre de 2026 – actualidad" },
           summary:
-            "Substitute lecturer at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching sessions in Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
+            "Substitute lecturer at the School of Aeronautical and Space Engineering (EEAE) of the University of Vigo, teaching sessions in Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
           body: {
             en: [
-              "I am part of the teaching staff of the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo as a <strong>substitute lecturer</strong>.",
+              "I am part of the teaching staff of the <strong>School of Aeronautical and Space Engineering</strong> (EEAE) of the University of Vigo as a <strong>substitute lecturer</strong>.",
               "This academic year I teach sessions in <strong>Real-Time Systems</strong>, <strong>Aerospace Technology</strong>, and <strong>Propulsion Systems</strong>.",
             ],
             es: [
-              "Formo parte del profesorado de la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo como <strong>profesor sustituto</strong>.",
+              "Formo parte del profesorado de la <strong>Escuela de Ingeniería Aeronáutica y del Espacio</strong> (EEAE) de la Universidade de Vigo como <strong>profesor sustituto</strong>.",
               "Este curso imparto sesiones en las asignaturas de <strong>Sistemas en Tiempo Real</strong>, <strong>Tecnología Aeroespacial</strong> y <strong>Sistemas de Propulsión</strong>.",
             ],
           },
@@ -121,7 +121,7 @@ module.exports = {
         {
           org: "Aguia Advanced Analytics",
           role: { en: "Trainee Engineer", es: "Ingeniero en prácticas" },
-          period: { en: "June 2023 – August 2023", es: "Junio de 2023 – Agosto de 2023" },
+          period: { en: "June 2023 – August 2023", es: "Junio de 2023 – agosto de 2023" },
           body: {
             en: [
               "I worked full-time as a trainee engineer at Aguia Analítica Avanzada, a Galician data analysis startup that applies <strong>state-of-the-art AI algorithms</strong> to drone imagery to assess road surface conditions.",
@@ -136,15 +136,15 @@ module.exports = {
         },
         {
           org: "UVigo Aerotech",
-          role: { en: "Team Leader", es: "Jefe de equipo" },
-          period: { en: "September 2021 – August 2024", es: "Septiembre de 2021 – Agosto de 2024" },
+          role: { en: "Team Leader", es: "Team Leader" },
+          period: { en: "September 2021 – August 2024", es: "Septiembre de 2021 – agosto de 2024" },
           body: {
             en: [
               "UVigo Aerotech is a student team at the University of Vigo, the only one of its kind in Galicia, dedicated to developing aerospace technologies for research and competition. During my time with the team, I led our participation in <strong>five fixed-wing drone competitions</strong>, developing five different aircraft, including MOBULA-0, <strong>Spain's first competition flying wing</strong>.",
               "I also founded the <strong>Research &amp; Development group</strong>, focused on pioneering technologies such as experimental AI models, morphing wing materials, and simulation software to support the rest of the team. I currently remain involved as an advisor.",
             ],
             es: [
-              "UVigo Aerotech es un equipo de estudiantes de la Universidade de Vigo, el único de su tipo en Galicia, dedicado a desarrollar tecnologías aeroespaciales para investigación y competición. Durante mi etapa en el equipo dirigí nuestra participación en <strong>cinco competiciones de drones de ala fija</strong>, con cinco aeronaves distintas, entre ellas MOBULA-0, <strong>la primera ala volante de competición de España</strong>.",
+              "UVigo Aerotech es un equipo de estudiantes de la Universidade de Vigo, el único de este tipo en Galicia, dedicado a desarrollar tecnologías aeroespaciales para investigación y competición. Durante mi etapa en el equipo dirigí nuestra participación en <strong>cinco competiciones de drones de ala fija</strong>, con cinco aeronaves distintas, entre ellas MOBULA-0, <strong>la primera ala volante de competición de España</strong>.",
               "También fundé el <strong>grupo de Investigación y Desarrollo</strong>, centrado en tecnologías pioneras como modelos experimentales de IA, materiales para alas adaptativas y software de simulación para dar apoyo al resto del equipo. Hoy sigo vinculado como asesor.",
             ],
           },
@@ -153,14 +153,14 @@ module.exports = {
         {
           org: "MAD Formula Team",
           role: { en: "Performance Engineer", es: "Ingeniero de rendimiento" },
-          period: { en: "September 2024 – December 2025", es: "Septiembre de 2024 – Diciembre de 2025" },
+          period: { en: "September 2024 – December 2025", es: "Septiembre de 2024 – diciembre de 2025" },
           body: {
             en: [
               "I worked with the Formula Student team at Universidad Carlos III de Madrid, contributing to the <strong>Modelling &amp; Performance department</strong>. I helped develop a new on-track vehicle simulator, enabling its use for early-stage decision-making and complex optimisations throughout each season's car development.",
               "Additionally, I contributed to optimising the development of the car's <strong>aeromap</strong>, reducing the time required and improving fidelity through statistical and modelling techniques.",
             ],
             es: [
-              "Trabajé con el equipo de Formula Student de la Universidad Carlos III de Madrid, en el <strong>departamento de Modelado y Rendimiento</strong>. Ayudé a desarrollar un nuevo simulador del vehículo en pista, que permitió usarlo para tomar decisiones en fases tempranas y para optimizaciones complejas a lo largo del desarrollo del coche de cada temporada.",
+              "Trabajé con el equipo de Formula Student de la Universidad Carlos III de Madrid, en el <strong>departamento de Modelado y Rendimiento</strong>. Ayudé a desarrollar un nuevo simulador del vehículo en pista, que pasó a usarse para tomar decisiones en fases tempranas y para optimizaciones complejas a lo largo del desarrollo del coche de cada temporada.",
               "Además, contribuí a optimizar el desarrollo del <strong>aeromapa</strong> del coche, reduciendo el tiempo necesario y mejorando su fidelidad mediante técnicas estadísticas y de modelado.",
             ],
           },
@@ -169,7 +169,7 @@ module.exports = {
         {
           org: "AEAE",
           role: { en: "Vice-President", es: "Vicepresidente" },
-          period: { en: "March 2021 – March 2024", es: "Marzo de 2021 – Marzo de 2024" },
+          period: { en: "March 2021 – March 2024", es: "Marzo de 2021 – marzo de 2024" },
           body: {
             en: [
               "Working with the Board, I helped shape the vision for AEAE, <strong>Spain's leading association for aeronautics and space engineering students</strong>. I co-organised four national congresses, managed corporate relations, and coordinated nationwide workshops for Aero Design, Formula Student, and Rocketry teams.",
@@ -184,19 +184,19 @@ module.exports = {
         },
         {
           org: {
-            en: "School of Aerospace Engineering",
-            es: "Escuela de Ingeniería Aeroespacial",
+            en: "School of Aeronautical and Space Engineering",
+            es: "Escuela de Ingeniería Aeronáutica y del Espacio",
           },
           role: { en: "Main Representative", es: "Delegado de estudiantes" },
-          period: { en: "October 2021 – June 2024", es: "Octubre de 2021 – Junio de 2024" },
+          period: { en: "October 2021 – June 2024", es: "Octubre de 2021 – junio de 2024" },
           body: {
             en: [
-              "I was elected as the <strong>main representative of more than 250 students</strong> at the School of Aerospace Engineering. I coordinated and promoted a new series of events aimed at connecting the school with industry through conferences, courses, and professional talks.",
+              "I was elected as the <strong>main representative of more than 250 students</strong> at the School of Aeronautical and Space Engineering. I coordinated and promoted a new series of events aimed at connecting the school with industry through conferences, courses, and professional talks.",
               "One standout initiative was the <strong>I EEAE Alumni Forum</strong>, which brought together over 200 attendees for a series of talks by former students, strengthening the link between alumni and current generations.",
             ],
             es: [
-              "Fui elegido <strong>delegado de más de 250 estudiantes</strong> de la Escuela de Ingeniería Aeroespacial. Coordiné e impulsé una nueva serie de eventos para acercar la escuela a la industria a través de conferencias, cursos y charlas profesionales.",
-              "Una de las iniciativas más destacadas fue el <strong>I Foro de Antiguos Alumnos de la EEAE</strong>, que reunió a más de 200 asistentes en una serie de charlas de antiguos alumnos y reforzó el vínculo entre ellos y las generaciones actuales.",
+              "Fui elegido <strong>delegado de más de 250 estudiantes</strong> de la Escuela de Ingeniería Aeronáutica y del Espacio. Coordiné e impulsé una nueva serie de eventos para acercar la escuela a la industria a través de conferencias, cursos y charlas profesionales.",
+              "Una de las iniciativas más destacadas fue el <strong>I Foro de Antiguos Alumnos de la EEAE</strong>, que reunió a más de 200 asistentes en una serie de charlas de exalumnos y reforzó el vínculo entre ellos y las generaciones actuales.",
             ],
           },
           links: [

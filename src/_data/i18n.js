@@ -46,7 +46,7 @@ module.exports = {
     primaryNavigation: "Navegación principal",
     siteFooter: "Pie de página",
     links: "Enlaces",
-    linksIntro: "Investigador en IA e ingeniero aeroespacial. Dónde encontrarme a mí y mi trabajo.",
+    linksIntro: "Investigador en IA e ingeniero aeroespacial. Dónde encontrarme y seguir mi trabajo.",
     sharePage: "Compartir esta página",
     privacy: "Privacidad",
     howIMadeTheWeb: "Cómo hice la web",

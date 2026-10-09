@@ -21,7 +21,7 @@ module.exports = {
   },
   lead: {
     en: "This is my public research work so far. My current work is in <strong>reinforcement learning under partial observability</strong>: belief states, <strong>world modelling</strong>, and <strong>meta-learning</strong>, oriented towards multi-agent systems and embodied AI. Some of it should become public soon.",
-    es: "Este es mi trabajo de investigación público hasta ahora. Actualmente trabajo en <strong>aprendizaje por refuerzo con observabilidad parcial</strong>: estados de creencia, <strong>modelos del mundo</strong> y <strong>metaaprendizaje</strong>, orientado a sistemas multiagente y a la IA corporeizada. Parte de ello debería hacerse público pronto.",
+    es: "Este es mi trabajo de investigación público hasta ahora. Actualmente trabajo en <strong>aprendizaje por refuerzo bajo observabilidad parcial</strong>: estados de creencia, <strong>modelos del mundo</strong> y <strong>metaaprendizaje</strong>, orientado a sistemas multiagente y a la IA corporeizada. Parte de ello debería hacerse público pronto.",
   },
   publications: [
     {
@@ -87,7 +87,7 @@ module.exports = {
         ],
         es: [
           "Colaboré en este preprint, un estudio de <strong>interpretabilidad mecanicista</strong>. En lugar de leer una característica de un autoencoder disperso (SAE) como una lista de tokens, la modelamos como un <strong>grafo de co-ocurrencia de tokens</strong> y comparamos características con un <strong>núcleo de grafos de tipo Weisfeiler-Lehman</strong>.",
-          "Sobre un SAE de GPT-2 Small, el agrupamiento revela familias estructurales como secuencias con mucha puntuación, grupos por idioma y plantillas de código. Una línea base de histogramas de tokens puntúa más alto en global, así que la vista en grafos es una <strong>lente complementaria</strong>, no un sustituto.",
+          "Sobre un SAE de GPT-2 Small, el agrupamiento revela familias estructurales como secuencias con mucha puntuación, grupos por idioma y plantillas de código. Una línea base de histogramas de tokens puntúa más alto en conjunto, así que la vista en grafos es una <strong>lente complementaria</strong>, no un sustituto.",
         ],
       },
       links: [

@@ -15,7 +15,7 @@ First of all, this is not **vibe coding** in the sense of asking for something i
 
 I wanted to build an aircraft optimisation tool for university fixed-wing drone competitions, where each team designs and builds its own aircraft to complete a flight mission: carry as much payload as possible, fly a circuit as fast as possible, or both, within a set of design rules. I called it *IDLEDrones*, for *I Don't Like Engineering: Drones*. These competitions have objective scoring systems, at least for the flight part; the **technical reports** and other sections are more subjective. So everything that is objective can be optimised, if you simplify it enough :)
 
-This post is not a tutorial on building an application from scratch, nor a universal recipe: I have not done any master's degree in AI programming. I want to share what you can expect when you give an AI the ability to build an application with barely any human control, through the story of how this first version came out of two main prompts. Of course I cannot include all of my reasoning here, but I think I have captured the essentials, and what results a simple approach can get you, without an endless collection of extra tools.
+This post is not a tutorial on building an application from scratch, nor a universal recipe: I have not done any master's degree in AI programming. I want to share what you can expect when you give an AI the ability to build an application with barely any human control, through the story of how this first version came out of two main prompts. Of course I cannot include all of my reasoning here, but I think I have captured the essentials, as well as what results a simple approach can get you, without an endless collection of extra tools.
 
 ## Tools
 
@@ -34,7 +34,7 @@ At the time of writing (September 2026), I consider GPT-6 Astra to be state of t
 When I build this kind of tool, I usually ask for very similar things:
 
 1. I explain the overall goal. That way, if I go off on a tangent later, the model does not lose sight of what I am trying to achieve.
-2. I ask for a Python backend and a web frontend. It saves me murky interfaces, and FastAPI serves as the entry point to the real software. Python has an absurd number of useful tools, like NumPy, JAX or PyTorch, and it is also a language that is very present in these models' training data.
+2. I ask for a Python backend and a web frontend. It saves me clunky interfaces, and FastAPI serves as the entry point to the real software. Python has an absurd number of useful tools, like NumPy, JAX or PyTorch, and it is also a language that is very present in these models' training data.
 3. I explain how I think the problem could be solved, broadly. The more specific you are, and the more freedom you give it to challenge you, the more likely you both understand the same goal. Conveying a concrete vision in writing is hard: try to do it well, but let the model propose alternatives.
 
 First I wrote my ideas in a file, `idea_inicial.md`. Both prompts are translated from Spanish:

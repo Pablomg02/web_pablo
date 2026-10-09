@@ -33,5 +33,5 @@ Eso a veces significará editar, quitar ruido, incluso añadir algo que no pudis
 
 La pregunta nunca es si es aceptable editar una imagen. La pregunta es si lo que estás haciendo sigue sirviendo a lo que de verdad intentas hacer.
 
-*"La fotografía es la historia que no consigo poner en palabras."*  
+*«La fotografía es la historia que no consigo poner en palabras».*  
 Destin Sparks
