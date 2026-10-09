@@ -622,9 +622,12 @@ main {
   max-width: var(--max-width);
 }
 
-/* Dense CV and publication pages get a wider editorial measure. */
+/* Dense CV and publication pages, and the article lists, get a wider
+   editorial measure. The articles themselves keep the reading width. */
 .page-experience main,
-.page-research main {
+.page-research main,
+.page-notebook main,
+.page-thoughts main {
   max-width: calc(900px + 3rem);
 }
 
