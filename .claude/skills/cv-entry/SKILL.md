@@ -21,7 +21,7 @@ The same data file feeds three outputs, so one edit changes all of them:
 4. Put the object in the right place in the array. The template does **not** sort:
    - `research.publications`: newest first.
    - `experience.groups[0]` is "Current Experience", `groups[1]` is "Previous Experience". Put the role in the right group.
-   - `links`: pick the group (Contact & social / Research / Projects) or add a whole new group object.
+   - `links`: pick the group (Contact / Social / Research / Projects) or add a whole new group object.
 5. Run the verification below. Do not report the task done before it passes.
 
 ## HTML vs plain text (this decides whether `&` and `<a>` work)

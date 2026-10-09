@@ -14,7 +14,19 @@
 // falls back to `note.en` when the wording works in both voices.
 module.exports = [
   {
-    title: { en: "Contact & social", es: "Contacto y redes" },
+    title: { en: "Contact", es: "Contacto" },
+    entries: [
+      {
+        label: "hi@pablomagarinos.es",
+        badge: "@",
+        url: "mailto:hi@pablomagarinos.es",
+        note: { en: "Email me directly.", es: "Escríbeme directamente." },
+        llmsNote: "Direct contact: hi@pablomagarinos.es",
+      },
+    ],
+  },
+  {
+    title: { en: "Social", es: "Redes" },
     entries: [
       {
         label: "LinkedIn",
@@ -35,23 +47,6 @@ module.exports = [
           es: "Donde comparto ideas más breves y sigo la actualidad del sector.",
         },
         llmsNote: "Short-form posts about research and technology.",
-      },
-      {
-        label: "hi@pablomagarinos.es",
-        badge: "@",
-        url: "mailto:hi@pablomagarinos.es",
-        note: { en: "Email me directly.", es: "Escríbeme directamente." },
-        llmsNote: "Direct contact: hi@pablomagarinos.es",
-      },
-      {
-        label: "Medium",
-        badge: "M",
-        url: "https://medium.com/@pablomagarinos",
-        note: {
-          en: "Where I occasionally publish articles.",
-          es: "Donde publico artículos de vez en cuando.",
-        },
-        llmsNote: "Occasional external writing.",
       },
     ],
   },
@@ -93,15 +88,14 @@ module.exports = [
         llmsNote: "Code and technical projects.",
       },
       {
-        label: "Learn",
+        label: "LearnPMD",
         badge: "Le",
         url: "https://learn.pablomagarinos.es",
         note: {
-          en: "My personal academic platform: self-contained notes and exercises, alongside other teaching tools I am building.",
-          es: "Mi plataforma académica personal: apuntes y ejercicios autocontenidos, junto a otras herramientas docentes que estoy construyendo.",
+          en: "My notes, exercises and teaching tools.",
+          es: "Mis apuntes, ejercicios y herramientas docentes.",
         },
-        llmsNote:
-          "Pablo's personal academic platform: self-contained notes, exercises, and teaching tools.",
+        llmsNote: "Pablo's academic platform: notes, exercises and teaching tools.",
       },
     ],
   },
