@@ -132,4 +132,7 @@ markdown-it 15, and Eleventy 3 pins markdown-it `^14.1.1`, which is the
 instance `amendLibrary("md", ...)` in `.eleventy.js` hands the plugin. Bump it
 only once Eleventy moves to markdown-it 15. `katex` itself is free to track
 latest: the stylesheet and fonts are copied out of `node_modules` by
-`.eleventy.js`, so the CSS can never drift from the rendering version.
+`.eleventy.js`, so the CSS can never drift from the rendering version. That
+holds only because `overrides` in `package.json` forces the plugin onto the
+top-level `katex` (`"$katex"`); without it the plugin installs its own nested
+0.16.x copy, which renders the math and carries a security advisory.
