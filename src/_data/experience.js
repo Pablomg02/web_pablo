@@ -76,18 +76,18 @@ module.exports = {
             en: "School of Aerospace Engineering",
             es: "Escuela de Ingeniería Aeroespacial",
           },
-          role: { en: "Lecturer", es: "Profesor" },
+          role: { en: "Substitute Lecturer", es: "Profesor sustituto" },
           period: { en: "September 2026 – Present", es: "Septiembre de 2026 – Actualidad" },
           summary:
-            "Lecturer at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
+            "Substitute lecturer at the School of Aerospace Engineering (EEAE) of the University of Vigo, teaching sessions in Real-Time Systems, Aerospace Technology, and Propulsion Systems.",
           body: {
             en: [
-              "I teach as a <strong>lecturer</strong> at the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo.",
-              "This academic year I teach <strong>Real-Time Systems</strong>, <strong>Aerospace Technology</strong>, and <strong>Propulsion Systems</strong>.",
+              "I am part of the teaching staff of the <strong>School of Aerospace Engineering</strong> (EEAE) of the University of Vigo as a <strong>substitute lecturer</strong>.",
+              "This academic year I teach sessions in <strong>Real-Time Systems</strong>, <strong>Aerospace Technology</strong>, and <strong>Propulsion Systems</strong>.",
             ],
             es: [
-              "Soy <strong>profesor</strong> en la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo.",
-              "Este curso imparto <strong>Sistemas en Tiempo Real</strong>, <strong>Tecnología Aeroespacial</strong> y <strong>Sistemas de Propulsión</strong>.",
+              "Formo parte del profesorado de la <strong>Escuela de Ingeniería Aeroespacial</strong> (EEAE) de la Universidade de Vigo como <strong>profesor sustituto</strong>.",
+              "Este curso imparto sesiones en las asignaturas de <strong>Sistemas en Tiempo Real</strong>, <strong>Tecnología Aeroespacial</strong> y <strong>Sistemas de Propulsión</strong>.",
             ],
           },
           links: [{ label: webpage, url: "https://aero.uvigo.es/" }],
@@ -97,14 +97,14 @@ module.exports = {
           role: { en: "Founder", es: "Fundador" },
           period: { en: "In development", es: "En desarrollo" },
           summary:
-            "Deep-tech AI startup founded by Pablo, focused on autonomous learning for robotic systems, especially drones. Still in development.",
+            "Deep-tech AI startup founded by Pablo, focused on real-time learning and adaptation for robotic systems, especially drones. Still in development.",
           body: {
             en: [
-              "XISTRA is a <strong>deep-tech AI startup</strong> built around a single thesis: true intelligence emerges from the capacity to learn autonomously, not from data alone.",
+              "XISTRA is a <strong>deep-tech AI startup</strong> built around a single thesis: true intelligence emerges from the capacity to learn and adapt in real time from one's own experience, not from forcing learning through massive amounts of data.",
               "The project is still at a very early stage, and I am nurturing it with the care it deserves through my PhD and research. It will become public in the future.",
             ],
             es: [
-              "XISTRA es una <strong>startup deep-tech de IA</strong> construida en torno a una única tesis: la verdadera inteligencia surge de la capacidad de aprender de forma autónoma, no solo de los datos.",
+              "XISTRA es una <strong>startup deep-tech de IA</strong> construida en torno a una única tesis: la verdadera inteligencia surge de la capacidad de aprender y adaptarse en tiempo real a partir de la propia experiencia, no de forzar el aprendizaje con cantidades masivas de datos.",
               "El proyecto está todavía en una fase muy temprana y le estoy dedicando el mimo que requiere a través de mi doctorado y mi investigación. En el futuro será algo público.",
             ],
           },
@@ -128,7 +128,7 @@ module.exports = {
               "During this time, I worked on the modelling and implementation of <strong>computer vision neural networks</strong>, as well as data processing and process automation, gaining first-hand experience in the development of an early-stage R&amp;D project.",
             ],
             es: [
-              "Trabajé a tiempo completo como ingeniero en prácticas en Aguia Analítica Avanzada, una startup gallega de análisis de datos que aplica <strong>algoritmos de IA de última generación</strong> a imágenes tomadas con drones para evaluar el estado del firme de las carreteras.",
+              "Trabajé a tiempo completo como ingeniero en prácticas en Aguia Analítica Avanzada, una startup gallega de análisis de datos que aplica <strong>algoritmos de IA del estado del arte</strong> a imágenes tomadas con drones para evaluar el estado del firme de las carreteras.",
               "Durante ese tiempo trabajé en el modelado y la implementación de <strong>redes neuronales de visión por computador</strong>, así como en el procesamiento de datos y la automatización de procesos, y conocí de primera mano el desarrollo de un proyecto de I+D en fase temprana.",
             ],
           },
