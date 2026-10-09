@@ -1,6 +1,7 @@
 {#- Body of /links/ and /es/links/, from src/_data/links.js. Built to be the
-   page shared on its own (a profile, a bio): a profile card with the portrait
-   and a share button, then every link as a card that is one tap target. On a
+   page shared on its own (a profile, a bio): a profile card with the portrait,
+   a button into the rest of the site for visitors arriving from elsewhere and
+   a share button, then every link as a card that is one tap target. On a
    wide screen the profile card stays pinned on the left beside the links.
    The card is the same welcome card as the home's (`data-hero`, site.js). #}
 <div class="links-layout">
@@ -13,14 +14,17 @@
         <h1 class="links-profile__name">{{ site.author }}</h1>
       </div>
     </div>
-    <p class="links-profile__intro">{{ i18n[lang].linksIntro }}</p>
-    <button
-      type="button"
-      class="links-profile__share"
-      data-share-link
-      data-share-title="{{ (metaTitle or title) | escape }}"
-      data-share-url="{{ page.url | absoluteUrl(site.url) | escape }}"
-    >{{ i18n[lang].sharePage }}</button>
+    <p class="links-profile__intro">{% for part in i18n[lang].linksIntro %}<span>{{ part }}</span>{{ " " if not loop.last }}{% endfor %}</p>
+    <div class="links-profile__actions">
+      <a class="links-profile__action links-profile__action--site" href="{{ '/' | localeUrl(lang) }}">{{ i18n[lang].visitSite }}</a>
+      <button
+        type="button"
+        class="links-profile__action links-profile__action--share"
+        data-share-link
+        data-share-title="{{ (metaTitle or title) | escape }}"
+        data-share-url="{{ page.url | absoluteUrl(site.url) | escape }}"
+      >{{ i18n[lang].sharePage }}</button>
+    </div>
   </header>
 
   <div class="links-list">

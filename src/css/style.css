@@ -2482,18 +2482,45 @@ em {
   overflow-wrap: break-word;
 }
 
+/* Below 360px the clamp's floor is too wide for "Magariños" beside the
+   portrait and the word broke mid-letter; follow the viewport instead. */
+@media (max-width: 359px) {
+  .links-profile__name {
+    font-size: 4.4vw;
+  }
+}
+
+/* Small gold capitals, like the home's kicker (`.home-kicker`), one part per
+   line and centred. The card is too narrow at every width for the parts to
+   share a line, so they never take the kicker's bars. */
 .links-profile__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
   margin: 1.15rem 0 1.35rem;
   padding-top: 1.15rem;
   border-top: 1px solid var(--color-border);
-  color: var(--color-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-header-accent);
 }
 
-/* Full width, so it is an easy thumb target. The icon is a mask on ::before
-   so site.js can swap the label for "Copied" without losing it. */
-.links-profile__share {
+/* Stacked and full width, so each is an easy thumb target at any width. The
+   way into the site is the filled one: the page is mostly reached from other
+   sites. Icons are a mask on ::before so site.js can swap the share label for
+   "Copied" without losing it. */
+.links-profile__actions {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.links-profile__action {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2504,25 +2531,38 @@ em {
   font-family: var(--font-heading);
   font-size: 0.88rem;
   font-weight: 700;
-  color: var(--color-bg);
-  background: var(--color-notes-link);
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
   border: 1px solid var(--color-notes-link);
   cursor: pointer;
   transition: box-shadow 0.15s, transform 0.15s;
 }
 
-.links-profile__share::before {
+.links-profile__action::before {
   content: '';
   flex: none;
   width: 1rem;
   height: 1rem;
   background: currentColor;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: var(--action-icon) center / contain no-repeat;
+  mask: var(--action-icon) center / contain no-repeat;
 }
 
-.links-profile__share:hover,
-.links-profile__share:focus-visible {
+.links-profile__action--site {
+  --action-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11l9-8 9 8M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5'/%3E%3C/svg%3E");
+  color: var(--color-bg);
+  background: var(--color-notes-link);
+}
+
+.links-profile__action--share {
+  --action-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6'/%3E%3C/svg%3E");
+  color: var(--color-notes-link);
+  background: transparent;
+}
+
+.links-profile__action:hover,
+.links-profile__action:focus-visible {
   box-shadow: 4px 4px 0 var(--color-notes-shadow);
   transform: translate(-2px, -2px);
 }
@@ -2731,7 +2771,7 @@ em {
   .link-card::before,
   .link-card__badge,
   .link-card__arrow,
-  .links-profile__share,
+  .links-profile__action,
   .links-profile__portrait::before {
     transition: none;
   }
@@ -2739,8 +2779,8 @@ em {
   .link-card:hover,
   .link-card:focus-visible,
   .link-card:active,
-  .links-profile__share:hover,
-  .links-profile__share:focus-visible,
+  .links-profile__action:hover,
+  .links-profile__action:focus-visible,
   .link-card:hover .link-card__arrow,
   .link-card:focus-visible .link-card__arrow {
     transform: none;
