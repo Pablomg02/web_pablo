@@ -851,3 +851,19 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     setOpen(!box.classList.contains('is-open'));
   });
 }());
+
+// The link cards on /links/ light up where the pointer is, like the cards on
+// learn.pablomagarinos.es: the position goes to `--spot-x`/`--spot-y`, which
+// the card's ::before uses as the centre of its glow.
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll('.link-card'), function (card) {
+    card.addEventListener('pointermove', function (event) {
+      if (event.pointerType === 'touch') {
+        return;
+      }
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty('--spot-x', (event.clientX - rect.left) + 'px');
+      card.style.setProperty('--spot-y', (event.clientY - rect.top) + 'px');
+    });
+  });
+}());

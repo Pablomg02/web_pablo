@@ -2536,7 +2536,7 @@ em {
   text-decoration: none;
   border: 1px solid var(--color-notes-link);
   cursor: pointer;
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition: box-shadow 0.15s, transform 0.15s, background-color 0.15s;
 }
 
 .links-profile__action::before {
@@ -2565,6 +2565,11 @@ em {
 .links-profile__action:focus-visible {
   box-shadow: 4px 4px 0 var(--color-notes-shadow);
   transform: translate(-2px, -2px);
+}
+
+.links-profile__action--share:hover,
+.links-profile__action--share:focus-visible {
+  background: color-mix(in srgb, var(--color-notes-link) 12%, transparent);
 }
 
 /* Each group is headed like a home section: a pixel index, the title, and a
@@ -2627,7 +2632,9 @@ em {
 }
 
 .link-card {
+  --link-card-tint: color-mix(in srgb, var(--color-header-accent) 5%, transparent);
   position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: 0.95rem;
@@ -2636,7 +2643,9 @@ em {
   padding: 0.85rem 0.95rem;
   color: var(--color-text);
   text-decoration: none;
-  background: var(--color-surface);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-header-accent) 4%, transparent), transparent 60%),
+    var(--link-card-tint);
   border: 1px solid var(--color-border);
   -webkit-tap-highlight-color: transparent;
   transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s, background-color 0.18s;
@@ -2655,8 +2664,26 @@ em {
   transition: width 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+/* A soft gold light that follows the pointer (`--spot-x`/`--spot-y`, set by
+   site.js), borrowed from the cards of learn.pablomagarinos.es. */
+.link-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    260px circle at var(--spot-x, 50%) var(--spot-y, -30%),
+    color-mix(in srgb, var(--color-header-accent) 16%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+
 .link-card:hover,
 .link-card:focus-visible {
+  --link-card-tint: color-mix(in srgb, var(--color-header-accent) 10%, transparent);
   color: var(--color-text);
   border-color: var(--color-notes-link);
   box-shadow: 5px 5px 0 var(--color-notes-shadow);
@@ -2669,14 +2696,20 @@ em {
   width: calc(100% + 2px);
 }
 
+.link-card:hover::after,
+.link-card:focus-visible::after {
+  opacity: 1;
+}
+
 /* A press on a touch screen pushes the card in, as feedback before the
    browser leaves the page. */
 .link-card:active {
-  background: var(--color-accent-soft);
+  --link-card-tint: color-mix(in srgb, var(--color-header-accent) 14%, transparent);
   box-shadow: none;
   transform: translate(0, 0) scale(0.99);
 }
 
+/* The monogram tips over when its card is pointed at. */
 .link-card__badge {
   display: grid;
   place-items: center;
@@ -2686,15 +2719,15 @@ em {
   font-family: var(--font-brand);
   font-size: 0.6rem;
   color: var(--color-notes-link);
-  background: var(--color-accent-soft);
-  border: 1px solid color-mix(in srgb, var(--color-notes-link) 55%, transparent);
-  transition: background-color 0.18s, color 0.18s;
+  background: color-mix(in srgb, var(--color-notes-link) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-notes-link) 45%, transparent);
+  transition: background-color 0.18s, transform 0.2s;
 }
 
 .link-card:hover .link-card__badge,
 .link-card:focus-visible .link-card__badge {
-  color: var(--color-bg);
-  background: var(--color-notes-link);
+  background: color-mix(in srgb, var(--color-notes-link) 24%, transparent);
+  transform: rotate(-6deg) scale(1.05);
 }
 
 .link-card__body {
@@ -2769,6 +2802,7 @@ em {
 @media (prefers-reduced-motion: reduce) {
   .link-card,
   .link-card::before,
+  .link-card::after,
   .link-card__badge,
   .link-card__arrow,
   .links-profile__action,
@@ -2779,6 +2813,8 @@ em {
   .link-card:hover,
   .link-card:focus-visible,
   .link-card:active,
+  .link-card:hover .link-card__badge,
+  .link-card:focus-visible .link-card__badge,
   .links-profile__action:hover,
   .links-profile__action:focus-visible,
   .link-card:hover .link-card__arrow,
