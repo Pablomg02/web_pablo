@@ -867,3 +867,28 @@ var siteStrings = siteStringsByLang[document.documentElement.lang] || siteString
     });
   });
 }());
+
+// The signature at the end of the home intro writes itself the first time
+// most of it is in view (the animation and its timing are in style.css and
+// the markup; see "signature" there). It is armed (hidden) only here, so
+// without JavaScript, or with reduced motion, it is simply shown.
+(function () {
+  var signature = document.querySelector('[data-signature]');
+  if (!signature || !('IntersectionObserver' in window)
+    || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  signature.classList.add('is-armed');
+  var observer = new IntersectionObserver(function (entries) {
+    if (entries.some(function (entry) { return entry.isIntersecting; })) {
+      observer.disconnect();
+      // A short pause first, so it is seen being written rather than
+      // already halfway through as the page settles.
+      setTimeout(function () {
+        signature.classList.add('is-signing');
+      }, 450);
+    }
+  }, { threshold: 0.6 });
+  observer.observe(signature);
+}());

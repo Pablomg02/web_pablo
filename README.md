@@ -16,6 +16,7 @@ npm install
 npm run dev            # local server at http://localhost:8080
 npm run build          # writes _site/
 npm run notebook:pdf   # regenerates the Tech Notes PDFs (Pandoc + LaTeX)
+npm run signature      # rebuilds the animated home signature from scripts/signature/
 ```
 
 ## Content
